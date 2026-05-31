@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COVERA — ordenem protecció</title>
+<meta name="description" content="Corredoria d'assegurances especialista. Salut, vida, accidents, ingressos, previsió i col·lectius ordenats amb criteri.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* Brand */
+  --cobalt: #0A2D56;
+  --cobalt-deep: #061d3a;
+  --mint: #6FB7AE;
+  --mint-deep: #4a9990;
+  --mint-light: #A6CFC8;
+  --breeze: #E6F2EF;
+  --sand: #F7F3EF;
+  --sand-warm: #F1ECE0;
+  --fog: #8FA3B3;
+  --charcoal: #2B2F33;
+
+  /* Finder UI */
+  --window-bg: #FFFFFF;
+  --sidebar-bg: #FAF8F4;
+  --titlebar-bg: rgba(250, 248, 244, 0.85);
+  --hairline: rgba(10, 45, 86, 0.08);
+  --hairline-strong: rgba(10, 45, 86, 0.14);
+  --text: #1a2733;
+  --text-soft: #6b7681;
+  --text-muted: #9aa3ad;
+  --selected: var(--mint);
+  --selected-bg: rgba(111, 183, 174, 0.15);
+
+  /* Apple-style traffic lights */
+  --tl-red: #FF5F57;
+  --tl-yellow: #FEBC2E;
+  --tl-green: #28C840;
+
+  /* Desktop */
+  --desktop-bg: #ddd2bd;
+
+  /* Fonts */
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', "SF Mono", Consolas, monospace;
+
+  --radius-window: 12px;
+  --radius-item: 8px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text);
+  background: var(--desktop-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Subtle dotted wallpaper */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at center, rgba(10, 45, 86, 0.05) 1px, transparent 1.5px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+button, input, select { font: inherit; color: inherit; }
+button { background: none; border: none; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+
+::selection { background: var(--mint); color: var(--cobalt); }
+
+/* ================================================== */
+/* ============ DESKTOP + WINDOW ===================== */
+/* ================================================== */
+
+.desktop {
+  width: 100%;
+  height: 100vh;
+  padding: clamp(16px, 3vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.window {
+  width: 100%;
+  max-width: 1320px;
+  height: 92vh;
+  max-height: 880px;
+  background: var(--window-bg);
+  border-radius: var(--radius-window);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.12),
+    0 10px 30px rgba(10, 45, 86, 0.18),
+    0 40px 100px rgba(10, 45, 86, 0.22);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Desktop top-bar emulation */
+.menubar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cobalt);
+  letter-spacing: 0.02em;
+  z-index: 100;
+}
+.menubar-left { display: flex; align-items: center; gap: 18px; }
+.menubar-logo {
+  width: 14px; height: 14px;
+  display: flex; align-items: center;
+}
+.menubar-app { font-weight: 700; }
+.menubar-item { font-weight: 400; color: var(--text); cursor: default; }
+.menubar-right {
+  margin-left: auto;
+  display: flex; gap: 14px;
+  font-weight: 400;
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+/* ================================================== */
+/* ============ TITLE BAR ============================ */
+/* ================================================== */
+.titlebar {
+  height: 38px;
+  background: var(--titlebar-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--hairline);
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  align-items: center;
+  padding: 0 14px;
+  user-select: none;
+  position: relative;
+}
+.traffic-lights {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.tl {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  display: block;
+  border: 0.5px solid rgba(0,0,0,0.08);
+  transition: filter 0.15s var(--ease);
+}
+.tl.red { background: var(--tl-red); }
+.tl.yellow { background: var(--tl-yellow); }
+.tl.green { background: var(--tl-green); }
+.traffic-lights:hover .tl { filter: brightness(0.92); }
+
+.window-title {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.window-title .sep { color: var(--text-muted); margin: 0 6px; font-weight: 400; }
+
+.window-actions {
+  display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+}
+
+/* ================================================== */
+/* ============ TOOLBAR ============================== */
+/* ================================================== */
+.toolbar {
+  height: 44px;
+  background: var(--titlebar-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 8px;
+}
+.tb-btn {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  transition: all 0.15s var(--ease);
+}
+.tb-btn:hover:not(:disabled) { background: rgba(10, 45, 86, 0.06); color: var(--cobalt); }
+.tb-btn:disabled { opacity: 0.35; cursor: default; }
+.tb-btn svg { width: 14px; height: 14px; }
+.tb-divider { width: 1px; height: 20px; background: var(--hairline-strong); margin: 0 4px; }
+
+.tb-view {
+  display: none;
+}
+
+.address-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(10, 45, 86, 0.05);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 3px 6px;
+  min-height: 30px;
+  margin: 0 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  transition: all 0.2s var(--ease);
+}
+.address-bar::-webkit-scrollbar { display: none; }
+.address-bar:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--hairline-strong);
+}
+
+.ab-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  color: var(--text-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  transition: all 0.12s var(--ease);
+  white-space: nowrap;
+}
+.ab-segment:hover {
+  background: rgba(10, 45, 86, 0.08);
+  color: var(--cobalt);
+}
+.ab-segment.current {
+  color: var(--cobalt);
+  font-weight: 500;
+  cursor: default;
+}
+.ab-segment.current:hover { background: none; }
+.ab-favicon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.ab-sep {
+  color: var(--text-muted);
+  font-weight: 300;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  user-select: none;
+  padding: 0 1px;
+}
+
+.tb-search {
+  display: flex;
+  align-items: center;
+  background: rgba(10, 45, 86, 0.06);
+  border-radius: 6px;
+  padding: 5px 10px;
+  width: 200px;
+  gap: 6px;
+  transition: all 0.2s var(--ease);
+}
+.tb-search:focus-within { background: var(--window-bg); box-shadow: 0 0 0 2px var(--mint); width: 240px; }
+.tb-search svg { width: 12px; height: 12px; color: var(--text-soft); flex-shrink: 0; }
+.tb-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  color: var(--text);
+  min-width: 0;
+}
+.tb-search input::placeholder { color: var(--text-muted); }
+
+/* ================================================== */
+/* ============ BODY (sidebar + content) ============= */
+/* ================================================== */
+.window-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--hairline);
+  overflow-y: auto;
+  padding: 14px 0;
+}
+.sidebar-section { margin-bottom: 22px; padding: 0 12px; }
+.sidebar-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 0 8px;
+  margin-bottom: 6px;
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.12s var(--ease);
+  user-select: none;
+}
+.sidebar-item:hover { background: rgba(10, 45, 86, 0.05); }
+.sidebar-item.active {
+  background: var(--cobalt);
+  color: white;
+}
+.sidebar-item.active .sb-icon { color: white; }
+.sidebar-item .sb-icon { width: 16px; height: 16px; color: var(--mint-deep); flex-shrink: 0; }
+.sidebar-item .sb-tag {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-left: 2px;
+  margin-right: 3px;
+}
+.tag-salut { background: #E94B6E; }
+.tag-vida { background: #6FB7AE; }
+.tag-ingressos { background: #F2A93A; }
+.tag-futur { background: #6A7FCC; }
+.tag-col { background: #B374C4; }
+
+/* ============ CONTENT ============ */
+.content {
+  background: var(--window-bg);
+  overflow-y: auto;
+  position: relative;
+}
+
+.view { display: none; padding: 22px 28px 40px; min-height: 100%; }
+.view.active { display: block; animation: viewIn 0.25s var(--ease); }
+@keyframes viewIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Folder view: grid of items */
+.folder-header {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+.folder-header h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 32px;
+  color: var(--cobalt);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.folder-header .folder-desc {
+  font-size: 13px;
+  color: var(--text-soft);
+  max-width: 64ch;
+  line-height: 1.5;
+}
+
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 6px;
+  padding: 8px 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  border-radius: var(--radius-item);
+  cursor: pointer;
+  transition: background 0.12s var(--ease);
+  user-select: none;
+  text-align: center;
+}
+.item:hover { background: rgba(10, 45, 86, 0.04); }
+.item.selected { background: var(--selected-bg); }
+.item.selected .item-name { color: var(--cobalt); }
+.item-icon {
+  width: 72px; height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s var(--ease);
+}
+.item:hover .item-icon { transform: translateY(-3px); }
+.item-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 8px rgba(10,45,86,0.12)); }
+.item-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+  word-break: break-word;
+  max-width: 100%;
+}
+.item-name .ext { color: var(--text-muted); }
+
+/* ============ DOCUMENT VIEW (when a .md opens) ============ */
+.doc-view { display: none; padding: 0; min-height: 100%; flex-direction: column; }
+.doc-view.active { display: flex; animation: viewIn 0.25s var(--ease); }
+.doc-header {
+  padding: 18px 28px 14px;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--window-bg);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.doc-header .doc-icon {
+  width: 36px; height: 44px;
+  flex-shrink: 0;
+}
+.doc-header-text { flex: 1; min-width: 0; }
+.doc-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.doc-header .doc-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.doc-body {
+  padding: 32px 56px 60px;
+  max-width: 820px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+}
+.doc-body .eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mint-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.doc-body .eyebrow::before {
+  content: "";
+  width: 18px; height: 1px;
+  background: var(--mint-deep);
+}
+.doc-body h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(36px, 4.4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--cobalt);
+  margin-bottom: 22px;
+}
+.doc-body h1 em { font-style: italic; color: var(--mint-deep); font-weight: 300; }
+.doc-body h2 {
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--cobalt);
+  letter-spacing: -0.01em;
+  margin: 44px 0 14px;
+}
+.doc-body h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--cobalt);
+  margin: 28px 0 10px;
+}
+.doc-body p { margin-bottom: 14px; max-width: 64ch; }
+.doc-body .lead {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 60ch;
+  margin-bottom: 32px;
+}
+.doc-body .pullquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--cobalt);
+  border-left: 3px solid var(--mint);
+  padding: 8px 0 8px 24px;
+  margin: 32px 0;
+}
+.doc-body ul {
+  list-style: none;
+  margin: 18px 0 24px;
+}
+.doc-body ul li {
+  padding: 9px 0 9px 26px;
+  position: relative;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 14px;
+}
+.doc-body ul li::before {
+  content: "→";
+  position: absolute;
+  left: 0; top: 9px;
+  color: var(--mint-deep);
+  font-weight: 500;
+}
+.doc-body .badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 18px 0 28px;
+}
+.doc-body .badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 9px;
+  background: var(--breeze);
+  color: var(--cobalt);
+  border-radius: 4px;
+}
+.doc-body .cta-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
+}
+.doc-body .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s var(--ease);
+}
+.doc-body .btn-primary { background: var(--cobalt); color: white; }
+.doc-body .btn-primary:hover { background: var(--cobalt-deep); }
+.doc-body .btn-mint { background: var(--mint); color: var(--cobalt); }
+.doc-body .btn-mint:hover { background: var(--mint-deep); color: white; }
+.doc-body .btn-ghost {
+  color: var(--cobalt);
+  border: 1px solid var(--hairline-strong);
+}
+.doc-body .btn-ghost:hover { background: rgba(10,45,86,0.04); }
+
+/* ============ APP VIEW (Diagnòstic, Cotitzador) ============ */
+.app-view { display: none; padding: 0; min-height: 100%; }
+.app-view.active { display: flex; flex-direction: column; animation: viewIn 0.25s var(--ease); }
+.app-header {
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--window-bg);
+}
+.app-header .app-icon {
+  width: 40px; height: 40px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+}
+.app-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+.app-header .app-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.app-body {
+  flex: 1;
+  padding: 36px 48px;
+  overflow-y: auto;
+}
+
+/* ---- Diagnostic ---- */
+.diag-wrap { max-width: 680px; }
+.diag-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mint-deep);
+  margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.diag-eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--mint-deep); }
+.diag-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.1;
+  color: var(--cobalt);
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.diag-title em { font-style: italic; color: var(--mint-deep); }
+.diag-intro {
+  font-size: 15px;
+  color: var(--text-soft);
+  margin-bottom: 30px;
+  max-width: 56ch;
+  line-height: 1.55;
+}
+.diag-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.diag-dot {
+  height: 3px;
+  background: rgba(10,45,86,0.1);
+  border-radius: 2px;
+  flex: 1;
+  transition: background 0.3s var(--ease);
+}
+.diag-dot.done, .diag-dot.current { background: var(--mint); }
+.diag-step { display: none; }
+.diag-step.active { display: block; animation: viewIn 0.3s var(--ease); }
+.diag-q {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cobalt);
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+.diag-opts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.diag-opt {
+  padding: 14px 16px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  background: var(--window-bg);
+  transition: all 0.15s var(--ease);
+}
+.diag-opt:hover { border-color: var(--mint); background: rgba(111,183,174,0.06); }
+.diag-opt.selected { border-color: var(--mint); background: var(--mint); color: var(--cobalt); }
+.diag-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.diag-field label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.diag-field input {
+  padding: 12px 14px;
+  background: rgba(10,45,86,0.04);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: all 0.15s var(--ease);
+}
+.diag-field input:focus {
+  background: var(--window-bg);
+  border-color: var(--mint);
+  box-shadow: 0 0 0 3px rgba(111,183,174,0.18);
+}
+.diag-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  gap: 12px;
+}
+.diag-back {
+  font-size: 13px;
+  color: var(--text-soft);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.diag-back:hover { background: rgba(10,45,86,0.05); color: var(--cobalt); }
+.diag-submit {
+  padding: 10px 22px;
+  background: var(--cobalt);
+  color: white;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.15s var(--ease);
+}
+.diag-submit:hover { background: var(--cobalt-deep); }
+.diag-thanks { display: none; padding: 30px 0; text-align: left; }
+.diag-thanks.show { display: block; animation: viewIn 0.4s var(--ease); }
+.diag-thanks .check {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--mint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.diag-thanks h3 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--cobalt);
+  margin-bottom: 10px;
+}
+.diag-thanks p { color: var(--text); max-width: 56ch; line-height: 1.55; }
+
+/* ---- Cotitzador ---- */
+.cot-wrap {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  max-width: 960px;
+}
+.cot-form { display: flex; flex-direction: column; gap: 18px; }
+.cot-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.cot-field { display: flex; flex-direction: column; gap: 6px; }
+.cot-field label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.cot-field select,
+.cot-field input {
+  padding: 11px 14px;
+  background: rgba(10,45,86,0.04);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  width: 100%;
+  transition: all 0.15s var(--ease);
+}
+.cot-field select:focus,
+.cot-field input:focus {
+  background: var(--window-bg);
+  border-color: var(--mint);
+  box-shadow: 0 0 0 3px rgba(111,183,174,0.18);
+}
+.cot-checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.cot-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  background: rgba(10,45,86,0.04);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s var(--ease);
+  user-select: none;
+}
+.cot-pill input { display: none; }
+.cot-pill.checked { background: var(--mint); color: var(--cobalt); }
+
+.cot-result {
+  background: var(--cobalt);
+  color: white;
+  border-radius: 12px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.cot-result::after {
+  content: "";
+  position: absolute;
+  bottom: -60px; right: -40px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(111,183,174,0.22) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cot-result-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--mint);
+}
+.cot-result h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+}
+.cot-price {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(34px, 3.6vw, 44px);
+  line-height: 1;
+  color: var(--mint);
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+}
+.cot-range {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.cot-note {
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.75);
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================================== */
+/* ============ STATUS BAR =========================== */
+/* ================================================== */
+.statusbar {
+  height: 24px;
+  background: var(--sidebar-bg);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  font-size: 11px;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+.statusbar .left { display: flex; gap: 14px; align-items: center; }
+.statusbar .right { display: flex; gap: 14px; align-items: center; }
+.statusbar .dgsfp {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.statusbar .claim {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mint-deep);
+  font-size: 12px;
+}
+
+/* ================================================== */
+/* ============ FOLDER & FILE ICONS (SVG) ============ */
+/* ================================================== */
+
+/* Reusable folder shape */
+.folder-svg .tab { fill: var(--mint-deep); }
+.folder-svg .body { fill: var(--mint); }
+.folder-svg .highlight { fill: rgba(255,255,255,0.22); }
+.folder-svg .label { fill: rgba(10, 45, 86, 0.5); }
+
+/* ================================================== */
+/* ============ RESPONSIVE =========================== */
+/* ================================================== */
+@media (max-width: 900px) {
+  .desktop { padding: 0; }
+  .window {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  body::before { display: none; }
+  body { background: var(--window-bg); }
+  .menubar { display: none; }
+  .titlebar { grid-template-columns: 60px 1fr 60px; height: 44px; }
+  .traffic-lights .tl:nth-child(2), .traffic-lights .tl:nth-child(3) { display: none; }
+  .toolbar { padding: 0 10px; gap: 4px; flex-wrap: nowrap; }
+  .tb-search { width: 36px; padding: 5px; }
+  .tb-search:focus-within { width: 160px; }
+  .tb-search input { display: none; }
+  .tb-search:focus-within input { display: block; }
+  .tb-view { display: none; }
+  .tb-path { font-size: 12px; padding: 0 6px; overflow: hidden; }
+  .window-body { grid-template-columns: 1fr; }
+  .sidebar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 240px;
+    z-index: 10;
+    transform: translateX(-100%);
+    transition: transform 0.25s var(--ease);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .mobile-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 9;
+  }
+  .mobile-overlay.show { display: block; }
+  .mobile-menu-btn { display: flex !important; }
+  .view { padding: 18px 16px 40px; }
+  .doc-body { padding: 24px 20px 40px; }
+  .doc-body h1 { font-size: 32px; }
+  .app-body { padding: 24px 20px; }
+  .cot-wrap { grid-template-columns: 1fr; gap: 24px; }
+  .cot-row { grid-template-columns: 1fr; }
+  .statusbar .claim { display: none; }
+  .folder-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 460px) {
+  .folder-grid { grid-template-columns: repeat(2, 1fr); }
+  .doc-body h1 { font-size: 28px; }
+  .diag-opts { grid-template-columns: 1fr; }
+}
+
+.mobile-menu-btn { display: none; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 6px; color: var(--cobalt); }
+.mobile-menu-btn:hover { background: rgba(10,45,86,0.06); }
+</style>
+</head>
+
+<body>
+
+<!-- ===== SVG SYMBOL LIBRARY ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Folder gradients -->
+    <linearGradient id="fb-back" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a9990"/>
+      <stop offset="100%" stop-color="#3a7770"/>
+    </linearGradient>
+    <linearGradient id="fb-front" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9bd2cb"/>
+      <stop offset="55%" stop-color="#7bbfb6"/>
+      <stop offset="100%" stop-color="#6FB7AE"/>
+    </linearGradient>
+    <linearGradient id="fb-shade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.22)"/>
+      <stop offset="32%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="100%" stop-color="rgba(10,45,86,0.2)"/>
+    </linearGradient>
+    <linearGradient id="fc-back" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a2d56"/>
+      <stop offset="100%" stop-color="#03132a"/>
+    </linearGradient>
+    <linearGradient id="fc-front" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f4d83"/>
+      <stop offset="55%" stop-color="#103a6a"/>
+      <stop offset="100%" stop-color="#0A2D56"/>
+    </linearGradient>
+
+    <!-- Folder icon (mint, dimensional) -->
+    <symbol id="ic-folder" viewBox="0 0 72 60">
+      <ellipse cx="36" cy="56" rx="28" ry="1.4" fill="rgba(10,45,86,0.22)"/>
+      <path d="M 6 10 Q 6 6 10 6 L 24 6 Q 26 6 27.5 7.5 L 31 11 L 62 11 Q 66 11 66 15 L 66 49 Q 66 52 63 52 L 9 52 Q 6 52 6 49 Z" fill="url(#fb-back)"/>
+      <path d="M 8 9 Q 8 7.5 10 7.5 L 23.5 7.5 L 26 9.5" stroke="rgba(255,255,255,0.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fb-front)"/>
+      <path d="M 3 17 L 69 17 L 68.7 18.5 L 3.3 18.5 Z" fill="rgba(255,255,255,0.6)"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fb-shade)"/>
+    </symbol>
+
+    <!-- Folder variant: cobalt -->
+    <symbol id="ic-folder-cobalt" viewBox="0 0 72 60">
+      <ellipse cx="36" cy="56" rx="28" ry="1.4" fill="rgba(10,45,86,0.28)"/>
+      <path d="M 6 10 Q 6 6 10 6 L 24 6 Q 26 6 27.5 7.5 L 31 11 L 62 11 Q 66 11 66 15 L 66 49 Q 66 52 63 52 L 9 52 Q 6 52 6 49 Z" fill="url(#fc-back)"/>
+      <path d="M 8 9 Q 8 7.5 10 7.5 L 23.5 7.5 L 26 9.5" stroke="rgba(255,255,255,0.32)" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fc-front)"/>
+      <path d="M 3 17 L 69 17 L 68.7 18.5 L 3.3 18.5 Z" fill="rgba(255,255,255,0.34)"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fb-shade)"/>
+    </symbol>
+
+    <!-- Document (.md) icon -->
+    <symbol id="ic-doc" viewBox="0 0 48 60">
+      <path d="M 8 2 L 32 2 L 44 14 L 44 56 Q 44 58 42 58 L 8 58 Q 6 58 6 56 L 6 4 Q 6 2 8 2 Z" fill="#ffffff" stroke="#cfd6dc" stroke-width="1"/>
+      <path d="M 32 2 L 32 12 Q 32 14 34 14 L 44 14" fill="#f1f3f5" stroke="#cfd6dc" stroke-width="1"/>
+      <line x1="12" y1="24" x2="38" y2="24" stroke="#a8b3bd" stroke-width="1"/>
+      <line x1="12" y1="30" x2="38" y2="30" stroke="#a8b3bd" stroke-width="1"/>
+      <line x1="12" y1="36" x2="32" y2="36" stroke="#a8b3bd" stroke-width="1"/>
+      <line x1="12" y1="42" x2="34" y2="42" stroke="#a8b3bd" stroke-width="1"/>
+      <text x="12" y="54" font-family="JetBrains Mono, monospace" font-size="6" font-weight="600" fill="#6FB7AE">.md</text>
+    </symbol>
+
+    <!-- App icon: diagnostic (mint square with check) -->
+    <symbol id="ic-app-diag" viewBox="0 0 56 56">
+      <rect x="2" y="2" width="52" height="52" rx="12" fill="#0A2D56"/>
+      <rect x="2" y="2" width="52" height="52" rx="12" fill="url(#gradMint)" opacity="0.85"/>
+      <path d="M 18 28 L 25 35 L 39 21" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- App icon: cotitzador (calculator) -->
+    <symbol id="ic-app-cot" viewBox="0 0 56 56">
+      <rect x="2" y="2" width="52" height="52" rx="12" fill="#6FB7AE"/>
+      <rect x="11" y="12" width="34" height="10" rx="2" fill="rgba(10,45,86,0.18)"/>
+      <text x="42" y="20" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="#0A2D56">240€</text>
+      <g fill="#0A2D56">
+        <rect x="11" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="20" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="29" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="38" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="11" y="34" width="7" height="6" rx="1.5"/>
+        <rect x="20" y="34" width="7" height="6" rx="1.5"/>
+        <rect x="29" y="34" width="7" height="6" rx="1.5"/>
+        <rect x="38" y="34" width="7" height="14" rx="1.5" fill="#0A2D56"/>
+        <rect x="11" y="42" width="7" height="6" rx="1.5"/>
+        <rect x="20" y="42" width="16" height="6" rx="1.5"/>
+      </g>
+    </symbol>
+
+    <!-- Gradient -->
+    <linearGradient id="gradMint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6FB7AE"/>
+      <stop offset="100%" stop-color="#4a9990"/>
+    </linearGradient>
+
+    <!-- Sidebar icons -->
+    <symbol id="sb-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a2 2 0 01-2 2h-4v-7H10v7H5a2 2 0 01-2-2V11z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="sb-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 20c0-2 1.5-3.5 4-3.5s4 1.5 4 3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="sb-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="3" y1="13" x2="21" y2="13" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="sb-users" viewBox="0 0 24 24"><circle cx="12" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="5" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="19" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="sb-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="sb-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+
+    <!-- Toolbar icons -->
+    <symbol id="ic-back" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-fwd" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/><line x1="21" y1="21" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="ic-view-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="13" y="3" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="3" y="13" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="13" y="13" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/></symbol>
+    <symbol id="ic-view-list" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="ic-view-col" viewBox="0 0 24 24"><line x1="9" y1="3" x2="9" y2="21" stroke="currentColor" stroke-width="2"/><line x1="15" y1="3" x2="15" y2="21" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="ic-menu" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="ic-chev" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-c3" viewBox="0 0 80 60"><path d="M 38 8 A 22 22 0 1 0 38 52" stroke="#0A2D56" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M 42 8 A 22 22 0 1 1 42 52" stroke="#6FB7AE" stroke-width="8" fill="none" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== MENU BAR (macOS-style fixed top) ===== -->
+<div class="menubar">
+  <div class="menubar-left">
+    <span class="menubar-logo"><svg viewBox="0 0 80 60" width="14" height="11"><path d="M 38 8 A 22 22 0 1 0 38 52" stroke="#0A2D56" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M 42 8 A 22 22 0 1 1 42 52" stroke="#6FB7AE" stroke-width="11" fill="none" stroke-linecap="round"/></svg></span>
+    <span class="menubar-app">COVERA</span>
+    <span class="menubar-item">Fitxer</span>
+    <span class="menubar-item">Edita</span>
+    <span class="menubar-item">Visualitza</span>
+    <span class="menubar-item">Ajuda</span>
+  </div>
+  <div class="menubar-right">
+    <span>Ordenem protecció</span>
+    <span id="clock"></span>
+  </div>
+</div>
+
+<!-- ===== DESKTOP + WINDOW ===== -->
+<div class="desktop">
+  <div class="window">
+
+    <!-- TITLE BAR -->
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <span class="tl red" title="Tancar"></span>
+        <span class="tl yellow" title="Minimitzar"></span>
+        <span class="tl green" title="Pantalla completa"></span>
+      </div>
+      <div class="window-title">
+        <span id="windowTitle">COVERA</span>
+      </div>
+      <div class="window-actions"></div>
+    </div>
+
+    <!-- TOOLBAR (browser-style) -->
+    <div class="toolbar">
+      <button class="tb-btn" id="btnBack" onclick="goBack()" title="Enrere (⌘←)" disabled><svg><use href="#ic-back"/></svg></button>
+      <button class="tb-btn" id="btnFwd" onclick="goForward()" title="Endavant (⌘→)" disabled><svg><use href="#ic-fwd"/></svg></button>
+      <button class="tb-btn" onclick="navigate('home')" title="Inici"><svg><use href="#sb-home"/></svg></button>
+      <button class="mobile-menu-btn" onclick="toggleSidebar()" title="Menú"><svg width="16" height="16"><use href="#ic-menu"/></svg></button>
+      <div class="address-bar" id="addressBar">
+        <button class="ab-segment current">
+          <svg class="ab-favicon"><use href="#ic-c3"/></svg>
+          <span>covera.es</span>
+        </button>
+      </div>
+      <div class="tb-search">
+        <svg><use href="#ic-search"/></svg>
+        <input type="text" placeholder="Cerca…" id="searchInput">
+      </div>
+    </div>
+
+    <!-- WINDOW BODY -->
+    <div class="window-body">
+
+      <!-- SIDEBAR -->
+      <div class="mobile-overlay" onclick="toggleSidebar()"></div>
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Favorits</div>
+          <div class="sidebar-item active" data-view="home" onclick="navigate('home')"><svg class="sb-icon"><use href="#sb-home"/></svg> Inici</div>
+          <div class="sidebar-item" data-view="persones" onclick="navigate('persones')"><svg class="sb-icon"><use href="#sb-people"/></svg> Persones</div>
+          <div class="sidebar-item" data-view="autonoms" onclick="navigate('autonoms')"><svg class="sb-icon"><use href="#sb-briefcase"/></svg> Autònoms</div>
+          <div class="sidebar-item" data-view="empreses" onclick="navigate('empreses')"><svg class="sb-icon"><use href="#sb-grid"/></svg> Empreses</div>
+          <div class="sidebar-item" data-view="collectius" onclick="navigate('collectius')"><svg class="sb-icon"><use href="#sb-users"/></svg> Col·lectius</div>
+          <div class="sidebar-item" data-view="previsio" onclick="navigate('previsio')"><svg class="sb-icon"><use href="#sb-clock"/></svg> Previsió</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Etiquetes</div>
+          <div class="sidebar-item"><span class="sb-tag tag-salut"></span> Salut</div>
+          <div class="sidebar-item"><span class="sb-tag tag-vida"></span> Vida i família</div>
+          <div class="sidebar-item"><span class="sb-tag tag-ingressos"></span> Ingressos</div>
+          <div class="sidebar-item"><span class="sb-tag tag-futur"></span> Futur</div>
+          <div class="sidebar-item"><span class="sb-tag tag-col"></span> Col·lectius</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Aplicacions</div>
+          <div class="sidebar-item" onclick="navigate('app-diagnostic')"><svg class="sb-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="currentColor"/><path d="M 8 12 L 11 15 L 16 9" stroke="white" stroke-width="2" fill="none"/></svg> Diagnòstic</div>
+          <div class="sidebar-item" onclick="navigate('app-cotitzador')"><svg class="sb-icon" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5" fill="currentColor"/></svg> Cotitzador</div>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <div class="content" id="content">
+
+        <!-- ============ HOME ============ -->
+        <div class="view active" id="view-home">
+          <div class="folder-header">
+            <h1>COVERA</h1>
+            <p class="folder-desc">Corredoria d'assegurances especialista. Ordenem protecció personal, familiar, professional i patrimonial. Tria una carpeta per començar, obre el Manifest o llança el Diagnòstic.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('persones')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Persones</span>
+            </div>
+            <div class="item" onclick="navigate('autonoms')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Autònoms</span>
+            </div>
+            <div class="item" onclick="navigate('empreses')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Empreses</span>
+            </div>
+            <div class="item" onclick="navigate('collectius')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Col·lectius</span>
+            </div>
+            <div class="item" onclick="navigate('previsio')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Previsió</span>
+            </div>
+            <div class="item" onclick="navigate('recursos')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder-cobalt"/></svg></span>
+              <span class="item-name">Recursos</span>
+            </div>
+            <div class="item" onclick="navigate('doc-manifest')">
+              <span class="item-icon"><svg><use href="#ic-doc"/></svg></span>
+              <span class="item-name">Manifest<span class="ext">.md</span></span>
+            </div>
+            <div class="item" onclick="navigate('app-diagnostic')">
+              <span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span>
+              <span class="item-name">Diagnòstic<span class="ext">.app</span></span>
+            </div>
+            <div class="item" onclick="navigate('app-cotitzador')">
+              <span class="item-icon"><svg><use href="#ic-app-cot"/></svg></span>
+              <span class="item-name">Cotitzador<span class="ext">.app</span></span>
+            </div>
+            <div class="item" onclick="navigate('doc-sobre')">
+              <span class="item-icon"><svg><use href="#ic-doc"/></svg></span>
+              <span class="item-name">Sobre<span class="ext">.md</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ PERSONES ============ -->
+        <div class="view" id="view-persones">
+          <div class="folder-header">
+            <h1>Persones i famílies</h1>
+            <p class="folder-desc">Salut, vida, accidents, baixa laboral, estalvi i successió per protegir el que importa en cada etapa de la vida.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-persones')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Salut</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida risc</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida hipoteca</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Accidents</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Baixa laboral</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Malalties greus</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Dependència</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Estalvi</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Successió</span></div>
+            <div class="item" onclick="navigate('app-diagnostic')"><span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span><span class="item-name">Diagnòstic<span class="ext">.app</span></span></div>
+          </div>
+        </div>
+
+        <!-- ============ AUTÒNOMS ============ -->
+        <div class="view" id="view-autonoms">
+          <div class="folder-header">
+            <h1>Autònoms i professionals</h1>
+            <p class="folder-desc">Quan ets autònom, una baixa no afecta només la salut. Afecta la facturació i la continuïtat. Protegim la teva capacitat de generar ingressos.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-autonoms')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">ILT</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Baixa laboral</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Indemnització diària</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Salut</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida risc</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Accidents</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Malalties greus</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Incapacitat</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Previsió</span></div>
+            <div class="item" onclick="navigate('app-diagnostic')"><span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span><span class="item-name">Diagnòstic<span class="ext">.app</span></span></div>
+          </div>
+        </div>
+
+        <!-- ============ EMPRESES ============ -->
+        <div class="view" id="view-empreses">
+          <div class="folder-header">
+            <h1>Empreses</h1>
+            <p class="folder-desc">Beneficis assegurats per cuidar, protegir i fidelitzar el teu equip. Salut, vida, accidents, conveni, ILT directius i previsió.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-empreses')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Salut col·lectiva</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Accidents conveni</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida col·lectiu</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">ILT directius</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Home clau</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Socis</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PPSE / PPE</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Retribució flexible</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Business Travel</span></div>
+            <div class="item" onclick="navigate('app-diagnostic')"><span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span><span class="item-name">Diagnòstic<span class="ext">.app</span></span></div>
+          </div>
+        </div>
+
+        <!-- ============ COL·LECTIUS ============ -->
+        <div class="view" id="view-collectius">
+          <div class="folder-header">
+            <h1>Col·lectius i activitats</h1>
+            <p class="folder-desc">Casals, colònies, campus, formació, voluntariat, clubs i esdeveniments. Cotitza online en pocs passos.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-collectius')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item" onclick="navigate('app-cotitzador')"><span class="item-icon"><svg><use href="#ic-app-cot"/></svg></span><span class="item-name">Cotitzador<span class="ext">.app</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Casals</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Colònies</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Campus esportius</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Formació SOC</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Formació CAP</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Voluntariat</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Clubs</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Associacions</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Esdeveniments</span></div>
+          </div>
+        </div>
+
+        <!-- ============ PREVISIÓ ============ -->
+        <div class="view" id="view-previsio">
+          <div class="folder-header">
+            <h1>Previsió assegurada</h1>
+            <p class="folder-desc">Productes asseguradors per planificar estalvi, rendes, successions, liquiditat familiar i compromisos empresarials.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-previsio')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PIAS</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">SIALP</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PPA</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PPSE</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida estalvi</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Rendes vitalícies</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Rendes temporals</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Unit linked</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Successions</span></div>
+          </div>
+        </div>
+
+        <!-- ============ RECURSOS ============ -->
+        <div class="view" id="view-recursos">
+          <div class="folder-header">
+            <h1>Recursos</h1>
+            <p class="folder-desc">Guies, checklists i calculadores per revisar la teva protecció abans de contractar res.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Guia baixa laboral<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Capital de vida<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Beneficiaris<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Salut empresa<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Accidents conveni<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Casals i colònies<span class="ext">.pdf</span></span></div>
+          </div>
+        </div>
+
+        <!-- ============ MANIFEST.MD ============ -->
+        <div class="doc-view" id="view-doc-manifest">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Manifest.md</h2>
+              <span class="doc-meta">12 kB · Modificat avui · UTF-8</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Manifest</span>
+            <h1>Protegim persones, ingressos i <em>futur.</em></h1>
+            <p class="lead">La majoria compara assegurances. COVERA <strong>ordena</strong> la teva protecció personal, familiar, professional i patrimonial.</p>
+
+            <h2>El problema</h2>
+            <p>Moltes persones tenen pòlisses contractades en moments diferents, amb criteris diferents i sense una visió global. Una salut antiga, una vida vinculada a la hipoteca, una baixa laboral que potser no cobreix prou, un accident que no contempla la realitat professional, un estalvi que ningú ha revisat, uns beneficiaris desactualitzats.</p>
+            <p>Cada peça aïllada pot semblar correcta. El conjunt, gairebé mai ho és. El problema no és tenir o no tenir assegurances; és saber si responen bé quan realment fan falta.</p>
+
+            <h2>El mètode</h2>
+            <p>Primer ordenem. Després assegurem.</p>
+            <ul>
+              <li><strong>Entenem</strong> — Persona, família, activitat, ingressos, empresa o col·lectiu.</li>
+              <li><strong>Detectem</strong> — Buits de protecció: salut, vida, accidents, baixa, dependència, successió.</li>
+              <li><strong>Prioritzem</strong> — No tot és igual d'urgent ni té el mateix impacte.</li>
+              <li><strong>Proposem</strong> — Solucions amb criteri tècnic, fiscal i familiar.</li>
+              <li><strong>Revisem</strong> — La vida canvia. La protecció ha de canviar amb ella.</li>
+            </ul>
+
+            <h2>El diferencial</h2>
+            <p class="pullquote">Un comparador et dona preus. Un banc et pot oferir productes. Una asseguradora et proposa la seva solució. COVERA treballa des d'una altra lògica: entendre què necessites protegir.</p>
+
+            <h2>Eixos de protecció</h2>
+            <div class="badge-grid">
+              <span class="badge">Salut</span>
+              <span class="badge">Ingressos</span>
+              <span class="badge">Família</span>
+              <span class="badge">Futur</span>
+              <span class="badge">Col·lectius</span>
+            </div>
+
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Llançar Diagnòstic.app →</a>
+              <a class="btn btn-ghost" onclick="navigate('home')">← Tornar a la carpeta arrel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ SOBRE.MD ============ -->
+        <div class="doc-view" id="view-doc-sobre">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Sobre.md</h2>
+              <span class="doc-meta">3,2 kB · Modificat avui · UTF-8</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Sobre COVERA</span>
+            <h1>Una corredoria especialista en allò que protegeix <em>persones.</em></h1>
+            <p class="lead">COVERA neix amb una idea clara: les assegurances personals no haurien de contractar-se de manera aïllada, dispersa o només per preu.</p>
+            <p>Salut, vida, accidents, baixa laboral, estalvi, previsió, successions i beneficis per empreses formen part d'una mateixa pregunta: què passaria amb tu, la teva família, els teus ingressos o el teu equip si demà canviés alguna cosa important?</p>
+            <p>La nostra feina és ajudar-te a respondre aquesta pregunta amb criteri assegurador.</p>
+            <p class="pullquote">No venem pòlisses soltes. Ordenem protecció.</p>
+            <h2>Marc regulatori</h2>
+            <p>COVERA Correduría de Seguros, S.L. està inscrita a la Direcció General d'Assegurances i Fons de Pensions (DGSFP) amb la clau J-0000. Disposem de pòlissa de responsabilitat civil professional i capacitat financera segons normativa vigent.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Demanar diagnòstic →</a>
+              <a class="btn btn-ghost" href="mailto:hola@covera.es">hola@covera.es</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME PERSONES ============ -->
+        <div class="doc-view" id="view-doc-persones">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Persones / Llegeix-me.md</h2>
+              <span class="doc-meta">5,4 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Persones i famílies</span>
+            <h1>Assegurances per a la teva <em>vida real.</em></h1>
+            <p class="lead">Protegim la teva salut, la teva família, els teus ingressos i el teu futur amb assegurances personals clares, útils i adaptades a cada etapa.</p>
+            <h2>Què revisem</h2>
+            <ul>
+              <li>Tens assegurança de salut?</li>
+              <li>Tens vida risc suficient per a la teva família?</li>
+              <li>Qui cobraria si et passés alguna cosa, i quant?</li>
+              <li>La vida de la hipoteca cobreix realment la teva família o només el banc?</li>
+              <li>Tens protecció si estàs de baixa diverses setmanes?</li>
+              <li>Tens cobertura per accidents?</li>
+              <li>Has previst malalties greus o dependència?</li>
+              <li>Els beneficiaris estan ben designats?</li>
+              <li>La teva família tindria liquiditat immediata?</li>
+            </ul>
+            <h2>Productes disponibles</h2>
+            <div class="badge-grid">
+              <span class="badge">Salut</span><span class="badge">Vida risc</span><span class="badge">Vida hipoteca</span>
+              <span class="badge">Accidents</span><span class="badge">ILT</span><span class="badge">Baixa laboral</span>
+              <span class="badge">Malalties greus</span><span class="badge">Hospitalització</span><span class="badge">Dependència</span>
+              <span class="badge">Decessos</span><span class="badge">Vida estalvi</span><span class="badge">PIAS</span>
+              <span class="badge">SIALP</span><span class="badge">Rendes vitalícies</span><span class="badge">Successió</span>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Revisar la meva protecció →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME AUTÒNOMS ============ -->
+        <div class="doc-view" id="view-doc-autonoms">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Autònoms / Llegeix-me.md</h2>
+              <span class="doc-meta">4,8 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Autònoms i professionals</span>
+            <h1>Per a qui no es pot permetre <em>deixar d'ingressar.</em></h1>
+            <p class="lead">Quan ets autònom, una baixa no només afecta la salut. Afecta la facturació, la família, els compromisos i la continuïtat del negoci.</p>
+            <h2>Què pot passar</h2>
+            <ul>
+              <li>Una baixa de diverses setmanes</li>
+              <li>Una operació quirúrgica</li>
+              <li>Una hospitalització</li>
+              <li>Un accident professional</li>
+              <li>Una malaltia greu</li>
+              <li>Una incapacitat</li>
+              <li>Una caiguda temporal d'ingressos</li>
+              <li>Una jubilació mal planificada</li>
+            </ul>
+            <p class="pullquote">No només protegim la teva vida. També protegim la teva capacitat de generar ingressos.</p>
+            <h2>Solucions</h2>
+            <div class="badge-grid">
+              <span class="badge">ILT</span><span class="badge">Baixa laboral</span><span class="badge">Indemnització diària</span>
+              <span class="badge">Accidents</span><span class="badge">Salut</span><span class="badge">Vida risc</span>
+              <span class="badge">Malalties greus</span><span class="badge">Cirurgia</span><span class="badge">Incapacitat</span>
+              <span class="badge">Previsió i jubilació</span>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Calcular protecció d'ingressos →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME EMPRESES ============ -->
+        <div class="doc-view" id="view-doc-empreses">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Empreses / Llegeix-me.md</h2>
+              <span class="doc-meta">5,2 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Empreses</span>
+            <h1>Beneficis assegurats per cuidar, protegir i <em>fidelitzar el teu equip.</em></h1>
+            <p class="lead">Les empreses ja no competeixen només per salari. També competeixen per la capacitat de cuidar les persones. Construïm beneficis assegurats amb sentit per a directius, socis i empleats clau.</p>
+            <p class="pullquote">No tots els beneficis són iguals. Alguns motiven. Altres protegeixen. COVERA s'especialitza en beneficis assegurats.</p>
+            <h2>Què treballem</h2>
+            <ul>
+              <li>Salut col·lectiva per empleats</li>
+              <li>Vida col·lectiu</li>
+              <li>Accidents de conveni i accidents col·lectius voluntaris</li>
+              <li>ILT col·lectiu i baixa laboral per directius</li>
+              <li>Malalties greus</li>
+              <li>PPE / PPSE i retribució flexible assegurada</li>
+              <li>Home/dona clau i assegurança de socis</li>
+              <li>Business Travel Accident</li>
+            </ul>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Revisar beneficis de l'empresa →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME COL·LECTIUS ============ -->
+        <div class="doc-view" id="view-doc-collectius">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Col·lectius / Llegeix-me.md</h2>
+              <span class="doc-meta">4,1 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Col·lectius i activitats</span>
+            <h1>Assegurances per a activitats, grups i <em>entitats.</em></h1>
+            <p class="lead">Casals, colònies, campus, formació, voluntariat, clubs i esdeveniments necessiten cobertures adaptades a la seva activitat real.</p>
+            <h2>Per a qui</h2>
+            <div class="badge-grid">
+              <span class="badge">Casals</span><span class="badge">Colònies</span><span class="badge">Campus</span>
+              <span class="badge">Formació SOC</span><span class="badge">Formació CAP</span><span class="badge">Alumnes</span>
+              <span class="badge">Voluntariat</span><span class="badge">Esdeveniments</span><span class="badge">Excursions</span>
+              <span class="badge">Clubs</span><span class="badge">Associacions</span><span class="badge">Federacions</span>
+            </div>
+            <h2>Cobertures</h2>
+            <p>Accidents, assistència sanitària, responsabilitat civil, defensa jurídica, assistència en viatge, monitors, organitzadors i participants.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-cotitzador')">Llançar Cotitzador.app →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME PREVISIÓ ============ -->
+        <div class="doc-view" id="view-doc-previsio">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Previsió / Llegeix-me.md</h2>
+              <span class="doc-meta">4,6 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Previsió assegurada</span>
+            <h1>No tot el que protegeix el teu futur està <em>al banc.</em></h1>
+            <p class="lead">Els productes asseguradors poden ajudar a planificar estalvi, rendes, successions, liquiditat familiar, compromisos empresarials i protecció patrimonial.</p>
+            <p>A COVERA expliquem els productes asseguradors amb claredat, sense confondre'ls amb productes bancaris ni prometre avantatges absoluts.</p>
+            <p class="pullquote">Determinats productes asseguradors poden tenir un tractament jurídic, fiscal o successori diferent al d'altres actius financers. A COVERA analitzem cada cas amb prudència per valorar quina solució encaixa millor.</p>
+            <h2>Solucions</h2>
+            <div class="badge-grid">
+              <span class="badge">PIAS</span><span class="badge">SIALP</span><span class="badge">PPA</span>
+              <span class="badge">PPSE</span><span class="badge">PPE</span><span class="badge">Vida estalvi</span>
+              <span class="badge">Rendes vitalícies</span><span class="badge">Rendes temporals</span><span class="badge">Unit linked</span>
+              <span class="badge">Compromisos per pensions</span><span class="badge">Successions</span>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Demanar diagnòstic →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ APP: DIAGNÒSTIC ============ -->
+        <div class="app-view" id="view-app-diagnostic">
+          <div class="app-header">
+            <span class="app-icon"><svg><use href="#ic-app-diag"/></svg></span>
+            <div>
+              <h2>Diagnòstic.app</h2>
+              <span class="app-meta">5 preguntes · sense compromís · resultat en 24 h</span>
+            </div>
+          </div>
+          <div class="app-body">
+            <div class="diag-wrap" id="diagWrap">
+              <span class="diag-eyebrow">Diagnòstic gratuït</span>
+              <h2 class="diag-title">Saps si estàs <em>ben protegit?</em></h2>
+              <p class="diag-intro">5 preguntes ràpides per identificar buits de protecció. Sense compromís, sense dades sensibles, sense venda agressiva. Et tornem una primera lectura en 24 hores.</p>
+
+              <div class="diag-progress" id="diagProgress">
+                <div class="diag-dot current"></div>
+                <div class="diag-dot"></div>
+                <div class="diag-dot"></div>
+                <div class="diag-dot"></div>
+                <div class="diag-dot"></div>
+              </div>
+
+              <div class="diag-step active" data-step="1">
+                <div class="diag-q">Quina és la teva situació principal?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('situacio','persona')">Persona / família</button>
+                  <button class="diag-opt" onclick="diagAnswer('situacio','autonom')">Autònom / professional</button>
+                  <button class="diag-opt" onclick="diagAnswer('situacio','empresa')">Empresa amb equip</button>
+                  <button class="diag-opt" onclick="diagAnswer('situacio','collectiu')">Col·lectiu o activitat</button>
+                </div>
+              </div>
+
+              <div class="diag-step" data-step="2">
+                <div class="diag-q">Quina edat aproximada tens?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('edat','18-30')">18 – 30 anys</button>
+                  <button class="diag-opt" onclick="diagAnswer('edat','30-45')">30 – 45 anys</button>
+                  <button class="diag-opt" onclick="diagAnswer('edat','45-60')">45 – 60 anys</button>
+                  <button class="diag-opt" onclick="diagAnswer('edat','60+')">Més de 60</button>
+                </div>
+                <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
+              </div>
+
+              <div class="diag-step" data-step="3">
+                <div class="diag-q">Tens persones econòmicament dependents?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('dependents','cap')">Cap</button>
+                  <button class="diag-opt" onclick="diagAnswer('dependents','parella')">Parella</button>
+                  <button class="diag-opt" onclick="diagAnswer('dependents','fills')">Fills</button>
+                  <button class="diag-opt" onclick="diagAnswer('dependents','pares')">Pares o altres</button>
+                </div>
+                <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
+              </div>
+
+              <div class="diag-step" data-step="4">
+                <div class="diag-q">Què vols revisar primer?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('revisar','salut')">Salut</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','ingressos')">Protecció d'ingressos</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','vida')">Vida i família</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','estalvi')">Estalvi i previsió</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','tot')">Tot en general</button>
+                </div>
+                <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
+              </div>
+
+              <div class="diag-step" data-step="5">
+                <div class="diag-q">Et truquem en 24 h amb una primera lectura</div>
+                <div class="diag-field"><label>Nom</label><input type="text" id="diag-nom" placeholder="El teu nom"></div>
+                <div class="diag-field"><label>Email</label><input type="email" id="diag-email" placeholder="email@exemple.com"></div>
+                <div class="diag-field"><label>Telèfon (opcional)</label><input type="tel" id="diag-tel" placeholder="+34 600 000 000"></div>
+                <div class="diag-nav">
+                  <button class="diag-back" onclick="diagBack()">← Tornar enrere</button>
+                  <button class="diag-submit" onclick="diagSubmit()">Enviar diagnòstic</button>
+                </div>
+              </div>
+
+              <div class="diag-thanks" id="diagThanks">
+                <div class="check"><svg width="24" height="24" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="#0A2D56" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <h3>Gràcies. Tenim el teu diagnòstic.</h3>
+                <p>Et trucarem en menys de 24 hores hàbils per fer-te una primera lectura sense compromís. No et vendrem res en aquesta primera conversa: t'ajudarem a entendre què tens i què et falta.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ APP: COTITZADOR ============ -->
+        <div class="app-view" id="view-app-cotitzador">
+          <div class="app-header">
+            <span class="app-icon"><svg><use href="#ic-app-cot"/></svg></span>
+            <div>
+              <h2>Cotitzador.app</h2>
+              <span class="app-meta">Activitats i col·lectius · estimació orientativa en temps real</span>
+            </div>
+          </div>
+          <div class="app-body">
+            <div class="cot-wrap">
+              <div class="cot-form">
+                <div class="cot-field">
+                  <label>Tipus d'activitat</label>
+                  <select id="cot-activitat" onchange="cotitzar()">
+                    <option value="casal">Casal d'estiu / esplai</option>
+                    <option value="colonia">Colònies / casa de colònies</option>
+                    <option value="campus">Campus esportiu</option>
+                    <option value="formacio">Formació SOC / CAP</option>
+                    <option value="excursio">Excursió / sortida</option>
+                    <option value="esdeveniment">Esdeveniment puntual</option>
+                  </select>
+                </div>
+                <div class="cot-row">
+                  <div class="cot-field"><label>Participants</label><input type="number" id="cot-participants" value="30" min="1" max="2000" oninput="cotitzar()"></div>
+                  <div class="cot-field"><label>Durada (dies)</label><input type="number" id="cot-dies" value="5" min="1" max="90" oninput="cotitzar()"></div>
+                </div>
+                <div class="cot-field"><label>Monitors / organitzadors</label><input type="number" id="cot-monitors" value="4" min="0" max="200" oninput="cotitzar()"></div>
+                <div class="cot-field">
+                  <label>Cobertures addicionals</label>
+                  <div class="cot-checks">
+                    <label class="cot-pill"><input type="checkbox" id="cot-menors" checked onchange="togglePill(this); cotitzar();"> Hi ha menors</label>
+                    <label class="cot-pill"><input type="checkbox" id="cot-rc" checked onchange="togglePill(this); cotitzar();"> Responsabilitat civil</label>
+                    <label class="cot-pill"><input type="checkbox" id="cot-defensa" onchange="togglePill(this); cotitzar();"> Defensa jurídica</label>
+                    <label class="cot-pill"><input type="checkbox" id="cot-assistencia" onchange="togglePill(this); cotitzar();"> Assistència en viatge</label>
+                  </div>
+                </div>
+              </div>
+              <div class="cot-result">
+                <span class="cot-result-eyebrow">Estimació orientativa</span>
+                <h3>Prima total per a l'activitat</h3>
+                <div class="cot-price" id="cot-preu">— €</div>
+                <span class="cot-range" id="cot-rang">Rang estimat de cotització</span>
+                <p class="cot-note">Estimació orientativa basada en paràmetres tipus. La cotització definitiva depèn de la mutualitat, capitals concrets i perfil de l'activitat. T'enviem la proposta definitiva en 24 hores hàbils.</p>
+                <a class="btn btn-mint" style="margin-top: 6px; align-self: flex-start; padding: 10px 20px; border-radius: 7px; font-size: 13px; font-weight: 500; text-decoration: none;" onclick="navigate('app-diagnostic')">Demanar cotització definitiva →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+
+    </div><!-- /window-body -->
+
+    <!-- STATUS BAR -->
+    <div class="statusbar">
+      <div class="left">
+        <span id="statusCount">10 elements</span>
+        <span class="dgsfp">DGSFP J-0000 · CIF B00000000</span>
+      </div>
+      <div class="right">
+        <span class="claim">Ordenem protecció.</span>
+      </div>
+    </div>
+
+  </div><!-- /window -->
+</div><!-- /desktop -->
+
+<script>
+// ============ STATE ============
+const titles = {
+  'home':           { path: ['covera.es'], views: ['home'], name: 'COVERA', count: 10 },
+  'persones':       { path: ['covera.es','persones'], views: ['home','persones'], name: 'Persones', count: 11 },
+  'autonoms':       { path: ['covera.es','autonoms'], views: ['home','autonoms'], name: 'Autònoms', count: 11 },
+  'empreses':       { path: ['covera.es','empreses'], views: ['home','empreses'], name: 'Empreses', count: 11 },
+  'collectius':     { path: ['covera.es','collectius'], views: ['home','collectius'], name: 'Col·lectius', count: 11 },
+  'previsio':       { path: ['covera.es','previsio'], views: ['home','previsio'], name: 'Previsió', count: 10 },
+  'recursos':       { path: ['covera.es','recursos'], views: ['home','recursos'], name: 'Recursos', count: 6 },
+  'doc-manifest':   { path: ['covera.es','manifest.md'], views: ['home','doc-manifest'], name: 'Manifest.md', count: 1 },
+  'doc-sobre':      { path: ['covera.es','sobre.md'], views: ['home','doc-sobre'], name: 'Sobre.md', count: 1 },
+  'doc-persones':   { path: ['covera.es','persones','llegeix-me.md'], views: ['home','persones','doc-persones'], name: 'Llegeix-me.md', count: 1 },
+  'doc-autonoms':   { path: ['covera.es','autonoms','llegeix-me.md'], views: ['home','autonoms','doc-autonoms'], name: 'Llegeix-me.md', count: 1 },
+  'doc-empreses':   { path: ['covera.es','empreses','llegeix-me.md'], views: ['home','empreses','doc-empreses'], name: 'Llegeix-me.md', count: 1 },
+  'doc-collectius': { path: ['covera.es','collectius','llegeix-me.md'], views: ['home','collectius','doc-collectius'], name: 'Llegeix-me.md', count: 1 },
+  'doc-previsio':   { path: ['covera.es','previsio','llegeix-me.md'], views: ['home','previsio','doc-previsio'], name: 'Llegeix-me.md', count: 1 },
+  'app-diagnostic': { path: ['covera.es','diagnostic.app'], views: ['home','app-diagnostic'], name: 'Diagnòstic.app', count: 1 },
+  'app-cotitzador': { path: ['covera.es','collectius','cotitzador.app'], views: ['home','collectius','app-cotitzador'], name: 'Cotitzador.app', count: 1 }
+};
+
+let history = ['home'];
+let historyIdx = 0;
+
+function navigate(view, fromHistory) {
+  if (!titles[view]) return;
+  document.querySelectorAll('.view, .doc-view, .app-view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + view);
+  if (target) target.classList.add('active');
+
+  // Update sidebar active state
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  const sidebarMatch = document.querySelector('.sidebar-item[data-view="' + view + '"]');
+  if (sidebarMatch) sidebarMatch.classList.add('active');
+  // If it's a doc, highlight its parent folder
+  else if (view.startsWith('doc-')) {
+    const parent = view.replace('doc-','');
+    const sb = document.querySelector('.sidebar-item[data-view="' + parent + '"]');
+    if (sb) sb.classList.add('active');
+  }
+
+  // Path bar
+  const path = titles[view].path;
+  const pathHtml = path.map((seg, i) => {
+    const isLast = i === path.length - 1;
+    return (i > 0 ? '<svg class="tb-path-sep" width="10" height="10" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>' : '') +
+      '<span class="tb-path-item' + (isLast ? ' current' : '') + '"' +
+      (i === 0 ? ' onclick="navigate(\'home\')"' : '') + '>' +
+      (i === 0 ? '<svg width="13" height="13"><use href="#ic-c3"/></svg> ' : '') +
+      seg + '</span>';
+  }).join('');
+  document.getElementById('pathBar').innerHTML = pathHtml;
+
+  // Window title
+  document.getElementById('windowTitle').textContent = path[path.length - 1];
+
+  // Status count
+  const count = titles[view].count;
+  document.getElementById('statusCount').textContent = count + (count === 1 ? ' element' : ' elements');
+
+  // History
+  if (!fromHistory) {
+    history = history.slice(0, historyIdx + 1);
+    history.push(view);
+    historyIdx = history.length - 1;
+  }
+  updateNavButtons();
+
+  // Scroll to top inside content
+  document.getElementById('content').scrollTop = 0;
+
+  // Close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.querySelector('.mobile-overlay').classList.remove('show');
+}
+
+function goBack() {
+  if (historyIdx > 0) {
+    historyIdx--;
+    navigate(history[historyIdx], true);
+  }
+}
+function goForward() {
+  if (historyIdx < history.length - 1) {
+    historyIdx++;
+    navigate(history[historyIdx], true);
+  }
+}
+function updateNavButtons() {
+  document.getElementById('btnBack').disabled = historyIdx === 0;
+  document.getElementById('btnFwd').disabled = historyIdx >= history.length - 1;
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.querySelector('.mobile-overlay').classList.toggle('show');
+}
+
+// ============ DIAGNÒSTIC ============
+let diagStep = 1;
+const diagAnswers = {};
+function diagAnswer(key, value) {
+  diagAnswers[key] = value;
+  if (diagStep < 5) diagGo(diagStep + 1);
+}
+function diagBack() { if (diagStep > 1) diagGo(diagStep - 1); }
+function diagGo(step) {
+  diagStep = step;
+  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.diag-step[data-step="' + step + '"]').classList.add('active');
+  const dots = document.querySelectorAll('#diagProgress .diag-dot');
+  dots.forEach((d, i) => {
+    d.classList.remove('done','current');
+    if (i < step - 1) d.classList.add('done');
+    if (i === step - 1) d.classList.add('current');
+  });
+}
+function diagSubmit() {
+  const nom = document.getElementById('diag-nom').value.trim();
+  const email = document.getElementById('diag-email').value.trim();
+  if (!nom || !email) { alert('Necessitem el teu nom i email per enviar-te el diagnòstic.'); return; }
+  diagAnswers.nom = nom; diagAnswers.email = email;
+  diagAnswers.telefon = document.getElementById('diag-tel').value.trim();
+  // Aquí connectaríem amb el CRM real (HubSpot, Brevo…)
+  document.querySelectorAll('.diag-step, #diagProgress').forEach(el => el.style.display = 'none');
+  document.getElementById('diagThanks').classList.add('show');
+}
+
+// ============ COTITZADOR ============
+function togglePill(input) {
+  const pill = input.closest('.cot-pill');
+  if (input.checked) pill.classList.add('checked');
+  else pill.classList.remove('checked');
+}
+document.querySelectorAll('.cot-pill input').forEach(i => {
+  if (i.checked) i.closest('.cot-pill').classList.add('checked');
+});
+
+function cotitzar() {
+  const activitat = document.getElementById('cot-activitat').value;
+  const participants = Math.max(1, parseInt(document.getElementById('cot-participants').value) || 1);
+  const dies = Math.max(1, parseInt(document.getElementById('cot-dies').value) || 1);
+  const monitors = Math.max(0, parseInt(document.getElementById('cot-monitors').value) || 0);
+  const menors = document.getElementById('cot-menors').checked;
+  const rc = document.getElementById('cot-rc').checked;
+  const defensa = document.getElementById('cot-defensa').checked;
+  const assistencia = document.getElementById('cot-assistencia').checked;
+
+  const mult = { casal:1.0, colonia:1.25, campus:1.35, formacio:0.85, excursio:0.95, esdeveniment:1.1 }[activitat] || 1.0;
+  let base = participants * dies * 0.55 * mult;
+  if (menors) base += participants * dies * 0.25;
+  base += monitors * dies * 0.45;
+  if (rc) base += 120 + participants * 1.2;
+  if (defensa) base += 60 + participants * 0.4;
+  if (assistencia) base += 90 + participants * 0.6;
+  base = Math.max(base, 75);
+  const min = Math.round(base * 0.85);
+  const max = Math.round(base * 1.15);
+  document.getElementById('cot-preu').textContent = min + ' – ' + max + ' €';
+  document.getElementById('cot-rang').textContent = 'Estimació per ' + dies + ' dies · ' + participants + ' persones';
+}
+cotitzar();
+
+// ============ CLOCK ============
+function tick() {
+  const d = new Date();
+  const days = ['dg','dl','dt','dc','dj','dv','ds'];
+  const months = ['gen','feb','mar','abr','mai','jun','jul','ago','set','oct','nov','des'];
+  const h = String(d.getHours()).padStart(2,'0');
+  const m = String(d.getMinutes()).padStart(2,'0');
+  document.getElementById('clock').textContent = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + '  ' + h + ':' + m;
+}
+tick(); setInterval(tick, 30000);
+
+// ============ KEYBOARD ============
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.altKey) && e.key === 'ArrowLeft') { goBack(); e.preventDefault(); }
+  if ((e.metaKey || e.altKey) && e.key === 'ArrowRight') { goForward(); e.preventDefault(); }
+  if (e.key === 'Escape') { navigate('home'); }
+});
+
+// ============ SEARCH (basic filter on current view) ============
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  const q = e.target.value.toLowerCase().trim();
+  const view = document.querySelector('.view.active, .doc-view.active, .app-view.active');
+  if (!view) return;
+  view.querySelectorAll('.item').forEach(item => {
+    const name = item.textContent.toLowerCase();
+    item.style.display = (!q || name.includes(q)) ? '' : 'none';
+  });
+});
+
+updateNavButtons();
+</script>
+
+</body>
+</html>
