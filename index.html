@@ -10,994 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  /* Brand */
-  --cobalt: #0A2D56;
-  --cobalt-deep: #061d3a;
-  --mint: #6FB7AE;
-  --mint-deep: #4a9990;
-  --mint-light: #A6CFC8;
-  --breeze: #E6F2EF;
-  --sand: #F7F3EF;
-  --sand-warm: #F1ECE0;
-  --fog: #8FA3B3;
-  --charcoal: #2B2F33;
-
-  /* Finder UI */
-  --window-bg: #FFFFFF;
-  --sidebar-bg: #FAF8F4;
-  --titlebar-bg: rgba(250, 248, 244, 0.85);
-  --hairline: rgba(10, 45, 86, 0.08);
-  --hairline-strong: rgba(10, 45, 86, 0.14);
-  --text: #1a2733;
-  --text-soft: #6b7681;
-  --text-muted: #9aa3ad;
-  --selected: var(--mint);
-  --selected-bg: rgba(111, 183, 174, 0.15);
-
-  /* Apple-style traffic lights */
-  --tl-red: #FF5F57;
-  --tl-yellow: #FEBC2E;
-  --tl-green: #28C840;
-
-  /* Desktop */
-  --desktop-bg: #ddd2bd;
-
-  /* Fonts */
-  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", system-ui, sans-serif;
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', "SF Mono", Consolas, monospace;
-
-  --radius-window: 12px;
-  --radius-item: 8px;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body { height: 100%; }
-
-body {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--text);
-  background: var(--desktop-bg);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Subtle dotted wallpaper */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at center, rgba(10, 45, 86, 0.05) 1px, transparent 1.5px);
-  background-size: 24px 24px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-button, input, select { font: inherit; color: inherit; }
-button { background: none; border: none; cursor: pointer; }
-a { color: inherit; text-decoration: none; }
-
-::selection { background: var(--mint); color: var(--cobalt); }
-
-/* ================================================== */
-/* ============ DESKTOP + WINDOW ===================== */
-/* ================================================== */
-
-.desktop {
-  width: 100%;
-  height: 100vh;
-  padding: clamp(16px, 3vw, 40px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
-
-.window {
-  width: 100%;
-  max-width: 1320px;
-  height: 92vh;
-  max-height: 880px;
-  background: var(--window-bg);
-  border-radius: var(--radius-window);
-  box-shadow:
-    0 0 0 0.5px rgba(0, 0, 0, 0.12),
-    0 10px 30px rgba(10, 45, 86, 0.18),
-    0 40px 100px rgba(10, 45, 86, 0.22);
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Desktop top-bar emulation */
-.menubar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--hairline);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--cobalt);
-  letter-spacing: 0.02em;
-  z-index: 100;
-}
-.menubar-left { display: flex; align-items: center; gap: 18px; }
-.menubar-logo {
-  width: 14px; height: 14px;
-  display: flex; align-items: center;
-}
-.menubar-app { font-weight: 700; }
-.menubar-item { font-weight: 400; color: var(--text); cursor: default; }
-.menubar-right {
-  margin-left: auto;
-  display: flex; gap: 14px;
-  font-weight: 400;
-  color: var(--text-soft);
-  font-size: 12px;
-}
-
-/* ================================================== */
-/* ============ TITLE BAR ============================ */
-/* ================================================== */
-.titlebar {
-  height: 38px;
-  background: var(--titlebar-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--hairline);
-  display: grid;
-  grid-template-columns: 200px 1fr 200px;
-  align-items: center;
-  padding: 0 14px;
-  user-select: none;
-  position: relative;
-}
-.traffic-lights {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.tl {
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  display: block;
-  border: 0.5px solid rgba(0,0,0,0.08);
-  transition: filter 0.15s var(--ease);
-}
-.tl.red { background: var(--tl-red); }
-.tl.yellow { background: var(--tl-yellow); }
-.tl.green { background: var(--tl-green); }
-.traffic-lights:hover .tl { filter: brightness(0.92); }
-
-.window-title {
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-.window-title .sep { color: var(--text-muted); margin: 0 6px; font-weight: 400; }
-
-.window-actions {
-  display: flex; justify-content: flex-end; align-items: center; gap: 6px;
-}
-
-/* ================================================== */
-/* ============ TOOLBAR ============================== */
-/* ================================================== */
-.toolbar {
-  height: 44px;
-  background: var(--titlebar-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--hairline);
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  gap: 8px;
-}
-.tb-btn {
-  width: 28px; height: 28px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-soft);
-  transition: all 0.15s var(--ease);
-}
-.tb-btn:hover:not(:disabled) { background: rgba(10, 45, 86, 0.06); color: var(--cobalt); }
-.tb-btn:disabled { opacity: 0.35; cursor: default; }
-.tb-btn svg { width: 14px; height: 14px; }
-.tb-divider { width: 1px; height: 20px; background: var(--hairline-strong); margin: 0 4px; }
-
-.tb-view {
-  display: none;
-}
-
-.address-bar {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  background: rgba(10, 45, 86, 0.05);
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
-  padding: 3px 6px;
-  min-height: 30px;
-  margin: 0 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  transition: all 0.2s var(--ease);
-}
-.address-bar::-webkit-scrollbar { display: none; }
-.address-bar:hover {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: var(--hairline-strong);
-}
-
-.ab-segment {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  border-radius: 5px;
-  color: var(--text-soft);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: -0.005em;
-  transition: all 0.12s var(--ease);
-  white-space: nowrap;
-}
-.ab-segment:hover {
-  background: rgba(10, 45, 86, 0.08);
-  color: var(--cobalt);
-}
-.ab-segment.current {
-  color: var(--cobalt);
-  font-weight: 500;
-  cursor: default;
-}
-.ab-segment.current:hover { background: none; }
-.ab-favicon {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-}
-.ab-sep {
-  color: var(--text-muted);
-  font-weight: 300;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  user-select: none;
-  padding: 0 1px;
-}
-
-.tb-search {
-  display: flex;
-  align-items: center;
-  background: rgba(10, 45, 86, 0.06);
-  border-radius: 6px;
-  padding: 5px 10px;
-  width: 200px;
-  gap: 6px;
-  transition: all 0.2s var(--ease);
-}
-.tb-search:focus-within { background: var(--window-bg); box-shadow: 0 0 0 2px var(--mint); width: 240px; }
-.tb-search svg { width: 12px; height: 12px; color: var(--text-soft); flex-shrink: 0; }
-.tb-search input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-size: 12px;
-  color: var(--text);
-  min-width: 0;
-}
-.tb-search input::placeholder { color: var(--text-muted); }
-
-/* ================================================== */
-/* ============ BODY (sidebar + content) ============= */
-/* ================================================== */
-.window-body {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  min-height: 0;
-  overflow: hidden;
-}
-
-/* ============ SIDEBAR ============ */
-.sidebar {
-  background: var(--sidebar-bg);
-  border-right: 1px solid var(--hairline);
-  overflow-y: auto;
-  padding: 14px 0;
-}
-.sidebar-section { margin-bottom: 22px; padding: 0 12px; }
-.sidebar-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  padding: 0 8px;
-  margin-bottom: 6px;
-}
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-  cursor: pointer;
-  transition: background 0.12s var(--ease);
-  user-select: none;
-}
-.sidebar-item:hover { background: rgba(10, 45, 86, 0.05); }
-.sidebar-item.active {
-  background: var(--cobalt);
-  color: white;
-}
-.sidebar-item.active .sb-icon { color: white; }
-.sidebar-item .sb-icon { width: 16px; height: 16px; color: var(--mint-deep); flex-shrink: 0; }
-.sidebar-item .sb-tag {
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-left: 2px;
-  margin-right: 3px;
-}
-.tag-salut { background: #E94B6E; }
-.tag-vida { background: #6FB7AE; }
-.tag-ingressos { background: #F2A93A; }
-.tag-futur { background: #6A7FCC; }
-.tag-col { background: #B374C4; }
-
-/* ============ CONTENT ============ */
-.content {
-  background: var(--window-bg);
-  overflow-y: auto;
-  position: relative;
-}
-
-.view { display: none; padding: 22px 28px 40px; min-height: 100%; }
-.view.active { display: block; animation: viewIn 0.25s var(--ease); }
-@keyframes viewIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Folder view: grid of items */
-.folder-header {
-  margin-bottom: 18px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--hairline);
-}
-.folder-header h1 {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-style: italic;
-  font-size: 32px;
-  color: var(--cobalt);
-  letter-spacing: -0.02em;
-  margin-bottom: 4px;
-}
-.folder-header .folder-desc {
-  font-size: 13px;
-  color: var(--text-soft);
-  max-width: 64ch;
-  line-height: 1.5;
-}
-
-.folder-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 6px;
-  padding: 8px 0;
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 8px;
-  border-radius: var(--radius-item);
-  cursor: pointer;
-  transition: background 0.12s var(--ease);
-  user-select: none;
-  text-align: center;
-}
-.item:hover { background: rgba(10, 45, 86, 0.04); }
-.item.selected { background: var(--selected-bg); }
-.item.selected .item-name { color: var(--cobalt); }
-.item-icon {
-  width: 72px; height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.22s var(--ease);
-}
-.item:hover .item-icon { transform: translateY(-3px); }
-.item-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 8px rgba(10,45,86,0.12)); }
-.item-name {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1.3;
-  word-break: break-word;
-  max-width: 100%;
-}
-.item-name .ext { color: var(--text-muted); }
-
-/* ============ DOCUMENT VIEW (when a .md opens) ============ */
-.doc-view { display: none; padding: 0; min-height: 100%; flex-direction: column; }
-.doc-view.active { display: flex; animation: viewIn 0.25s var(--ease); }
-.doc-header {
-  padding: 18px 28px 14px;
-  border-bottom: 1px solid var(--hairline);
-  background: var(--window-bg);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  position: sticky;
-  top: 0;
-  z-index: 5;
-}
-.doc-header .doc-icon {
-  width: 36px; height: 44px;
-  flex-shrink: 0;
-}
-.doc-header-text { flex: 1; min-width: 0; }
-.doc-header h2 {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 2px;
-}
-.doc-header .doc-meta {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-}
-.doc-body {
-  padding: 32px 56px 60px;
-  max-width: 820px;
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--text);
-}
-.doc-body .eyebrow {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--mint-deep);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-.doc-body .eyebrow::before {
-  content: "";
-  width: 18px; height: 1px;
-  background: var(--mint-deep);
-}
-.doc-body h1 {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(36px, 4.4vw, 52px);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  color: var(--cobalt);
-  margin-bottom: 22px;
-}
-.doc-body h1 em { font-style: italic; color: var(--mint-deep); font-weight: 300; }
-.doc-body h2 {
-  font-family: var(--font-body);
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--cobalt);
-  letter-spacing: -0.01em;
-  margin: 44px 0 14px;
-}
-.doc-body h3 {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--cobalt);
-  margin: 28px 0 10px;
-}
-.doc-body p { margin-bottom: 14px; max-width: 64ch; }
-.doc-body .lead {
-  font-size: 18px;
-  line-height: 1.55;
-  color: var(--text);
-  max-width: 60ch;
-  margin-bottom: 32px;
-}
-.doc-body .pullquote {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 26px;
-  line-height: 1.3;
-  color: var(--cobalt);
-  border-left: 3px solid var(--mint);
-  padding: 8px 0 8px 24px;
-  margin: 32px 0;
-}
-.doc-body ul {
-  list-style: none;
-  margin: 18px 0 24px;
-}
-.doc-body ul li {
-  padding: 9px 0 9px 26px;
-  position: relative;
-  border-bottom: 1px solid var(--hairline);
-  font-size: 14px;
-}
-.doc-body ul li::before {
-  content: "→";
-  position: absolute;
-  left: 0; top: 9px;
-  color: var(--mint-deep);
-  font-weight: 500;
-}
-.doc-body .badge-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 18px 0 28px;
-}
-.doc-body .badge {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 4px 9px;
-  background: var(--breeze);
-  color: var(--cobalt);
-  border-radius: 4px;
-}
-.doc-body .cta-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--hairline);
-}
-.doc-body .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s var(--ease);
-}
-.doc-body .btn-primary { background: var(--cobalt); color: white; }
-.doc-body .btn-primary:hover { background: var(--cobalt-deep); }
-.doc-body .btn-mint { background: var(--mint); color: var(--cobalt); }
-.doc-body .btn-mint:hover { background: var(--mint-deep); color: white; }
-.doc-body .btn-ghost {
-  color: var(--cobalt);
-  border: 1px solid var(--hairline-strong);
-}
-.doc-body .btn-ghost:hover { background: rgba(10,45,86,0.04); }
-
-/* ============ APP VIEW (Diagnòstic, Cotitzador) ============ */
-.app-view { display: none; padding: 0; min-height: 100%; }
-.app-view.active { display: flex; flex-direction: column; animation: viewIn 0.25s var(--ease); }
-.app-header {
-  padding: 16px 28px;
-  border-bottom: 1px solid var(--hairline);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--window-bg);
-}
-.app-header .app-icon {
-  width: 40px; height: 40px;
-  border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-}
-.app-header h2 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text);
-}
-.app-header .app-meta {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-}
-.app-body {
-  flex: 1;
-  padding: 36px 48px;
-  overflow-y: auto;
-}
-
-/* ---- Diagnostic ---- */
-.diag-wrap { max-width: 680px; }
-.diag-eyebrow {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--mint-deep);
-  margin-bottom: 14px;
-  display: inline-flex; align-items: center; gap: 10px;
-}
-.diag-eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--mint-deep); }
-.diag-title {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(28px, 3.5vw, 40px);
-  line-height: 1.1;
-  color: var(--cobalt);
-  letter-spacing: -0.02em;
-  margin-bottom: 14px;
-}
-.diag-title em { font-style: italic; color: var(--mint-deep); }
-.diag-intro {
-  font-size: 15px;
-  color: var(--text-soft);
-  margin-bottom: 30px;
-  max-width: 56ch;
-  line-height: 1.55;
-}
-.diag-progress {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 24px;
-}
-.diag-dot {
-  height: 3px;
-  background: rgba(10,45,86,0.1);
-  border-radius: 2px;
-  flex: 1;
-  transition: background 0.3s var(--ease);
-}
-.diag-dot.done, .diag-dot.current { background: var(--mint); }
-.diag-step { display: none; }
-.diag-step.active { display: block; animation: viewIn 0.3s var(--ease); }
-.diag-q {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--cobalt);
-  margin-bottom: 18px;
-  letter-spacing: -0.01em;
-}
-.diag-opts {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 8px;
-  margin-bottom: 24px;
-}
-.diag-opt {
-  padding: 14px 16px;
-  border: 1px solid var(--hairline-strong);
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text);
-  text-align: left;
-  cursor: pointer;
-  background: var(--window-bg);
-  transition: all 0.15s var(--ease);
-}
-.diag-opt:hover { border-color: var(--mint); background: rgba(111,183,174,0.06); }
-.diag-opt.selected { border-color: var(--mint); background: var(--mint); color: var(--cobalt); }
-.diag-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-.diag-field label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-}
-.diag-field input {
-  padding: 12px 14px;
-  background: rgba(10,45,86,0.04);
-  border: 1px solid transparent;
-  border-radius: 7px;
-  font-size: 14px;
-  color: var(--text);
-  outline: none;
-  transition: all 0.15s var(--ease);
-}
-.diag-field input:focus {
-  background: var(--window-bg);
-  border-color: var(--mint);
-  box-shadow: 0 0 0 3px rgba(111,183,174,0.18);
-}
-.diag-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 18px;
-  gap: 12px;
-}
-.diag-back {
-  font-size: 13px;
-  color: var(--text-soft);
-  padding: 8px 12px;
-  border-radius: 6px;
-}
-.diag-back:hover { background: rgba(10,45,86,0.05); color: var(--cobalt); }
-.diag-submit {
-  padding: 10px 22px;
-  background: var(--cobalt);
-  color: white;
-  border-radius: 7px;
-  font-size: 13px;
-  font-weight: 500;
-  transition: background 0.15s var(--ease);
-}
-.diag-submit:hover { background: var(--cobalt-deep); }
-.diag-thanks { display: none; padding: 30px 0; text-align: left; }
-.diag-thanks.show { display: block; animation: viewIn 0.4s var(--ease); }
-.diag-thanks .check {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: var(--mint);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-}
-.diag-thanks h3 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 28px;
-  color: var(--cobalt);
-  margin-bottom: 10px;
-}
-.diag-thanks p { color: var(--text); max-width: 56ch; line-height: 1.55; }
-
-/* ---- Cotitzador ---- */
-.cot-wrap {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 48px;
-  max-width: 960px;
-}
-.cot-form { display: flex; flex-direction: column; gap: 18px; }
-.cot-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-.cot-field { display: flex; flex-direction: column; gap: 6px; }
-.cot-field label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-}
-.cot-field select,
-.cot-field input {
-  padding: 11px 14px;
-  background: rgba(10,45,86,0.04);
-  border: 1px solid transparent;
-  border-radius: 7px;
-  font-size: 14px;
-  color: var(--text);
-  outline: none;
-  width: 100%;
-  transition: all 0.15s var(--ease);
-}
-.cot-field select:focus,
-.cot-field input:focus {
-  background: var(--window-bg);
-  border-color: var(--mint);
-  box-shadow: 0 0 0 3px rgba(111,183,174,0.18);
-}
-.cot-checks { display: flex; flex-wrap: wrap; gap: 8px; }
-.cot-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 14px;
-  background: rgba(10,45,86,0.04);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.15s var(--ease);
-  user-select: none;
-}
-.cot-pill input { display: none; }
-.cot-pill.checked { background: var(--mint); color: var(--cobalt); }
-
-.cot-result {
-  background: var(--cobalt);
-  color: white;
-  border-radius: 12px;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  position: relative;
-  overflow: hidden;
-}
-.cot-result::after {
-  content: "";
-  position: absolute;
-  bottom: -60px; right: -40px;
-  width: 220px; height: 220px;
-  background: radial-gradient(circle, rgba(111,183,174,0.22) 0%, transparent 65%);
-  pointer-events: none;
-}
-.cot-result-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--mint);
-}
-.cot-result h3 {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.85);
-}
-.cot-price {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(34px, 3.6vw, 44px);
-  line-height: 1;
-  color: var(--mint);
-  letter-spacing: -0.02em;
-  position: relative;
-  z-index: 1;
-}
-.cot-range {
-  font-size: 11px;
-  color: rgba(255,255,255,0.6);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.cot-note {
-  font-size: 12px;
-  line-height: 1.55;
-  color: rgba(255,255,255,0.75);
-  margin-top: 6px;
-  position: relative;
-  z-index: 1;
-}
-
-/* ================================================== */
-/* ============ STATUS BAR =========================== */
-/* ================================================== */
-.statusbar {
-  height: 24px;
-  background: var(--sidebar-bg);
-  border-top: 1px solid var(--hairline);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  font-size: 11px;
-  color: var(--text-soft);
-  font-weight: 500;
-}
-.statusbar .left { display: flex; gap: 14px; align-items: center; }
-.statusbar .right { display: flex; gap: 14px; align-items: center; }
-.statusbar .dgsfp {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-muted);
-}
-.statusbar .claim {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--mint-deep);
-  font-size: 12px;
-}
-
-/* ================================================== */
-/* ============ FOLDER & FILE ICONS (SVG) ============ */
-/* ================================================== */
-
-/* Reusable folder shape */
-.folder-svg .tab { fill: var(--mint-deep); }
-.folder-svg .body { fill: var(--mint); }
-.folder-svg .highlight { fill: rgba(255,255,255,0.22); }
-.folder-svg .label { fill: rgba(10, 45, 86, 0.5); }
-
-/* ================================================== */
-/* ============ RESPONSIVE =========================== */
-/* ================================================== */
-@media (max-width: 900px) {
-  .desktop { padding: 0; }
-  .window {
-    height: 100vh;
-    max-height: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  body::before { display: none; }
-  body { background: var(--window-bg); }
-  .menubar { display: none; }
-  .titlebar { grid-template-columns: 60px 1fr 60px; height: 44px; }
-  .traffic-lights .tl:nth-child(2), .traffic-lights .tl:nth-child(3) { display: none; }
-  .toolbar { padding: 0 10px; gap: 4px; flex-wrap: nowrap; }
-  .tb-search { width: 36px; padding: 5px; }
-  .tb-search:focus-within { width: 160px; }
-  .tb-search input { display: none; }
-  .tb-search:focus-within input { display: block; }
-  .tb-view { display: none; }
-  .tb-path { font-size: 12px; padding: 0 6px; overflow: hidden; }
-  .window-body { grid-template-columns: 1fr; }
-  .sidebar {
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 240px;
-    z-index: 10;
-    transform: translateX(-100%);
-    transition: transform 0.25s var(--ease);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-  }
-  .sidebar.open { transform: translateX(0); }
-  .mobile-overlay {
-    display: none;
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 9;
-  }
-  .mobile-overlay.show { display: block; }
-  .mobile-menu-btn { display: flex !important; }
-  .view { padding: 18px 16px 40px; }
-  .doc-body { padding: 24px 20px 40px; }
-  .doc-body h1 { font-size: 32px; }
-  .app-body { padding: 24px 20px; }
-  .cot-wrap { grid-template-columns: 1fr; gap: 24px; }
-  .cot-row { grid-template-columns: 1fr; }
-  .statusbar .claim { display: none; }
-  .folder-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 460px) {
-  .folder-grid { grid-template-columns: repeat(2, 1fr); }
-  .doc-body h1 { font-size: 28px; }
-  .diag-opts { grid-template-columns: 1fr; }
-}
-
-.mobile-menu-btn { display: none; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 6px; color: var(--cobalt); }
-.mobile-menu-btn:hover { background: rgba(10,45,86,0.06); }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -1093,7 +106,36 @@ a { color: inherit; text-decoration: none; }
       <stop offset="100%" stop-color="#4a9990"/>
     </linearGradient>
 
-    <!-- Sidebar icons -->
+    <!-- Sidebar mini-folder (mint) -->
+    <symbol id="sb-folder" viewBox="0 0 24 18">
+      <path d="M 2 4 Q 2 2 4 2 L 8 2 Q 9 2 9.6 2.6 L 11 4 L 20 4 Q 22 4 22 6 L 22 14 Q 22 16 20 16 L 4 16 Q 2 16 2 14 Z" fill="#4a9990"/>
+      <path d="M 1.6 6 L 22.4 6 Q 22.8 6 22.7 6.6 L 21.3 14.6 Q 21 16 19 16 L 5 16 Q 3 16 2.7 14.6 L 1.3 6.6 Q 1.2 6 1.6 6 Z" fill="#6FB7AE"/>
+      <path d="M 1.6 6 L 22.4 6 L 22.3 6.6 L 1.7 6.6 Z" fill="rgba(255,255,255,0.55)"/>
+    </symbol>
+    <!-- Sidebar mini-folder (cobalt) -->
+    <symbol id="sb-folder-cobalt" viewBox="0 0 24 18">
+      <path d="M 2 4 Q 2 2 4 2 L 8 2 Q 9 2 9.6 2.6 L 11 4 L 20 4 Q 22 4 22 6 L 22 14 Q 22 16 20 16 L 4 16 Q 2 16 2 14 Z" fill="#061d3a"/>
+      <path d="M 1.6 6 L 22.4 6 Q 22.8 6 22.7 6.6 L 21.3 14.6 Q 21 16 19 16 L 5 16 Q 3 16 2.7 14.6 L 1.3 6.6 Q 1.2 6 1.6 6 Z" fill="#0A2D56"/>
+      <path d="M 1.6 6 L 22.4 6 L 22.3 6.6 L 1.7 6.6 Z" fill="rgba(255,255,255,0.32)"/>
+    </symbol>
+    <!-- Sidebar mini-app: Diagnostic -->
+    <symbol id="sb-app-diag" viewBox="0 0 24 24">
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#gradMint)"/>
+      <path d="M 8 12.5 L 11 15.5 L 16.5 9.5" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Sidebar mini-app: Cotitzador -->
+    <symbol id="sb-app-cot" viewBox="0 0 24 24">
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="#0A2D56"/>
+      <rect x="5" y="5" width="14" height="4.2" rx="1" fill="rgba(111,183,174,0.9)"/>
+      <rect x="5" y="11" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="10" y="11" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="15" y="11" width="4" height="3" rx="0.5" fill="#6FB7AE"/>
+      <rect x="5" y="15.5" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="10" y="15.5" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="15" y="15.5" width="4" height="3" rx="0.5" fill="#6FB7AE"/>
+    </symbol>
+
+    <!-- Sidebar icons (legacy, abstract) -->
     <symbol id="sb-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a2 2 0 01-2 2h-4v-7H10v7H5a2 2 0 01-2-2V11z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
     <symbol id="sb-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 20c0-2 1.5-3.5 4-3.5s4 1.5 4 3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
     <symbol id="sb-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="3" y1="13" x2="21" y2="13" stroke="currentColor" stroke-width="1.6"/></symbol>
@@ -1114,15 +156,65 @@ a { color: inherit; text-decoration: none; }
   </defs>
 </svg>
 
-<!-- ===== MENU BAR (macOS-style fixed top) ===== -->
+<!-- ===== MENU BAR (macOS-style fixed top, funcional) ===== -->
 <div class="menubar">
   <div class="menubar-left">
     <span class="menubar-logo"><svg viewBox="0 0 80 60" width="14" height="11"><path d="M 38 8 A 22 22 0 1 0 38 52" stroke="#0A2D56" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M 42 8 A 22 22 0 1 1 42 52" stroke="#6FB7AE" stroke-width="11" fill="none" stroke-linecap="round"/></svg></span>
-    <span class="menubar-app">COVERA</span>
-    <span class="menubar-item">Fitxer</span>
-    <span class="menubar-item">Edita</span>
-    <span class="menubar-item">Visualitza</span>
-    <span class="menubar-item">Ajuda</span>
+
+    <div class="menubar-item-wrap">
+      <button class="menubar-item menubar-app" onclick="toggleMenu('app',event)">COVERA</button>
+      <div class="menu-dropdown" id="menu-app">
+        <button class="menu-action" onclick="navigate('doc-sobre')">Sobre COVERA</button>
+        <button class="menu-action" onclick="navigate('doc-manifest')">Manifest</button>
+        <div class="menu-divider"></div>
+        <a class="menu-action" href="mailto:hola@covera.es">Contactar amb COVERA</a>
+      </div>
+    </div>
+
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('file',event)">Fitxer</button>
+      <div class="menu-dropdown" id="menu-file">
+        <button class="menu-action" onclick="navigate('app-diagnostic')"><span>Nou diagnòstic</span><span class="menu-shortcut">⌘N</span></button>
+        <button class="menu-action" onclick="navigate('app-cotitzador')"><span>Nova cotització</span><span class="menu-shortcut">⌘K</span></button>
+        <div class="menu-divider"></div>
+        <button class="menu-action" onclick="navigate('doc-manifest')">Obrir Manifest.md</button>
+        <button class="menu-action" onclick="navigate('doc-sobre')">Obrir Sobre.md</button>
+      </div>
+    </div>
+
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('edit',event)">Edita</button>
+      <div class="menu-dropdown" id="menu-edit">
+        <button class="menu-action" onclick="focusSearch()"><span>Cercar…</span><span class="menu-shortcut">⌘F</span></button>
+        <button class="menu-action" onclick="copyCurrentUrl()"><span>Copiar URL</span><span class="menu-shortcut">⌥⌘C</span></button>
+      </div>
+    </div>
+
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('view',event)">Visualitza</button>
+      <div class="menu-dropdown" id="menu-view">
+        <button class="menu-action" onclick="navigate('home')"><span>Anar a Inici</span><span class="menu-shortcut">⌘1</span></button>
+        <button class="menu-action" onclick="navigate('persones')"><span>Anar a Persones</span><span class="menu-shortcut">⌘2</span></button>
+        <button class="menu-action" onclick="navigate('autonoms')"><span>Anar a Autònoms</span><span class="menu-shortcut">⌘3</span></button>
+        <button class="menu-action" onclick="navigate('empreses')"><span>Anar a Empreses</span><span class="menu-shortcut">⌘4</span></button>
+        <button class="menu-action" onclick="navigate('collectius')"><span>Anar a Col·lectius</span><span class="menu-shortcut">⌘5</span></button>
+        <button class="menu-action" onclick="navigate('previsio')"><span>Anar a Previsió</span><span class="menu-shortcut">⌘6</span></button>
+        <div class="menu-divider"></div>
+        <button class="menu-action" onclick="goBack()"><span>Enrere</span><span class="menu-shortcut">⌘←</span></button>
+        <button class="menu-action" onclick="goForward()"><span>Endavant</span><span class="menu-shortcut">⌘→</span></button>
+      </div>
+    </div>
+
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('help',event)">Ajuda</button>
+      <div class="menu-dropdown" id="menu-help">
+        <button class="menu-action" onclick="navigate('app-diagnostic')">Programar trucada</button>
+        <a class="menu-action" href="mailto:hola@covera.es">Contactar amb COVERA</a>
+        <div class="menu-divider"></div>
+        <button class="menu-action" onclick="navigate('doc-manifest')">Llegir Manifest</button>
+        <button class="menu-action" onclick="navigate('doc-sobre')">Marc regulatori</button>
+      </div>
+    </div>
   </div>
   <div class="menubar-right">
     <span>Ordenem protecció</span>
@@ -1173,25 +265,18 @@ a { color: inherit; text-decoration: none; }
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-section">
           <div class="sidebar-label">Favorits</div>
-          <div class="sidebar-item active" data-view="home" onclick="navigate('home')"><svg class="sb-icon"><use href="#sb-home"/></svg> Inici</div>
-          <div class="sidebar-item" data-view="persones" onclick="navigate('persones')"><svg class="sb-icon"><use href="#sb-people"/></svg> Persones</div>
-          <div class="sidebar-item" data-view="autonoms" onclick="navigate('autonoms')"><svg class="sb-icon"><use href="#sb-briefcase"/></svg> Autònoms</div>
-          <div class="sidebar-item" data-view="empreses" onclick="navigate('empreses')"><svg class="sb-icon"><use href="#sb-grid"/></svg> Empreses</div>
-          <div class="sidebar-item" data-view="collectius" onclick="navigate('collectius')"><svg class="sb-icon"><use href="#sb-users"/></svg> Col·lectius</div>
-          <div class="sidebar-item" data-view="previsio" onclick="navigate('previsio')"><svg class="sb-icon"><use href="#sb-clock"/></svg> Previsió</div>
-        </div>
-        <div class="sidebar-section">
-          <div class="sidebar-label">Etiquetes</div>
-          <div class="sidebar-item"><span class="sb-tag tag-salut"></span> Salut</div>
-          <div class="sidebar-item"><span class="sb-tag tag-vida"></span> Vida i família</div>
-          <div class="sidebar-item"><span class="sb-tag tag-ingressos"></span> Ingressos</div>
-          <div class="sidebar-item"><span class="sb-tag tag-futur"></span> Futur</div>
-          <div class="sidebar-item"><span class="sb-tag tag-col"></span> Col·lectius</div>
+          <div class="sidebar-item active" data-view="home" onclick="navigate('home')"><svg class="sb-icon sb-c3"><use href="#ic-c3"/></svg> Inici</div>
+          <div class="sidebar-item" data-view="persones" onclick="navigate('persones')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Persones</div>
+          <div class="sidebar-item" data-view="autonoms" onclick="navigate('autonoms')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Autònoms</div>
+          <div class="sidebar-item" data-view="empreses" onclick="navigate('empreses')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Empreses</div>
+          <div class="sidebar-item" data-view="collectius" onclick="navigate('collectius')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Col·lectius</div>
+          <div class="sidebar-item" data-view="previsio" onclick="navigate('previsio')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Previsió</div>
+          <div class="sidebar-item" data-view="recursos" onclick="navigate('recursos')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder-cobalt"/></svg> Recursos</div>
         </div>
         <div class="sidebar-section">
           <div class="sidebar-label">Aplicacions</div>
-          <div class="sidebar-item" onclick="navigate('app-diagnostic')"><svg class="sb-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="currentColor"/><path d="M 8 12 L 11 15 L 16 9" stroke="white" stroke-width="2" fill="none"/></svg> Diagnòstic</div>
-          <div class="sidebar-item" onclick="navigate('app-cotitzador')"><svg class="sb-icon" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5" fill="currentColor"/></svg> Cotitzador</div>
+          <div class="sidebar-item" onclick="navigate('app-diagnostic')"><svg class="sb-icon sb-app-icon"><use href="#sb-app-diag"/></svg> Diagnòstic</div>
+          <div class="sidebar-item" onclick="navigate('app-cotitzador')"><svg class="sb-icon sb-app-icon"><use href="#sb-app-cot"/></svg> Cotitzador</div>
         </div>
       </aside>
 
@@ -1759,200 +844,7 @@ a { color: inherit; text-decoration: none; }
   </div><!-- /window -->
 </div><!-- /desktop -->
 
-<script>
-// ============ STATE ============
-const titles = {
-  'home':           { path: ['covera.es'], views: ['home'], name: 'COVERA', count: 10 },
-  'persones':       { path: ['covera.es','persones'], views: ['home','persones'], name: 'Persones', count: 11 },
-  'autonoms':       { path: ['covera.es','autonoms'], views: ['home','autonoms'], name: 'Autònoms', count: 11 },
-  'empreses':       { path: ['covera.es','empreses'], views: ['home','empreses'], name: 'Empreses', count: 11 },
-  'collectius':     { path: ['covera.es','collectius'], views: ['home','collectius'], name: 'Col·lectius', count: 11 },
-  'previsio':       { path: ['covera.es','previsio'], views: ['home','previsio'], name: 'Previsió', count: 10 },
-  'recursos':       { path: ['covera.es','recursos'], views: ['home','recursos'], name: 'Recursos', count: 6 },
-  'doc-manifest':   { path: ['covera.es','manifest.md'], views: ['home','doc-manifest'], name: 'Manifest.md', count: 1 },
-  'doc-sobre':      { path: ['covera.es','sobre.md'], views: ['home','doc-sobre'], name: 'Sobre.md', count: 1 },
-  'doc-persones':   { path: ['covera.es','persones','llegeix-me.md'], views: ['home','persones','doc-persones'], name: 'Llegeix-me.md', count: 1 },
-  'doc-autonoms':   { path: ['covera.es','autonoms','llegeix-me.md'], views: ['home','autonoms','doc-autonoms'], name: 'Llegeix-me.md', count: 1 },
-  'doc-empreses':   { path: ['covera.es','empreses','llegeix-me.md'], views: ['home','empreses','doc-empreses'], name: 'Llegeix-me.md', count: 1 },
-  'doc-collectius': { path: ['covera.es','collectius','llegeix-me.md'], views: ['home','collectius','doc-collectius'], name: 'Llegeix-me.md', count: 1 },
-  'doc-previsio':   { path: ['covera.es','previsio','llegeix-me.md'], views: ['home','previsio','doc-previsio'], name: 'Llegeix-me.md', count: 1 },
-  'app-diagnostic': { path: ['covera.es','diagnostic.app'], views: ['home','app-diagnostic'], name: 'Diagnòstic.app', count: 1 },
-  'app-cotitzador': { path: ['covera.es','collectius','cotitzador.app'], views: ['home','collectius','app-cotitzador'], name: 'Cotitzador.app', count: 1 }
-};
-
-let history = ['home'];
-let historyIdx = 0;
-
-function navigate(view, fromHistory) {
-  if (!titles[view]) return;
-  document.querySelectorAll('.view, .doc-view, .app-view').forEach(v => v.classList.remove('active'));
-  const target = document.getElementById('view-' + view);
-  if (target) target.classList.add('active');
-
-  // Update sidebar active state
-  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
-  const sidebarMatch = document.querySelector('.sidebar-item[data-view="' + view + '"]');
-  if (sidebarMatch) sidebarMatch.classList.add('active');
-  // If it's a doc, highlight its parent folder
-  else if (view.startsWith('doc-')) {
-    const parent = view.replace('doc-','');
-    const sb = document.querySelector('.sidebar-item[data-view="' + parent + '"]');
-    if (sb) sb.classList.add('active');
-  }
-
-  // Path bar
-  const path = titles[view].path;
-  const pathHtml = path.map((seg, i) => {
-    const isLast = i === path.length - 1;
-    return (i > 0 ? '<svg class="tb-path-sep" width="10" height="10" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>' : '') +
-      '<span class="tb-path-item' + (isLast ? ' current' : '') + '"' +
-      (i === 0 ? ' onclick="navigate(\'home\')"' : '') + '>' +
-      (i === 0 ? '<svg width="13" height="13"><use href="#ic-c3"/></svg> ' : '') +
-      seg + '</span>';
-  }).join('');
-  document.getElementById('pathBar').innerHTML = pathHtml;
-
-  // Window title
-  document.getElementById('windowTitle').textContent = path[path.length - 1];
-
-  // Status count
-  const count = titles[view].count;
-  document.getElementById('statusCount').textContent = count + (count === 1 ? ' element' : ' elements');
-
-  // History
-  if (!fromHistory) {
-    history = history.slice(0, historyIdx + 1);
-    history.push(view);
-    historyIdx = history.length - 1;
-  }
-  updateNavButtons();
-
-  // Scroll to top inside content
-  document.getElementById('content').scrollTop = 0;
-
-  // Close mobile sidebar
-  document.getElementById('sidebar').classList.remove('open');
-  document.querySelector('.mobile-overlay').classList.remove('show');
-}
-
-function goBack() {
-  if (historyIdx > 0) {
-    historyIdx--;
-    navigate(history[historyIdx], true);
-  }
-}
-function goForward() {
-  if (historyIdx < history.length - 1) {
-    historyIdx++;
-    navigate(history[historyIdx], true);
-  }
-}
-function updateNavButtons() {
-  document.getElementById('btnBack').disabled = historyIdx === 0;
-  document.getElementById('btnFwd').disabled = historyIdx >= history.length - 1;
-}
-
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.querySelector('.mobile-overlay').classList.toggle('show');
-}
-
-// ============ DIAGNÒSTIC ============
-let diagStep = 1;
-const diagAnswers = {};
-function diagAnswer(key, value) {
-  diagAnswers[key] = value;
-  if (diagStep < 5) diagGo(diagStep + 1);
-}
-function diagBack() { if (diagStep > 1) diagGo(diagStep - 1); }
-function diagGo(step) {
-  diagStep = step;
-  document.querySelectorAll('.diag-step').forEach(s => s.classList.remove('active'));
-  document.querySelector('.diag-step[data-step="' + step + '"]').classList.add('active');
-  const dots = document.querySelectorAll('#diagProgress .diag-dot');
-  dots.forEach((d, i) => {
-    d.classList.remove('done','current');
-    if (i < step - 1) d.classList.add('done');
-    if (i === step - 1) d.classList.add('current');
-  });
-}
-function diagSubmit() {
-  const nom = document.getElementById('diag-nom').value.trim();
-  const email = document.getElementById('diag-email').value.trim();
-  if (!nom || !email) { alert('Necessitem el teu nom i email per enviar-te el diagnòstic.'); return; }
-  diagAnswers.nom = nom; diagAnswers.email = email;
-  diagAnswers.telefon = document.getElementById('diag-tel').value.trim();
-  // Aquí connectaríem amb el CRM real (HubSpot, Brevo…)
-  document.querySelectorAll('.diag-step, #diagProgress').forEach(el => el.style.display = 'none');
-  document.getElementById('diagThanks').classList.add('show');
-}
-
-// ============ COTITZADOR ============
-function togglePill(input) {
-  const pill = input.closest('.cot-pill');
-  if (input.checked) pill.classList.add('checked');
-  else pill.classList.remove('checked');
-}
-document.querySelectorAll('.cot-pill input').forEach(i => {
-  if (i.checked) i.closest('.cot-pill').classList.add('checked');
-});
-
-function cotitzar() {
-  const activitat = document.getElementById('cot-activitat').value;
-  const participants = Math.max(1, parseInt(document.getElementById('cot-participants').value) || 1);
-  const dies = Math.max(1, parseInt(document.getElementById('cot-dies').value) || 1);
-  const monitors = Math.max(0, parseInt(document.getElementById('cot-monitors').value) || 0);
-  const menors = document.getElementById('cot-menors').checked;
-  const rc = document.getElementById('cot-rc').checked;
-  const defensa = document.getElementById('cot-defensa').checked;
-  const assistencia = document.getElementById('cot-assistencia').checked;
-
-  const mult = { casal:1.0, colonia:1.25, campus:1.35, formacio:0.85, excursio:0.95, esdeveniment:1.1 }[activitat] || 1.0;
-  let base = participants * dies * 0.55 * mult;
-  if (menors) base += participants * dies * 0.25;
-  base += monitors * dies * 0.45;
-  if (rc) base += 120 + participants * 1.2;
-  if (defensa) base += 60 + participants * 0.4;
-  if (assistencia) base += 90 + participants * 0.6;
-  base = Math.max(base, 75);
-  const min = Math.round(base * 0.85);
-  const max = Math.round(base * 1.15);
-  document.getElementById('cot-preu').textContent = min + ' – ' + max + ' €';
-  document.getElementById('cot-rang').textContent = 'Estimació per ' + dies + ' dies · ' + participants + ' persones';
-}
-cotitzar();
-
-// ============ CLOCK ============
-function tick() {
-  const d = new Date();
-  const days = ['dg','dl','dt','dc','dj','dv','ds'];
-  const months = ['gen','feb','mar','abr','mai','jun','jul','ago','set','oct','nov','des'];
-  const h = String(d.getHours()).padStart(2,'0');
-  const m = String(d.getMinutes()).padStart(2,'0');
-  document.getElementById('clock').textContent = days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + '  ' + h + ':' + m;
-}
-tick(); setInterval(tick, 30000);
-
-// ============ KEYBOARD ============
-document.addEventListener('keydown', (e) => {
-  if ((e.metaKey || e.altKey) && e.key === 'ArrowLeft') { goBack(); e.preventDefault(); }
-  if ((e.metaKey || e.altKey) && e.key === 'ArrowRight') { goForward(); e.preventDefault(); }
-  if (e.key === 'Escape') { navigate('home'); }
-});
-
-// ============ SEARCH (basic filter on current view) ============
-document.getElementById('searchInput').addEventListener('input', (e) => {
-  const q = e.target.value.toLowerCase().trim();
-  const view = document.querySelector('.view.active, .doc-view.active, .app-view.active');
-  if (!view) return;
-  view.querySelectorAll('.item').forEach(item => {
-    const name = item.textContent.toLowerCase();
-    item.style.display = (!q || name.includes(q)) ? '' : 'none';
-  });
-});
-
-updateNavButtons();
-</script>
+<script src="app.js" defer></script>
 
 </body>
 </html>
