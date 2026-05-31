@@ -1,86 +1,78 @@
-# COVERA — Web corredoria
+# COVERA — Web especialista
 
-Web d'una sola pàgina (SPA) per a la corredoria d'assegurances **COVERA**, construïda amb estètica de Finder/macOS: navegació per carpetes, fitxers `.md` que s'obren com a documents i `.app` que llancen Diagnòstic i Cotitzador.
+Corredoria d'assegurances catalana. Web SPA d'una sola pàgina amb arquitectura net, orientada a conversió i amb fitxes funcionals de producte.
 
----
+## Arquitectura
 
-## Estructura del projecte
+Tres fitxers:
 
-```
-covera-web/
-├── index.html      → estructura HTML (vistes, símbols SVG, contingut)
-├── styles.css      → estils complets (variables de marca, layout, components)
-├── app.js          → comportament (navegació, diagnòstic, cotitzador, menubar)
-└── README.md       → aquest fitxer
-```
+- `index.html` — estructura semàntica i contingut editorial
+- `styles.css` — design tokens i estils (paleta cobalt + menta + arena)
+- `app.js` — diagnòstic multi-pas, cotitzador, modal de fitxes de producte
 
-És un projecte estàtic, sense build i sense dependències de Node. Funciona obrint `index.html` directament al navegador, però per a producció s'ha de servir des d'un servidor web (HTTP), no des de `file://`, perquè algunes característiques (clipboard API, fonts) requereixen un origen segur.
+Cap dependència de build, frameworks ni JS extern. Tipografia via Google Fonts (Montserrat + Inter + Fraunces).
 
----
+## Estructura de la home
 
-## Desplegament
+1. **Header net** — Logo + nav (Persones, Autònoms, Empreses, Col·lectius, Previsió, Productes, Recursos) + botó "Fer diagnòstic"
+2. **Hero** — Missatge dominant: "Protegim persones, ingressos i *futur*"
+3. **Intent** — 5 cards "Què vols protegir?" (ingressos, família, equip, activitat, futur)
+4. **Diagnòstic** — Bloc destacat amb formulari de 5 passos
+5. **Productes** — 7 categories amb tags clicables que obren fitxes funcionals
+6. **Mètode** — 5 passos del mètode COVERA (entenem, detectem, prioritzem, proposem, revisem)
+7. **Cotitzador** — Eina específica per a col·lectius i activitats
+8. **Pull quote** — Diferencial del comparador / banc / asseguradora
+9. **Perfils** — 5 seccions detallades (Persones, Autònoms, Empreses, Col·lectius, Previsió)
+10. **Recursos** — Cards de guies, calculadores i checklists
+11. **CTA final** — Doble crida: diagnòstic + contacte
+12. **Footer** — Quatre columnes + marc legal DGSFP
+
+## Fitxes funcionals de producte
+
+Les ~37 etiquetes de producte (ILT, Vida risc, PIAS, SIALP, Accidents conveni, etc.) són **clicables**. En obrir-ne una, es mostra un modal lateral amb:
+
+- **Posicionament** del producte (intent)
+- **Per a qui** és
+- **Què cobreix**
+- **Quan revisar-ho**
+- **Seccions on en parlem** — chips clicables que porten a Persones / Autònoms / Empreses / Col·lectius / Previsió
+- **Productes relacionats** — chips que obren altres fitxes
+- **Llegir i aprofundir** — chips amb títols d'articles relacionats (placeholders ara, futurs articles del blog)
+- **CTA** — botó al diagnòstic + botó de contacte
+
+Tota la base de dades de productes està a `app.js` (objecte `PRODUCTS`) i es pot ampliar afegint noves entrades.
+
+## Què cal substituir abans del llançament
+
+| Element | Ubicació | A substituir |
+|---|---|---|
+| `DGSFP J-XXXX` / `J-0000` | `index.html`, hero i footer | Número real de la DGSFP |
+| `CIF B00000000` | footer | CIF real de la S.L. |
+| `hola@covera.es` | múltiples llocs | Email real |
+| Coeficients del cotitzador | `app.js`, funció `cotitzar()` | Tarifes reals consensuades amb la mutualitat (ARAG, FIATC, Mutua General, etc.) |
+| Endpoint del diagnòstic | `app.js`, funció `diagSubmit()` | URL del CRM real (HubSpot, Brevo o similar) |
+| Articles "Llegir i aprofundir" | `app.js`, `PRODUCTS[*].news` | Quan tinguis el blog actiu, substituir per links reals |
+| Recursos descarregables | `index.html`, secció recursos | PDFs reals quan estiguin preparats |
+
+## Deployment
 
 ### GitHub Pages
-1. Crea un repositori i puja els tres fitxers (`index.html`, `styles.css`, `app.js`).
-2. A *Settings → Pages*, selecciona la branca `main` i la carpeta `/ (root)`.
-3. La web estarà disponible a `https://<usuari>.github.io/<repositori>/`.
+```bash
+git add index.html styles.css app.js
+git commit -m "Web especialista — iteració 3"
+git push origin main
+```
+Settings → Pages → branch `main` /root.
 
-### Netlify / Vercel
-Arrossega la carpeta `covera-web/` directament al panell de Netlify/Vercel o connecta el repositori de GitHub. Sense configuració.
+### Netlify
+Drag-and-drop dels 3 fitxers a [app.netlify.com/drop](https://app.netlify.com/drop). Acabes amb un domini `*.netlify.app` que pots apuntar a covera.es.
 
-### Hosting tradicional (Hostinger, IONOS, etc.)
-Puja els tres fitxers a la carpeta `public_html/` per FTP. Apunta el domini `covera.es` al hosting.
+### Vercel
+```bash
+npx vercel --prod
+```
 
----
+## Roadmap pendent (consultoria)
 
-## Què cal personalitzar abans de llançar
-
-| On | Què canviar |
-|---|---|
-| `index.html` (footer status bar i Sobre.md) | Substituir `J-0000` pel número real de registre **DGSFP** i `B00000000` pel **CIF** real. |
-| `index.html` (Sobre.md i menubar Ajuda) | Substituir `hola@covera.es` pel correu de contacte real. |
-| `index.html` (totes les `.md`) | Revisar els textos de marketing per validar to i missatges definitius. |
-| `app.js` (funció `cotitzar()`) | Substituir els multiplicadors orientatius pels reals de les mutualitats amb qui treballis. Ara són **estimacions**, no preus reals. |
-| `app.js` (funció `diagSubmit()`) | Connectar el `fetch()` a un endpoint del teu CRM (HubSpot Forms API, Brevo, Mailchimp o webhook propi). Ara guarda les respostes només en memòria. |
-
----
-
-## Estructura interna
-
-### Vistes
-Cada "carpeta" o "fitxer" és un `<div class="view">` o `<div class="doc-view">` dins de `<div id="content">`. La funció `navigate(view)` a `app.js` mostra una vista i amaga les altres.
-
-Per afegir una nova carpeta:
-1. Afegeix una entrada nova a l'objecte `titles` a `app.js`.
-2. Afegeix la vista nova a `index.html` amb `id="view-<nom>"`.
-3. Afegeix l'enllaç corresponent a la sidebar i, si cal, al menubar.
-
-### Menubar
-Els 5 menús (COVERA, Fitxer, Edita, Visualitza, Ajuda) són desplegables nadius amb les funcions:
-- `toggleMenu(name)` — obre/tanca un menú.
-- `focusSearch()` — fa focus al camp de cerca.
-- `copyCurrentUrl()` — copia al porta-retalls la URL del moment.
-
-### Diagnòstic
-Formulari multi-pas controlat per `diagAnswer()`, `diagBack()` i `diagSubmit()`. Les respostes es desen a `diagAnswers` (objecte JS en memòria). Per connectar-ho a un CRM, edita `diagSubmit()` perquè faci `fetch()` al teu endpoint.
-
-### Cotitzador
-La funció `cotitzar()` recalcula la prima en temps real cada vegada que canvia un input. Els multiplicadors estan al principi de la funció.
-
----
-
-## Compatibilitat
-
-- Navegadors moderns (Chrome, Safari, Firefox, Edge — últimes dues versions).
-- Mòbil: la finestra ocupa tota la pantalla, sidebar es converteix en panell lateral lliscant.
-- Sense IE11 (utilitza `backdrop-filter`, `grid`, ES6 i altres APIs modernes).
-
----
-
-## Marc regulatori
-
-COVERA Correduría de Seguros, S.L. — inscrita a la **Direcció General d'Assegurances i Fons de Pensions (DGSFP)**. La web mostra dades regulatòries al peu i a `Sobre.md`. **Substitueix els valors placeholder per les dades reals abans de publicar**.
-
----
-
-*Última actualització: 31 de maig de 2026*
+- **Peça 4** — Recursos imant: guies, checklists i calculadores reals (4-6 peces) per omplir la secció Recursos i alimentar leads SEO + lead magnets.
+- **Peça 5** — Motor LinkedIn: optimització de perfil, pilars de contingut, primer tanda de 12-16 posts per a les 6 primeres setmanes.
