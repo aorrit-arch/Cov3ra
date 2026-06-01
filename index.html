@@ -3,704 +3,848 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COVERA — Protegim persones, ingressos i futur</title>
-<meta name="description" content="Corredoria d'assegurances especialista. Protegim persones, ingressos i futur amb assegurances ordenades segons el que importa a cada persona, autònom, empresa o col·lectiu.">
+<title>COVERA — ordenem protecció</title>
+<meta name="description" content="Corredoria d'assegurances especialista. Salut, vida, accidents, ingressos, previsió i col·lectius ordenats amb criteri.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="assets/logo-covera.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<!-- ==================== WINDOW SHELL ==================== -->
-<div class="window">
+<!-- ===== SVG SYMBOL LIBRARY ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Folder gradients -->
+    <linearGradient id="fb-back" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a9990"/>
+      <stop offset="100%" stop-color="#3a7770"/>
+    </linearGradient>
+    <linearGradient id="fb-front" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9bd2cb"/>
+      <stop offset="55%" stop-color="#7bbfb6"/>
+      <stop offset="100%" stop-color="#6FB7AE"/>
+    </linearGradient>
+    <linearGradient id="fb-shade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.22)"/>
+      <stop offset="32%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="100%" stop-color="rgba(10,45,86,0.2)"/>
+    </linearGradient>
+    <linearGradient id="fc-back" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a2d56"/>
+      <stop offset="100%" stop-color="#03132a"/>
+    </linearGradient>
+    <linearGradient id="fc-front" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f4d83"/>
+      <stop offset="55%" stop-color="#103a6a"/>
+      <stop offset="100%" stop-color="#0A2D56"/>
+    </linearGradient>
 
-  <!-- ============ TITLE BAR ============ -->
-  <div class="titlebar">
-    <div class="title-left">
-      <img src="assets/logo-covera.svg" alt="" class="title-logo">
-      <span class="title-brand">COVERA</span>
-      <span class="title-divider">·</span>
-      <span class="title-claim">Persones · Ingressos · Futur</span>
-    </div>
-    <div class="title-right">
-      <span class="title-datetime" id="titleDatetime"></span>
-    </div>
-  </div>
+    <!-- Folder icon (mint, dimensional) -->
+    <symbol id="ic-folder" viewBox="0 0 72 60">
+      <ellipse cx="36" cy="56" rx="28" ry="1.4" fill="rgba(10,45,86,0.22)"/>
+      <path d="M 6 10 Q 6 6 10 6 L 24 6 Q 26 6 27.5 7.5 L 31 11 L 62 11 Q 66 11 66 15 L 66 49 Q 66 52 63 52 L 9 52 Q 6 52 6 49 Z" fill="url(#fb-back)"/>
+      <path d="M 8 9 Q 8 7.5 10 7.5 L 23.5 7.5 L 26 9.5" stroke="rgba(255,255,255,0.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fb-front)"/>
+      <path d="M 3 17 L 69 17 L 68.7 18.5 L 3.3 18.5 Z" fill="rgba(255,255,255,0.6)"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fb-shade)"/>
+    </symbol>
 
-  <!-- ============ MENUBAR ============ -->
-  <div class="menubar">
-    <button class="menubar-item" data-menu="fitxer">Fitxer</button>
-    <button class="menubar-item" data-menu="edita">Edita</button>
-    <button class="menubar-item" data-menu="visualitza">Visualitza</button>
-    <button class="menubar-item" data-menu="ajuda">Ajuda</button>
+    <!-- Folder variant: cobalt -->
+    <symbol id="ic-folder-cobalt" viewBox="0 0 72 60">
+      <ellipse cx="36" cy="56" rx="28" ry="1.4" fill="rgba(10,45,86,0.28)"/>
+      <path d="M 6 10 Q 6 6 10 6 L 24 6 Q 26 6 27.5 7.5 L 31 11 L 62 11 Q 66 11 66 15 L 66 49 Q 66 52 63 52 L 9 52 Q 6 52 6 49 Z" fill="url(#fc-back)"/>
+      <path d="M 8 9 Q 8 7.5 10 7.5 L 23.5 7.5 L 26 9.5" stroke="rgba(255,255,255,0.32)" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fc-front)"/>
+      <path d="M 3 17 L 69 17 L 68.7 18.5 L 3.3 18.5 Z" fill="rgba(255,255,255,0.34)"/>
+      <path d="M 3 17 L 69 17 Q 71 17 70.5 19.5 L 65 49.5 Q 64.6 51.8 62 51.8 L 10 51.8 Q 7.4 51.8 7 49.5 L 1.5 19.5 Q 1 17 3 17 Z" fill="url(#fb-shade)"/>
+    </symbol>
 
-    <!-- Dropdown: Fitxer -->
-    <div class="menu-dropdown" data-for="fitxer">
-      <button class="menu-action" onclick="goTo('diagnostic'); closeMenus()">Nou diagnòstic <span class="menu-key">⌘N</span></button>
-      <button class="menu-action" onclick="goTo('cotitzador'); closeMenus()">Nova cotització de col·lectiu <span class="menu-key">⌘K</span></button>
-      <div class="menu-sep"></div>
-      <button class="menu-action" onclick="openDoc('manifest'); closeMenus()">Obrir Manifest COVERA</button>
-      <button class="menu-action" onclick="openDoc('sobre'); closeMenus()">Obrir Sobre COVERA</button>
-      <button class="menu-action" onclick="openDoc('guia'); closeMenus()">Descarregar guia bàsica</button>
-      <div class="menu-sep"></div>
-      <button class="menu-action" onclick="window.location.href='mailto:hola@covera.es'; closeMenus()">Contactar amb COVERA</button>
-    </div>
+    <!-- Document (.md) icon -->
+    <symbol id="ic-doc" viewBox="0 0 48 60">
+      <path d="M 8 2 L 32 2 L 44 14 L 44 56 Q 44 58 42 58 L 8 58 Q 6 58 6 56 L 6 4 Q 6 2 8 2 Z" fill="#ffffff" stroke="#cfd6dc" stroke-width="1"/>
+      <path d="M 32 2 L 32 12 Q 32 14 34 14 L 44 14" fill="#f1f3f5" stroke="#cfd6dc" stroke-width="1"/>
+      <line x1="12" y1="24" x2="38" y2="24" stroke="#a8b3bd" stroke-width="1"/>
+      <line x1="12" y1="30" x2="38" y2="30" stroke="#a8b3bd" stroke-width="1"/>
+      <line x1="12" y1="36" x2="32" y2="36" stroke="#a8b3bd" stroke-width="1"/>
+      <line x1="12" y1="42" x2="34" y2="42" stroke="#a8b3bd" stroke-width="1"/>
+      <text x="12" y="54" font-family="JetBrains Mono, monospace" font-size="6" font-weight="600" fill="#6FB7AE">.md</text>
+    </symbol>
 
-    <!-- Dropdown: Edita -->
-    <div class="menu-dropdown" data-for="edita">
-      <button class="menu-action" onclick="focusSearch(); closeMenus()">Cercar dins COVERA <span class="menu-key">⌘F</span></button>
-      <button class="menu-action" onclick="clearSearch(); closeMenus()">Netejar cerca</button>
-      <div class="menu-sep"></div>
-      <button class="menu-action" onclick="copyLink(); closeMenus()">Copiar enllaç d'aquesta secció <span class="menu-key">⌥⌘C</span></button>
-      <button class="menu-action" onclick="resetView(); closeMenus()">Restablir vista</button>
-    </div>
+    <!-- App icon: diagnostic (mint square with check) -->
+    <symbol id="ic-app-diag" viewBox="0 0 56 56">
+      <rect x="2" y="2" width="52" height="52" rx="12" fill="#0A2D56"/>
+      <rect x="2" y="2" width="52" height="52" rx="12" fill="url(#gradMint)" opacity="0.85"/>
+      <path d="M 18 28 L 25 35 L 39 21" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
 
-    <!-- Dropdown: Visualitza -->
-    <div class="menu-dropdown" data-for="visualitza">
-      <button class="menu-action" onclick="goTo('inici'); closeMenus()">Anar a Inici <span class="menu-key">⌘0</span></button>
-      <div class="menu-sep"></div>
-      <button class="menu-action" onclick="goTo('persones'); closeMenus()">Anar a Persones <span class="menu-key">⌘1</span></button>
-      <button class="menu-action" onclick="goTo('autonoms'); closeMenus()">Anar a Autònoms <span class="menu-key">⌘2</span></button>
-      <button class="menu-action" onclick="goTo('empreses'); closeMenus()">Anar a Empreses <span class="menu-key">⌘3</span></button>
-      <button class="menu-action" onclick="goTo('collectius'); closeMenus()">Anar a Col·lectius <span class="menu-key">⌘4</span></button>
-      <button class="menu-action" onclick="goTo('previsio'); closeMenus()">Anar a Previsió <span class="menu-key">⌘5</span></button>
-      <div class="menu-sep"></div>
-      <button class="menu-action" onclick="goTo('productes'); closeMenus()">Vista per producte</button>
-      <button class="menu-action" onclick="goTo('diagnostic'); closeMenus()">Vista diagnòstic</button>
-    </div>
+    <!-- App icon: cotitzador (calculator) -->
+    <symbol id="ic-app-cot" viewBox="0 0 56 56">
+      <rect x="2" y="2" width="52" height="52" rx="12" fill="#6FB7AE"/>
+      <rect x="11" y="12" width="34" height="10" rx="2" fill="rgba(10,45,86,0.18)"/>
+      <text x="42" y="20" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="#0A2D56">240€</text>
+      <g fill="#0A2D56">
+        <rect x="11" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="20" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="29" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="38" y="26" width="7" height="6" rx="1.5"/>
+        <rect x="11" y="34" width="7" height="6" rx="1.5"/>
+        <rect x="20" y="34" width="7" height="6" rx="1.5"/>
+        <rect x="29" y="34" width="7" height="6" rx="1.5"/>
+        <rect x="38" y="34" width="7" height="14" rx="1.5" fill="#0A2D56"/>
+        <rect x="11" y="42" width="7" height="6" rx="1.5"/>
+        <rect x="20" y="42" width="16" height="6" rx="1.5"/>
+      </g>
+    </symbol>
 
-    <!-- Dropdown: Ajuda -->
-    <div class="menu-dropdown" data-for="ajuda">
-      <button class="menu-action" onclick="openDoc('com-diagnostic'); closeMenus()">Com funciona el diagnòstic</button>
-      <button class="menu-action" onclick="openDoc('sobre'); closeMenus()">Què és COVERA</button>
-      <button class="menu-action" onclick="openDoc('faq'); closeMenus()">Preguntes freqüents</button>
-      <button class="menu-action" onclick="openDoc('legal'); closeMenus()">Marc legal i privacitat</button>
-      <div class="menu-sep"></div>
-      <button class="menu-action" onclick="window.location.href='mailto:hola@covera.es'; closeMenus()">Contactar</button>
-    </div>
-  </div>
+    <!-- Gradient -->
+    <linearGradient id="gradMint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6FB7AE"/>
+      <stop offset="100%" stop-color="#4a9990"/>
+    </linearGradient>
 
-  <!-- ============ NAVBAR (back/forward + breadcrumb + search) ============ -->
-  <div class="navbar">
-    <div class="nav-arrows">
-      <button class="nav-arrow" id="navBack" onclick="navBack()" aria-label="Enrere" title="Enrere">
-        <svg viewBox="0 0 16 16" width="14" height="14"><path d="M10 3 L5 8 L10 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="nav-arrow" id="navForward" onclick="navForward()" aria-label="Endavant" title="Endavant">
-        <svg viewBox="0 0 16 16" width="14" height="14"><path d="M6 3 L11 8 L6 13" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
+    <!-- Sidebar mini-folder (mint) -->
+    <symbol id="sb-folder" viewBox="0 0 24 18">
+      <path d="M 2 4 Q 2 2 4 2 L 8 2 Q 9 2 9.6 2.6 L 11 4 L 20 4 Q 22 4 22 6 L 22 14 Q 22 16 20 16 L 4 16 Q 2 16 2 14 Z" fill="#4a9990"/>
+      <path d="M 1.6 6 L 22.4 6 Q 22.8 6 22.7 6.6 L 21.3 14.6 Q 21 16 19 16 L 5 16 Q 3 16 2.7 14.6 L 1.3 6.6 Q 1.2 6 1.6 6 Z" fill="#6FB7AE"/>
+      <path d="M 1.6 6 L 22.4 6 L 22.3 6.6 L 1.7 6.6 Z" fill="rgba(255,255,255,0.55)"/>
+    </symbol>
+    <!-- Sidebar mini-folder (cobalt) -->
+    <symbol id="sb-folder-cobalt" viewBox="0 0 24 18">
+      <path d="M 2 4 Q 2 2 4 2 L 8 2 Q 9 2 9.6 2.6 L 11 4 L 20 4 Q 22 4 22 6 L 22 14 Q 22 16 20 16 L 4 16 Q 2 16 2 14 Z" fill="#061d3a"/>
+      <path d="M 1.6 6 L 22.4 6 Q 22.8 6 22.7 6.6 L 21.3 14.6 Q 21 16 19 16 L 5 16 Q 3 16 2.7 14.6 L 1.3 6.6 Q 1.2 6 1.6 6 Z" fill="#0A2D56"/>
+      <path d="M 1.6 6 L 22.4 6 L 22.3 6.6 L 1.7 6.6 Z" fill="rgba(255,255,255,0.32)"/>
+    </symbol>
+    <!-- Sidebar mini-app: Diagnostic -->
+    <symbol id="sb-app-diag" viewBox="0 0 24 24">
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#gradMint)"/>
+      <path d="M 8 12.5 L 11 15.5 L 16.5 9.5" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Sidebar mini-app: Cotitzador -->
+    <symbol id="sb-app-cot" viewBox="0 0 24 24">
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="#0A2D56"/>
+      <rect x="5" y="5" width="14" height="4.2" rx="1" fill="rgba(111,183,174,0.9)"/>
+      <rect x="5" y="11" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="10" y="11" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="15" y="11" width="4" height="3" rx="0.5" fill="#6FB7AE"/>
+      <rect x="5" y="15.5" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="10" y="15.5" width="4" height="3" rx="0.5" fill="rgba(255,255,255,0.85)"/>
+      <rect x="15" y="15.5" width="4" height="3" rx="0.5" fill="#6FB7AE"/>
+    </symbol>
 
-    <div class="breadcrumb">
-      <svg class="bc-folder" viewBox="0 0 16 12" width="14" height="11"><path d="M1 3 A1.5 1.5 0 0 1 2.5 1.5 H5.5 L7 3 H13.5 A1.5 1.5 0 0 1 15 4.5 V9.5 A1.5 1.5 0 0 1 13.5 11 H2.5 A1.5 1.5 0 0 1 1 9.5 Z" fill="currentColor"/></svg>
-      <span class="bc-root" onclick="goTo('inici')">COVERA</span>
-      <span class="bc-sep">/</span>
-      <span class="bc-current" id="bcCurrent">Inici</span>
-    </div>
+    <!-- Sidebar icons (legacy, abstract) -->
+    <symbol id="sb-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a2 2 0 01-2 2h-4v-7H10v7H5a2 2 0 01-2-2V11z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="sb-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 20c0-2 1.5-3.5 4-3.5s4 1.5 4 3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="sb-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="3" y1="13" x2="21" y2="13" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="sb-users" viewBox="0 0 24 24"><circle cx="12" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="5" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="19" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="sb-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="sb-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="3" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
 
-    <div class="search" id="searchWrap">
-      <svg class="search-icon" viewBox="0 0 16 16" width="13" height="13"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input type="text" id="searchInput" placeholder="Cercar dins COVERA…" autocomplete="off">
-      <button class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Netejar">
-        <svg viewBox="0 0 16 16" width="11" height="11"><line x1="4" y1="4" x2="12" y2="12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="12" y1="4" x2="4" y2="12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
-      <div class="search-results" id="searchResults"></div>
-    </div>
-  </div>
+    <!-- Toolbar icons -->
+    <symbol id="ic-back" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-fwd" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/><line x1="21" y1="21" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="ic-view-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="13" y="3" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="3" y="13" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="13" y="13" width="8" height="8" stroke="currentColor" stroke-width="1.8" fill="none"/></symbol>
+    <symbol id="ic-view-list" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2"/><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="ic-view-col" viewBox="0 0 24 24"><line x1="9" y1="3" x2="9" y2="21" stroke="currentColor" stroke-width="2"/><line x1="15" y1="3" x2="15" y2="21" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="ic-menu" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="ic-chev" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-c3" viewBox="0 0 80 60"><path d="M 38 8 A 22 22 0 1 0 38 52" stroke="#0A2D56" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M 42 8 A 22 22 0 1 1 42 52" stroke="#6FB7AE" stroke-width="8" fill="none" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
 
-  <!-- ============ APP SHELL (Sidebar carpetes + Main contingut) ============ -->
-  <div class="app-shell" id="appShell">
+<!-- ===== MENU BAR (macOS-style fixed top, funcional) ===== -->
+<div class="menubar">
+  <div class="menubar-left">
+    <span class="menubar-logo"><svg viewBox="0 0 80 60" width="14" height="11"><path d="M 38 8 A 22 22 0 1 0 38 52" stroke="#0A2D56" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M 42 8 A 22 22 0 1 1 42 52" stroke="#6FB7AE" stroke-width="11" fill="none" stroke-linecap="round"/></svg></span>
 
-    <!-- SIDEBAR amb carpetes a l'esquerra -->
-    <aside class="sidebar">
-      <div class="sb-inner">
-
-        <div class="sb-header">
-          <h5 class="sb-label">Carpetes</h5>
-          <span class="sb-count">6</span>
-        </div>
-
-        <a href="#inici" class="sb-folder" data-section="inici" data-key="0" onclick="goTo('inici'); return false;">
-          <span class="sb-folder-tab" data-color="dark"></span>
-          <div class="sb-folder-body">
-            <span class="sb-folder-name">Inici</span>
-            <span class="sb-key">0</span>
-          </div>
-        </a>
-
-        <a href="#persones" class="sb-folder" data-section="persones" data-key="1" onclick="goTo('persones'); return false;">
-          <span class="sb-folder-tab" data-color="mint"></span>
-          <div class="sb-folder-body">
-            <span class="sb-folder-name">Persones</span>
-            <span class="sb-key">1</span>
-          </div>
-        </a>
-
-        <a href="#autonoms" class="sb-folder" data-section="autonoms" data-key="2" onclick="goTo('autonoms'); return false;">
-          <span class="sb-folder-tab" data-color="mint"></span>
-          <div class="sb-folder-body">
-            <span class="sb-folder-name">Autònoms</span>
-            <span class="sb-key">2</span>
-          </div>
-        </a>
-
-        <a href="#empreses" class="sb-folder" data-section="empreses" data-key="3" onclick="goTo('empreses'); return false;">
-          <span class="sb-folder-tab" data-color="cobalt"></span>
-          <div class="sb-folder-body">
-            <span class="sb-folder-name">Empreses</span>
-            <span class="sb-key">3</span>
-          </div>
-        </a>
-
-        <a href="#collectius" class="sb-folder" data-section="collectius" data-key="4" onclick="goTo('collectius'); return false;">
-          <span class="sb-folder-tab" data-color="mint"></span>
-          <div class="sb-folder-body">
-            <span class="sb-folder-name">Col·lectius</span>
-            <span class="sb-key">4</span>
-          </div>
-        </a>
-
-        <a href="#previsio" class="sb-folder" data-section="previsio" data-key="5" onclick="goTo('previsio'); return false;">
-          <span class="sb-folder-tab" data-color="cobalt"></span>
-          <div class="sb-folder-body">
-            <span class="sb-folder-name">Previsió</span>
-            <span class="sb-key">5</span>
-          </div>
-        </a>
-
-        <div class="sb-divider"></div>
-
-        <h5 class="sb-label">Eines</h5>
-        <a href="#diagnostic" class="sb-tool" data-section="diagnostic" data-key="d" onclick="goTo('diagnostic'); return false;">
-          <svg class="sb-tool-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 5 V8 L10 9.5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
-          <span>Diagnòstic</span>
-          <span class="sb-key">D</span>
-        </a>
-        <a href="#cotitzador" class="sb-tool" data-section="cotitzador" data-key="c" onclick="goTo('cotitzador'); return false;">
-          <svg class="sb-tool-icon" viewBox="0 0 16 16"><rect x="3" y="2.5" width="10" height="11" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="5.5" y1="5.5" x2="10.5" y2="5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="5.5" y1="8" x2="10.5" y2="8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="5.5" y1="10.5" x2="8" y2="10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          <span>Cotitzador</span>
-          <span class="sb-key">C</span>
-        </a>
-        <a href="#productes" class="sb-tool" data-section="productes" data-key="p" onclick="goTo('productes'); return false;">
-          <svg class="sb-tool-icon" viewBox="0 0 16 16"><path d="M4 2.5 H10 L13 5.5 V13 A0.8 0.8 0 0 1 12.2 13.8 H4 A0.8 0.8 0 0 1 3.2 13 V3.3 A0.8 0.8 0 0 1 4 2.5 Z M10 2.5 V5.5 H13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          <span>Productes</span>
-          <span class="sb-key">P</span>
-        </a>
-        <a href="#recursos" class="sb-tool" data-section="recursos" data-key="r" onclick="goTo('recursos'); return false;">
-          <svg class="sb-tool-icon" viewBox="0 0 16 16"><path d="M3.5 2.5 H9.5 L12.5 5.5 V13 A0.8 0.8 0 0 1 11.7 13.8 H3.5 A0.8 0.8 0 0 1 2.7 13 V3.3 A0.8 0.8 0 0 1 3.5 2.5 Z M9.5 2.5 V5.5 H12.5 M5 8 H10.5 M5 10 H10.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          <span>Recursos</span>
-          <span class="sb-key">R</span>
-        </a>
-        <a href="#metode" class="sb-tool" data-section="metode" data-key="m" onclick="goTo('metode'); return false;">
-          <svg class="sb-tool-icon" viewBox="0 0 16 16"><circle cx="4" cy="4" r="1.6" fill="currentColor"/><circle cx="4" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="8" r="1.6" fill="currentColor"/><line x1="4" y1="5.6" x2="4" y2="10.4" stroke="currentColor" stroke-width="1.4"/><line x1="5.4" y1="4.5" x2="10.6" y2="7.5" stroke="currentColor" stroke-width="1.4"/><line x1="5.4" y1="11.5" x2="10.6" y2="8.5" stroke="currentColor" stroke-width="1.4"/></svg>
-          <span>Mètode</span>
-          <span class="sb-key">M</span>
-        </a>
-
-        <div class="sb-divider"></div>
-
-        <h5 class="sb-label">Contacte</h5>
-        <a href="mailto:hola@covera.es" class="sb-tool">
-          <svg class="sb-tool-icon" viewBox="0 0 16 16"><rect x="2" y="3.5" width="12" height="9" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 4.5 L8 8.5 L13.5 4.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          <span>hola@covera.es</span>
-        </a>
-
-        <div class="sb-claim">
-          Protegim persones, ingressos i <em>futur.</em>
-        </div>
+    <div class="menubar-item-wrap">
+      <button class="menubar-item menubar-app" onclick="toggleMenu('app',event)">COVERA</button>
+      <div class="menu-dropdown" id="menu-app">
+        <button class="menu-action" onclick="navigate('doc-sobre')">Sobre COVERA</button>
+        <button class="menu-action" onclick="navigate('doc-manifest')">Manifest</button>
+        <div class="menu-divider"></div>
+        <a class="menu-action" href="mailto:hola@covera.es">Contactar amb COVERA</a>
       </div>
-    </aside>
+    </div>
 
-    <!-- MAIN: presentacions al centre -->
-    <main class="content" id="mainContent">
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('file',event)">Fitxer</button>
+      <div class="menu-dropdown" id="menu-file">
+        <button class="menu-action" onclick="navigate('app-diagnostic')"><span>Nou diagnòstic</span><span class="menu-shortcut">⌘N</span></button>
+        <button class="menu-action" onclick="navigate('app-cotitzador')"><span>Nova cotització</span><span class="menu-shortcut">⌘K</span></button>
+        <div class="menu-divider"></div>
+        <button class="menu-action" onclick="navigate('doc-manifest')">Obrir Manifest.md</button>
+        <button class="menu-action" onclick="navigate('doc-sobre')">Obrir Sobre.md</button>
+      </div>
+    </div>
 
-      <!-- ============ INICI: BENVINGUDA ============ -->
-      <section id="inici" class="section section-welcome">
-        <div class="welcome-card">
-          <div class="welcome-eyebrow">
-            <svg class="we-folder" viewBox="0 0 16 12" width="13" height="10"><path d="M1 3 A1.5 1.5 0 0 1 2.5 1.5 H5.5 L7 3 H13.5 A1.5 1.5 0 0 1 15 4.5 V9.5 A1.5 1.5 0 0 1 13.5 11 H2.5 A1.5 1.5 0 0 1 1 9.5 Z" fill="currentColor"/></svg>
-            <span>COVERA · Inici</span>
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('edit',event)">Edita</button>
+      <div class="menu-dropdown" id="menu-edit">
+        <button class="menu-action" onclick="focusSearch()"><span>Cercar…</span><span class="menu-shortcut">⌘F</span></button>
+        <button class="menu-action" onclick="copyCurrentUrl()"><span>Copiar URL</span><span class="menu-shortcut">⌥⌘C</span></button>
+      </div>
+    </div>
+
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('view',event)">Visualitza</button>
+      <div class="menu-dropdown" id="menu-view">
+        <button class="menu-action" onclick="navigate('home')"><span>Anar a Inici</span><span class="menu-shortcut">⌘1</span></button>
+        <button class="menu-action" onclick="navigate('persones')"><span>Anar a Persones</span><span class="menu-shortcut">⌘2</span></button>
+        <button class="menu-action" onclick="navigate('autonoms')"><span>Anar a Autònoms</span><span class="menu-shortcut">⌘3</span></button>
+        <button class="menu-action" onclick="navigate('empreses')"><span>Anar a Empreses</span><span class="menu-shortcut">⌘4</span></button>
+        <button class="menu-action" onclick="navigate('collectius')"><span>Anar a Col·lectius</span><span class="menu-shortcut">⌘5</span></button>
+        <button class="menu-action" onclick="navigate('previsio')"><span>Anar a Previsió</span><span class="menu-shortcut">⌘6</span></button>
+        <div class="menu-divider"></div>
+        <button class="menu-action" onclick="goBack()"><span>Enrere</span><span class="menu-shortcut">⌘←</span></button>
+        <button class="menu-action" onclick="goForward()"><span>Endavant</span><span class="menu-shortcut">⌘→</span></button>
+      </div>
+    </div>
+
+    <div class="menubar-item-wrap">
+      <button class="menubar-item" onclick="toggleMenu('help',event)">Ajuda</button>
+      <div class="menu-dropdown" id="menu-help">
+        <button class="menu-action" onclick="navigate('app-diagnostic')">Programar trucada</button>
+        <a class="menu-action" href="mailto:hola@covera.es">Contactar amb COVERA</a>
+        <div class="menu-divider"></div>
+        <button class="menu-action" onclick="navigate('doc-manifest')">Llegir Manifest</button>
+        <button class="menu-action" onclick="navigate('doc-sobre')">Marc regulatori</button>
+      </div>
+    </div>
+  </div>
+  <div class="menubar-right">
+    <span>Ordenem protecció</span>
+    <span id="clock"></span>
+  </div>
+</div>
+
+<!-- ===== DESKTOP + WINDOW ===== -->
+<div class="desktop">
+  <div class="window">
+
+    <!-- TITLE BAR -->
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <span class="tl red" title="Tancar"></span>
+        <span class="tl yellow" title="Minimitzar"></span>
+        <span class="tl green" title="Pantalla completa"></span>
+      </div>
+      <div class="window-title">
+        <span id="windowTitle">COVERA</span>
+      </div>
+      <div class="window-actions"></div>
+    </div>
+
+    <!-- TOOLBAR (browser-style) -->
+    <div class="toolbar">
+      <button class="tb-btn" id="btnBack" onclick="goBack()" title="Enrere (⌘←)" disabled><svg><use href="#ic-back"/></svg></button>
+      <button class="tb-btn" id="btnFwd" onclick="goForward()" title="Endavant (⌘→)" disabled><svg><use href="#ic-fwd"/></svg></button>
+      <button class="tb-btn" onclick="navigate('home')" title="Inici"><svg><use href="#sb-home"/></svg></button>
+      <button class="mobile-menu-btn" onclick="toggleSidebar()" title="Menú"><svg width="16" height="16"><use href="#ic-menu"/></svg></button>
+      <div class="address-bar" id="addressBar">
+        <button class="ab-segment current">
+          <svg class="ab-favicon"><use href="#ic-c3"/></svg>
+          <span>covera.es</span>
+        </button>
+      </div>
+      <div class="tb-search">
+        <svg><use href="#ic-search"/></svg>
+        <input type="text" placeholder="Cerca…" id="searchInput">
+      </div>
+    </div>
+
+    <!-- WINDOW BODY -->
+    <div class="window-body">
+
+      <!-- SIDEBAR -->
+      <div class="mobile-overlay" onclick="toggleSidebar()"></div>
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Favorits</div>
+          <div class="sidebar-item active" data-view="home" onclick="navigate('home')"><svg class="sb-icon sb-c3"><use href="#ic-c3"/></svg> Inici</div>
+          <div class="sidebar-item" data-view="persones" onclick="navigate('persones')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Persones</div>
+          <div class="sidebar-item" data-view="autonoms" onclick="navigate('autonoms')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Autònoms</div>
+          <div class="sidebar-item" data-view="empreses" onclick="navigate('empreses')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Empreses</div>
+          <div class="sidebar-item" data-view="collectius" onclick="navigate('collectius')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Col·lectius</div>
+          <div class="sidebar-item" data-view="previsio" onclick="navigate('previsio')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder"/></svg> Previsió</div>
+          <div class="sidebar-item" data-view="recursos" onclick="navigate('recursos')"><svg class="sb-icon sb-folder-icon"><use href="#sb-folder-cobalt"/></svg> Recursos</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Aplicacions</div>
+          <div class="sidebar-item" onclick="navigate('app-diagnostic')"><svg class="sb-icon sb-app-icon"><use href="#sb-app-diag"/></svg> Diagnòstic</div>
+          <div class="sidebar-item" onclick="navigate('app-cotitzador')"><svg class="sb-icon sb-app-icon"><use href="#sb-app-cot"/></svg> Cotitzador</div>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <div class="content" id="content">
+
+        <!-- ============ HOME ============ -->
+        <div class="view active" id="view-home">
+          <div class="folder-header">
+            <h1>COVERA</h1>
+            <p class="folder-desc">Corredoria d'assegurances especialista. Ordenem protecció personal, familiar, professional i patrimonial. Tria una carpeta per començar, obre el Manifest o llança el Diagnòstic.</p>
           </div>
-          <h1>Benvingut a <span class="we-brand">COVERA</span></h1>
-          <p class="welcome-lead">COVERA és una corredoria especialista en protegir <strong>persones, ingressos i futur</strong>.</p>
-          <p class="welcome-body">No comencem comparant preus. Comencem entenent <em>què passaria si demà canviés alguna cosa important</em>: una baixa, un accident, una malaltia, una pèrdua d'ingressos, una successió, una activitat amb participants o una empresa que vol cuidar millor el seu equip.</p>
-          <p class="welcome-body">Per això aquesta web funciona com un sistema d'ordre: pots navegar per perfil, buscar un producte concret o començar amb un diagnòstic de protecció.</p>
-          <div class="welcome-ctas">
-            <button class="btn btn-primary btn-lg" onclick="goTo('diagnostic')">Fer diagnòstic de protecció</button>
-            <button class="btn btn-mint btn-lg" onclick="goTo('persones')">Veure solucions per perfil</button>
-            <button class="btn btn-ghost btn-lg" onclick="goTo('productes')">Buscar per producte</button>
-          </div>
-          <div class="welcome-tip">
-            <span class="tip-key">←</span> Tria una carpeta a l'esquerra, o prem <span class="tip-key">1</span>–<span class="tip-key">5</span> per saltar-hi · <span class="tip-key">⌘F</span> per cercar
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('persones')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Persones</span>
+            </div>
+            <div class="item" onclick="navigate('autonoms')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Autònoms</span>
+            </div>
+            <div class="item" onclick="navigate('empreses')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Empreses</span>
+            </div>
+            <div class="item" onclick="navigate('collectius')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Col·lectius</span>
+            </div>
+            <div class="item" onclick="navigate('previsio')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span>
+              <span class="item-name">Previsió</span>
+            </div>
+            <div class="item" onclick="navigate('recursos')">
+              <span class="item-icon"><svg class="folder-svg"><use href="#ic-folder-cobalt"/></svg></span>
+              <span class="item-name">Recursos</span>
+            </div>
+            <div class="item" onclick="navigate('doc-manifest')">
+              <span class="item-icon"><svg><use href="#ic-doc"/></svg></span>
+              <span class="item-name">Manifest<span class="ext">.md</span></span>
+            </div>
+            <div class="item" onclick="navigate('app-diagnostic')">
+              <span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span>
+              <span class="item-name">Diagnòstic<span class="ext">.app</span></span>
+            </div>
+            <div class="item" onclick="navigate('app-cotitzador')">
+              <span class="item-icon"><svg><use href="#ic-app-cot"/></svg></span>
+              <span class="item-name">Cotitzador<span class="ext">.app</span></span>
+            </div>
+            <div class="item" onclick="navigate('doc-sobre')">
+              <span class="item-icon"><svg><use href="#ic-doc"/></svg></span>
+              <span class="item-name">Sobre<span class="ext">.md</span></span>
+            </div>
           </div>
         </div>
 
-        <!-- Diagnòstic CTA destacat -->
-        <div class="diag-promo" onclick="goTo('diagnostic')">
-          <div class="diag-promo-text">
-            <span class="diag-promo-eyebrow">Diagnòstic de protecció · 5 preguntes · resultat en 24 h</span>
-            <h3>Saps si estàs ben protegit?</h3>
-            <p>Respon unes preguntes breus i obtén una primera lectura orientativa sobre possibles buits en salut, ingressos, família, empresa, col·lectius o previsió. <em>No et direm només quin producte comprar. Primer t'ajudarem a entendre què pot estar desprotegit.</em></p>
+        <!-- ============ PERSONES ============ -->
+        <div class="view" id="view-persones">
+          <div class="folder-header">
+            <h1>Persones i famílies</h1>
+            <p class="folder-desc">Salut, vida, accidents, baixa laboral, estalvi i successió per protegir el que importa en cada etapa de la vida.</p>
           </div>
-          <div class="diag-promo-action">
-            <span class="btn btn-mint btn-lg">Començar diagnòstic →</span>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-persones')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Salut</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida risc</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida hipoteca</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Accidents</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Baixa laboral</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Malalties greus</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Dependència</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Estalvi</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Successió</span></div>
+            <div class="item" onclick="navigate('app-diagnostic')"><span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span><span class="item-name">Diagnòstic<span class="ext">.app</span></span></div>
           </div>
         </div>
 
-        <!-- Trust strip -->
-        <div class="trust-strip">
-          <div><span class="t-label">Registre</span><span class="t-value">DGSFP J-XXXX</span></div>
-          <div><span class="t-label">Cobertura</span><span class="t-value">Tot Espanya</span></div>
-          <div><span class="t-label">Atenció</span><span class="t-value">100% en remot</span></div>
-          <div><span class="t-label">Especialitat</span><span class="t-value">Persones · Empreses · Col·lectius</span></div>
-        </div>
-      </section>
-
-      <!-- ============ DIAGNÒSTIC ============ -->
-      <section id="diagnostic" class="section section-diagnostic">
-        <div class="diag-card">
-          <div class="diag-head">
-            <span class="eyebrow eyebrow-light">Eina · Diagnòstic de protecció</span>
-            <h2>Saps si estàs <em>ben protegit?</em></h2>
-            <p>5 preguntes ràpides per identificar buits de protecció. Sense compromís, sense dades sensibles, sense venda agressiva. Et tornem una primera lectura en 24 hores.</p>
+        <!-- ============ AUTÒNOMS ============ -->
+        <div class="view" id="view-autonoms">
+          <div class="folder-header">
+            <h1>Autònoms i professionals</h1>
+            <p class="folder-desc">Quan ets autònom, una baixa no afecta només la salut. Afecta la facturació i la continuïtat. Protegim la teva capacitat de generar ingressos.</p>
           </div>
-          <div class="diag-form" id="diagForm">
-            <div class="diag-progress" id="diagProgress">
-              <span class="diag-dot current"></span><span class="diag-dot"></span><span class="diag-dot"></span><span class="diag-dot"></span><span class="diag-dot"></span>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-autonoms')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">ILT</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Baixa laboral</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Indemnització diària</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Salut</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida risc</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Accidents</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Malalties greus</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Incapacitat</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Previsió</span></div>
+            <div class="item" onclick="navigate('app-diagnostic')"><span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span><span class="item-name">Diagnòstic<span class="ext">.app</span></span></div>
+          </div>
+        </div>
+
+        <!-- ============ EMPRESES ============ -->
+        <div class="view" id="view-empreses">
+          <div class="folder-header">
+            <h1>Empreses</h1>
+            <p class="folder-desc">Beneficis assegurats per cuidar, protegir i fidelitzar el teu equip. Salut, vida, accidents, conveni, ILT directius i previsió.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-empreses')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Salut col·lectiva</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Accidents conveni</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida col·lectiu</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">ILT directius</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Home clau</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Socis</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PPSE / PPE</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Retribució flexible</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Business Travel</span></div>
+            <div class="item" onclick="navigate('app-diagnostic')"><span class="item-icon"><svg><use href="#ic-app-diag"/></svg></span><span class="item-name">Diagnòstic<span class="ext">.app</span></span></div>
+          </div>
+        </div>
+
+        <!-- ============ COL·LECTIUS ============ -->
+        <div class="view" id="view-collectius">
+          <div class="folder-header">
+            <h1>Col·lectius i activitats</h1>
+            <p class="folder-desc">Casals, colònies, campus, formació, voluntariat, clubs i esdeveniments. Cotitza online en pocs passos.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-collectius')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item" onclick="navigate('app-cotitzador')"><span class="item-icon"><svg><use href="#ic-app-cot"/></svg></span><span class="item-name">Cotitzador<span class="ext">.app</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Casals</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Colònies</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Campus esportius</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Formació SOC</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Formació CAP</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Voluntariat</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Clubs</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Associacions</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Esdeveniments</span></div>
+          </div>
+        </div>
+
+        <!-- ============ PREVISIÓ ============ -->
+        <div class="view" id="view-previsio">
+          <div class="folder-header">
+            <h1>Previsió assegurada</h1>
+            <p class="folder-desc">Productes asseguradors per planificar estalvi, rendes, successions, liquiditat familiar i compromisos empresarials.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item" onclick="navigate('doc-previsio')"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Llegeix-me<span class="ext">.md</span></span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PIAS</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">SIALP</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PPA</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">PPSE</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Vida estalvi</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Rendes vitalícies</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Rendes temporals</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Unit linked</span></div>
+            <div class="item"><span class="item-icon"><svg class="folder-svg"><use href="#ic-folder"/></svg></span><span class="item-name">Successions</span></div>
+          </div>
+        </div>
+
+        <!-- ============ RECURSOS ============ -->
+        <div class="view" id="view-recursos">
+          <div class="folder-header">
+            <h1>Recursos</h1>
+            <p class="folder-desc">Guies, checklists i calculadores per revisar la teva protecció abans de contractar res.</p>
+          </div>
+          <div class="folder-grid">
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Guia baixa laboral<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Capital de vida<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Beneficiaris<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Salut empresa<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Accidents conveni<span class="ext">.pdf</span></span></div>
+            <div class="item"><span class="item-icon"><svg><use href="#ic-doc"/></svg></span><span class="item-name">Casals i colònies<span class="ext">.pdf</span></span></div>
+          </div>
+        </div>
+
+        <!-- ============ MANIFEST.MD ============ -->
+        <div class="doc-view" id="view-doc-manifest">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Manifest.md</h2>
+              <span class="doc-meta">12 kB · Modificat avui · UTF-8</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Manifest</span>
+            <h1>Protegim persones, ingressos i <em>futur.</em></h1>
+            <p class="lead">La majoria compara assegurances. COVERA <strong>ordena</strong> la teva protecció personal, familiar, professional i patrimonial.</p>
+
+            <h2>El problema</h2>
+            <p>Moltes persones tenen pòlisses contractades en moments diferents, amb criteris diferents i sense una visió global. Una salut antiga, una vida vinculada a la hipoteca, una baixa laboral que potser no cobreix prou, un accident que no contempla la realitat professional, un estalvi que ningú ha revisat, uns beneficiaris desactualitzats.</p>
+            <p>Cada peça aïllada pot semblar correcta. El conjunt, gairebé mai ho és. El problema no és tenir o no tenir assegurances; és saber si responen bé quan realment fan falta.</p>
+
+            <h2>El mètode</h2>
+            <p>Primer ordenem. Després assegurem.</p>
+            <ul>
+              <li><strong>Entenem</strong> — Persona, família, activitat, ingressos, empresa o col·lectiu.</li>
+              <li><strong>Detectem</strong> — Buits de protecció: salut, vida, accidents, baixa, dependència, successió.</li>
+              <li><strong>Prioritzem</strong> — No tot és igual d'urgent ni té el mateix impacte.</li>
+              <li><strong>Proposem</strong> — Solucions amb criteri tècnic, fiscal i familiar.</li>
+              <li><strong>Revisem</strong> — La vida canvia. La protecció ha de canviar amb ella.</li>
+            </ul>
+
+            <h2>El diferencial</h2>
+            <p class="pullquote">Un comparador et dona preus. Un banc et pot oferir productes. Una asseguradora et proposa la seva solució. COVERA treballa des d'una altra lògica: entendre què necessites protegir.</p>
+
+            <h2>Eixos de protecció</h2>
+            <div class="badge-grid">
+              <span class="badge">Salut</span>
+              <span class="badge">Ingressos</span>
+              <span class="badge">Família</span>
+              <span class="badge">Futur</span>
+              <span class="badge">Col·lectius</span>
             </div>
 
-            <div class="diag-step active" data-step="1">
-              <p class="diag-q">Què vols revisar?</p>
-              <div class="diag-opts">
-                <button class="diag-opt" onclick="diagAnswer('foco','familia')">La meva família</button>
-                <button class="diag-opt" onclick="diagAnswer('foco','ingressos')">Els meus ingressos</button>
-                <button class="diag-opt" onclick="diagAnswer('foco','empresa')">La meva empresa</button>
-                <button class="diag-opt" onclick="diagAnswer('foco','collectiu')">Una activitat / col·lectiu</button>
-                <button class="diag-opt" onclick="diagAnswer('foco','futur')">El meu futur / previsió</button>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Llançar Diagnòstic.app →</a>
+              <a class="btn btn-ghost" onclick="navigate('home')">← Tornar a la carpeta arrel</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ SOBRE.MD ============ -->
+        <div class="doc-view" id="view-doc-sobre">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Sobre.md</h2>
+              <span class="doc-meta">3,2 kB · Modificat avui · UTF-8</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Sobre COVERA</span>
+            <h1>Una corredoria especialista en allò que protegeix <em>persones.</em></h1>
+            <p class="lead">COVERA neix amb una idea clara: les assegurances personals no haurien de contractar-se de manera aïllada, dispersa o només per preu.</p>
+            <p>Salut, vida, accidents, baixa laboral, estalvi, previsió, successions i beneficis per empreses formen part d'una mateixa pregunta: què passaria amb tu, la teva família, els teus ingressos o el teu equip si demà canviés alguna cosa important?</p>
+            <p>La nostra feina és ajudar-te a respondre aquesta pregunta amb criteri assegurador.</p>
+            <p class="pullquote">No venem pòlisses soltes. Ordenem protecció.</p>
+            <h2>Marc regulatori</h2>
+            <p>COVERA Correduría de Seguros, S.L. està inscrita a la Direcció General d'Assegurances i Fons de Pensions (DGSFP) amb la clau J-0000. Disposem de pòlissa de responsabilitat civil professional i capacitat financera segons normativa vigent.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Demanar diagnòstic →</a>
+              <a class="btn btn-ghost" href="mailto:hola@covera.es">hola@covera.es</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME PERSONES ============ -->
+        <div class="doc-view" id="view-doc-persones">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Persones / Llegeix-me.md</h2>
+              <span class="doc-meta">5,4 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Persones i famílies</span>
+            <h1>Assegurances per a la teva <em>vida real.</em></h1>
+            <p class="lead">Protegim la teva salut, la teva família, els teus ingressos i el teu futur amb assegurances personals clares, útils i adaptades a cada etapa.</p>
+            <h2>Què revisem</h2>
+            <ul>
+              <li>Tens assegurança de salut?</li>
+              <li>Tens vida risc suficient per a la teva família?</li>
+              <li>Qui cobraria si et passés alguna cosa, i quant?</li>
+              <li>La vida de la hipoteca cobreix realment la teva família o només el banc?</li>
+              <li>Tens protecció si estàs de baixa diverses setmanes?</li>
+              <li>Tens cobertura per accidents?</li>
+              <li>Has previst malalties greus o dependència?</li>
+              <li>Els beneficiaris estan ben designats?</li>
+              <li>La teva família tindria liquiditat immediata?</li>
+            </ul>
+            <h2>Productes disponibles</h2>
+            <div class="badge-grid">
+              <span class="badge">Salut</span><span class="badge">Vida risc</span><span class="badge">Vida hipoteca</span>
+              <span class="badge">Accidents</span><span class="badge">ILT</span><span class="badge">Baixa laboral</span>
+              <span class="badge">Malalties greus</span><span class="badge">Hospitalització</span><span class="badge">Dependència</span>
+              <span class="badge">Decessos</span><span class="badge">Vida estalvi</span><span class="badge">PIAS</span>
+              <span class="badge">SIALP</span><span class="badge">Rendes vitalícies</span><span class="badge">Successió</span>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Revisar la meva protecció →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME AUTÒNOMS ============ -->
+        <div class="doc-view" id="view-doc-autonoms">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Autònoms / Llegeix-me.md</h2>
+              <span class="doc-meta">4,8 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Autònoms i professionals</span>
+            <h1>Per a qui no es pot permetre <em>deixar d'ingressar.</em></h1>
+            <p class="lead">Quan ets autònom, una baixa no només afecta la salut. Afecta la facturació, la família, els compromisos i la continuïtat del negoci.</p>
+            <h2>Què pot passar</h2>
+            <ul>
+              <li>Una baixa de diverses setmanes</li>
+              <li>Una operació quirúrgica</li>
+              <li>Una hospitalització</li>
+              <li>Un accident professional</li>
+              <li>Una malaltia greu</li>
+              <li>Una incapacitat</li>
+              <li>Una caiguda temporal d'ingressos</li>
+              <li>Una jubilació mal planificada</li>
+            </ul>
+            <p class="pullquote">No només protegim la teva vida. També protegim la teva capacitat de generar ingressos.</p>
+            <h2>Solucions</h2>
+            <div class="badge-grid">
+              <span class="badge">ILT</span><span class="badge">Baixa laboral</span><span class="badge">Indemnització diària</span>
+              <span class="badge">Accidents</span><span class="badge">Salut</span><span class="badge">Vida risc</span>
+              <span class="badge">Malalties greus</span><span class="badge">Cirurgia</span><span class="badge">Incapacitat</span>
+              <span class="badge">Previsió i jubilació</span>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Calcular protecció d'ingressos →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME EMPRESES ============ -->
+        <div class="doc-view" id="view-doc-empreses">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Empreses / Llegeix-me.md</h2>
+              <span class="doc-meta">5,2 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Empreses</span>
+            <h1>Beneficis assegurats per cuidar, protegir i <em>fidelitzar el teu equip.</em></h1>
+            <p class="lead">Les empreses ja no competeixen només per salari. També competeixen per la capacitat de cuidar les persones. Construïm beneficis assegurats amb sentit per a directius, socis i empleats clau.</p>
+            <p class="pullquote">No tots els beneficis són iguals. Alguns motiven. Altres protegeixen. COVERA s'especialitza en beneficis assegurats.</p>
+            <h2>Què treballem</h2>
+            <ul>
+              <li>Salut col·lectiva per empleats</li>
+              <li>Vida col·lectiu</li>
+              <li>Accidents de conveni i accidents col·lectius voluntaris</li>
+              <li>ILT col·lectiu i baixa laboral per directius</li>
+              <li>Malalties greus</li>
+              <li>PPE / PPSE i retribució flexible assegurada</li>
+              <li>Home/dona clau i assegurança de socis</li>
+              <li>Business Travel Accident</li>
+            </ul>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Revisar beneficis de l'empresa →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME COL·LECTIUS ============ -->
+        <div class="doc-view" id="view-doc-collectius">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Col·lectius / Llegeix-me.md</h2>
+              <span class="doc-meta">4,1 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Col·lectius i activitats</span>
+            <h1>Assegurances per a activitats, grups i <em>entitats.</em></h1>
+            <p class="lead">Casals, colònies, campus, formació, voluntariat, clubs i esdeveniments necessiten cobertures adaptades a la seva activitat real.</p>
+            <h2>Per a qui</h2>
+            <div class="badge-grid">
+              <span class="badge">Casals</span><span class="badge">Colònies</span><span class="badge">Campus</span>
+              <span class="badge">Formació SOC</span><span class="badge">Formació CAP</span><span class="badge">Alumnes</span>
+              <span class="badge">Voluntariat</span><span class="badge">Esdeveniments</span><span class="badge">Excursions</span>
+              <span class="badge">Clubs</span><span class="badge">Associacions</span><span class="badge">Federacions</span>
+            </div>
+            <h2>Cobertures</h2>
+            <p>Accidents, assistència sanitària, responsabilitat civil, defensa jurídica, assistència en viatge, monitors, organitzadors i participants.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-cotitzador')">Llançar Cotitzador.app →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ LLEGEIX-ME PREVISIÓ ============ -->
+        <div class="doc-view" id="view-doc-previsio">
+          <div class="doc-header">
+            <span class="doc-icon"><svg><use href="#ic-doc"/></svg></span>
+            <div class="doc-header-text">
+              <h2>Previsió / Llegeix-me.md</h2>
+              <span class="doc-meta">4,6 kB · UTF-8 · català</span>
+            </div>
+          </div>
+          <div class="doc-body">
+            <span class="eyebrow">Previsió assegurada</span>
+            <h1>No tot el que protegeix el teu futur està <em>al banc.</em></h1>
+            <p class="lead">Els productes asseguradors poden ajudar a planificar estalvi, rendes, successions, liquiditat familiar, compromisos empresarials i protecció patrimonial.</p>
+            <p>A COVERA expliquem els productes asseguradors amb claredat, sense confondre'ls amb productes bancaris ni prometre avantatges absoluts.</p>
+            <p class="pullquote">Determinats productes asseguradors poden tenir un tractament jurídic, fiscal o successori diferent al d'altres actius financers. A COVERA analitzem cada cas amb prudència per valorar quina solució encaixa millor.</p>
+            <h2>Solucions</h2>
+            <div class="badge-grid">
+              <span class="badge">PIAS</span><span class="badge">SIALP</span><span class="badge">PPA</span>
+              <span class="badge">PPSE</span><span class="badge">PPE</span><span class="badge">Vida estalvi</span>
+              <span class="badge">Rendes vitalícies</span><span class="badge">Rendes temporals</span><span class="badge">Unit linked</span>
+              <span class="badge">Compromisos per pensions</span><span class="badge">Successions</span>
+            </div>
+            <div class="cta-row">
+              <a class="btn btn-primary" onclick="navigate('app-diagnostic')">Demanar diagnòstic →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ APP: DIAGNÒSTIC ============ -->
+        <div class="app-view" id="view-app-diagnostic">
+          <div class="app-header">
+            <span class="app-icon"><svg><use href="#ic-app-diag"/></svg></span>
+            <div>
+              <h2>Diagnòstic.app</h2>
+              <span class="app-meta">5 preguntes · sense compromís · resultat en 24 h</span>
+            </div>
+          </div>
+          <div class="app-body">
+            <div class="diag-wrap" id="diagWrap">
+              <span class="diag-eyebrow">Diagnòstic gratuït</span>
+              <h2 class="diag-title">Saps si estàs <em>ben protegit?</em></h2>
+              <p class="diag-intro">5 preguntes ràpides per identificar buits de protecció. Sense compromís, sense dades sensibles, sense venda agressiva. Et tornem una primera lectura en 24 hores.</p>
+
+              <div class="diag-progress" id="diagProgress">
+                <div class="diag-dot current"></div>
+                <div class="diag-dot"></div>
+                <div class="diag-dot"></div>
+                <div class="diag-dot"></div>
+                <div class="diag-dot"></div>
               </div>
-            </div>
 
-            <div class="diag-step" data-step="2">
-              <p class="diag-q">Quina és la teva situació?</p>
-              <div class="diag-opts">
-                <button class="diag-opt" onclick="diagAnswer('situacio','persona')">Persona / família</button>
-                <button class="diag-opt" onclick="diagAnswer('situacio','autonom')">Autònom / professional</button>
-                <button class="diag-opt" onclick="diagAnswer('situacio','empresa')">Empresa amb equip</button>
-                <button class="diag-opt" onclick="diagAnswer('situacio','entitat')">Entitat / col·lectiu</button>
+              <div class="diag-step active" data-step="1">
+                <div class="diag-q">Quina és la teva situació principal?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('situacio','persona')">Persona / família</button>
+                  <button class="diag-opt" onclick="diagAnswer('situacio','autonom')">Autònom / professional</button>
+                  <button class="diag-opt" onclick="diagAnswer('situacio','empresa')">Empresa amb equip</button>
+                  <button class="diag-opt" onclick="diagAnswer('situacio','collectiu')">Col·lectiu o activitat</button>
+                </div>
               </div>
-              <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
-            </div>
 
-            <div class="diag-step" data-step="3">
-              <p class="diag-q">Tens persones econòmicament dependents de tu?</p>
-              <div class="diag-opts">
-                <button class="diag-opt" onclick="diagAnswer('dependents','cap')">Cap</button>
-                <button class="diag-opt" onclick="diagAnswer('dependents','parella')">Parella</button>
-                <button class="diag-opt" onclick="diagAnswer('dependents','fills')">Fills</button>
-                <button class="diag-opt" onclick="diagAnswer('dependents','pares')">Pares o altres</button>
+              <div class="diag-step" data-step="2">
+                <div class="diag-q">Quina edat aproximada tens?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('edat','18-30')">18 – 30 anys</button>
+                  <button class="diag-opt" onclick="diagAnswer('edat','30-45')">30 – 45 anys</button>
+                  <button class="diag-opt" onclick="diagAnswer('edat','45-60')">45 – 60 anys</button>
+                  <button class="diag-opt" onclick="diagAnswer('edat','60+')">Més de 60</button>
+                </div>
+                <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
               </div>
-              <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
-            </div>
 
-            <div class="diag-step" data-step="4">
-              <p class="diag-q">Quina és la teva prioritat ara?</p>
-              <div class="diag-opts">
-                <button class="diag-opt" onclick="diagAnswer('prio','revisar')">Revisar el que ja tinc</button>
-                <button class="diag-opt" onclick="diagAnswer('prio','protegir')">Cobrir un buit concret</button>
-                <button class="diag-opt" onclick="diagAnswer('prio','ordenar')">Ordenar-ho tot des de zero</button>
-                <button class="diag-opt" onclick="diagAnswer('prio','planificar')">Planificar a llarg termini</button>
+              <div class="diag-step" data-step="3">
+                <div class="diag-q">Tens persones econòmicament dependents?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('dependents','cap')">Cap</button>
+                  <button class="diag-opt" onclick="diagAnswer('dependents','parella')">Parella</button>
+                  <button class="diag-opt" onclick="diagAnswer('dependents','fills')">Fills</button>
+                  <button class="diag-opt" onclick="diagAnswer('dependents','pares')">Pares o altres</button>
+                </div>
+                <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
               </div>
-              <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
-            </div>
 
-            <div class="diag-step" data-step="5">
-              <p class="diag-q">Et truquem en 24 h amb el teu mapa orientatiu.</p>
-              <div class="diag-fields">
+              <div class="diag-step" data-step="4">
+                <div class="diag-q">Què vols revisar primer?</div>
+                <div class="diag-opts">
+                  <button class="diag-opt" onclick="diagAnswer('revisar','salut')">Salut</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','ingressos')">Protecció d'ingressos</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','vida')">Vida i família</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','estalvi')">Estalvi i previsió</button>
+                  <button class="diag-opt" onclick="diagAnswer('revisar','tot')">Tot en general</button>
+                </div>
+                <div class="diag-nav"><button class="diag-back" onclick="diagBack()">← Tornar enrere</button></div>
+              </div>
+
+              <div class="diag-step" data-step="5">
+                <div class="diag-q">Et truquem en 24 h amb una primera lectura</div>
                 <div class="diag-field"><label>Nom</label><input type="text" id="diag-nom" placeholder="El teu nom"></div>
                 <div class="diag-field"><label>Email</label><input type="email" id="diag-email" placeholder="email@exemple.com"></div>
                 <div class="diag-field"><label>Telèfon (opcional)</label><input type="tel" id="diag-tel" placeholder="+34 600 000 000"></div>
+                <div class="diag-nav">
+                  <button class="diag-back" onclick="diagBack()">← Tornar enrere</button>
+                  <button class="diag-submit" onclick="diagSubmit()">Enviar diagnòstic</button>
+                </div>
               </div>
-              <div class="diag-nav">
-                <button class="diag-back" onclick="diagBack()">← Tornar enrere</button>
-                <button class="btn btn-mint btn-lg" onclick="diagSubmit()">Enviar i rebre mapa</button>
-              </div>
-            </div>
 
-            <div class="diag-result" id="diagResult">
-              <div class="result-check">
-                <svg viewBox="0 0 24 24" width="28" height="28"><polyline points="20 6 9 17 4 12" stroke="#0A2D56" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <h3>Gràcies. Tenim el teu diagnòstic.</h3>
-              <p>Et trucarem en menys de 24 hores hàbils amb un primer mapa orientatiu de protecció.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ PERSONES ============ -->
-      <section id="persones" class="section section-profile">
-        <span class="eyebrow">Carpeta 01 · Persones i famílies</span>
-        <h2>Assegurances per a la teva <em>vida real.</em></h2>
-        <p class="section-lead">Protegim la teva salut, la teva família, els teus ingressos i el teu futur amb assegurances personals clares, útils i adaptades a cada etapa.</p>
-        <div class="profile-grid">
-          <ul class="profile-checks">
-            <li>Tens vida risc suficient per a la teva família?</li>
-            <li>La vida de la hipoteca cobreix la família o només el banc?</li>
-            <li>Tens protecció si estàs de baixa diverses setmanes?</li>
-            <li>Has previst malalties greus o dependència?</li>
-            <li>Els beneficiaris estan ben designats?</li>
-            <li>La teva família tindria liquiditat immediata?</li>
-          </ul>
-          <div class="profile-cta">
-            <p>Productes relacionats:</p>
-            <div class="tags-inline">
-              <button class="tag" onclick="openProduct('salut-individual')">Salut</button>
-              <button class="tag" onclick="openProduct('vida-risc')">Vida risc</button>
-              <button class="tag" onclick="openProduct('vida-hipoteca')">Vida hipoteca</button>
-              <button class="tag" onclick="openProduct('accidents')">Accidents</button>
-              <button class="tag" onclick="openProduct('beneficiaris')">Beneficiaris</button>
-            </div>
-            <button class="btn btn-primary" onclick="goTo('diagnostic')">Revisar la meva protecció</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ AUTÒNOMS ============ -->
-      <section id="autonoms" class="section section-profile profile-alt">
-        <span class="eyebrow">Carpeta 02 · Autònoms i professionals</span>
-        <h2>Per a qui no es pot permetre <em>deixar d'ingressar.</em></h2>
-        <p class="section-lead">Quan ets autònom, una baixa afecta la facturació, la família, els compromisos i la continuïtat. <strong>No només protegim la teva vida: també la teva capacitat d'ingressar.</strong></p>
-        <div class="profile-grid">
-          <ul class="profile-checks">
-            <li>Quants dies podries aguantar sense facturar?</li>
-            <li>Tens ILT contractada o només la prestació de la SS?</li>
-            <li>Cobertura per accidents professionals?</li>
-            <li>Quina indemnització diària tens pactada?</li>
-            <li>Tens previsió per a la jubilació?</li>
-            <li>Quina cobertura tens per malalties greus?</li>
-          </ul>
-          <div class="profile-cta">
-            <p>Productes relacionats:</p>
-            <div class="tags-inline">
-              <button class="tag" onclick="openProduct('ilt')">ILT</button>
-              <button class="tag" onclick="openProduct('indemnitzacio')">Indemnització diària</button>
-              <button class="tag" onclick="openProduct('accidents')">Accidents</button>
-              <button class="tag" onclick="openProduct('salut-individual')">Salut</button>
-              <button class="tag" onclick="openProduct('malalties-greus')">Malalties greus</button>
-            </div>
-            <button class="btn btn-primary" onclick="goTo('diagnostic')">Calcular protecció d'ingressos</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ EMPRESES ============ -->
-      <section id="empreses" class="section section-profile">
-        <span class="eyebrow">Carpeta 03 · Empreses</span>
-        <h2>Beneficis assegurats per cuidar i <em>fidelitzar el teu equip.</em></h2>
-        <p class="section-lead">Les empreses ja no competeixen només per salari. Competeixen per la capacitat de cuidar persones. Construïm beneficis assegurats amb sentit per a directius, socis i empleats clau.</p>
-        <div class="profile-grid">
-          <ul class="profile-checks">
-            <li>Tens salut col·lectiva contractada?</li>
-            <li>Compleixes correctament l'accidents de conveni?</li>
-            <li>Tens vida col·lectiu i ILT per a directius?</li>
-            <li>Hi ha pla de previsió empresarial (PPE/PPSE)?</li>
-            <li>Hi ha assegurança de socis i home/dona clau?</li>
-            <li>Les persones que viatgen per feina estan ben cobertes?</li>
-          </ul>
-          <div class="profile-cta">
-            <p>Productes relacionats:</p>
-            <div class="tags-inline">
-              <button class="tag" onclick="openProduct('salut-collectiva')">Salut col·lectiva</button>
-              <button class="tag" onclick="openProduct('accidents-conveni')">Accidents conveni</button>
-              <button class="tag" onclick="openProduct('vida-collectiu')">Vida col·lectiu</button>
-              <button class="tag" onclick="openProduct('home-clau')">Home/dona clau</button>
-              <button class="tag" onclick="openProduct('socis')">Assegurança de socis</button>
-            </div>
-            <button class="btn btn-primary" onclick="goTo('diagnostic')">Revisar beneficis d'empresa</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ COL·LECTIUS ============ -->
-      <section id="collectius" class="section section-profile profile-alt">
-        <span class="eyebrow">Carpeta 04 · Col·lectius i activitats</span>
-        <h2>Assegurances per a activitats, grups i <em>entitats.</em></h2>
-        <p class="section-lead">Casals, colònies, campus, formació, voluntariat i esdeveniments necessiten cobertures adaptades a la seva activitat real. Cotitza online en pocs passos.</p>
-        <div class="profile-grid">
-          <ul class="profile-checks">
-            <li>Quants participants hi ha i quants són menors?</li>
-            <li>Tens responsabilitat civil contractada?</li>
-            <li>Els monitors i organitzadors estan ben coberts?</li>
-            <li>Hi ha defensa jurídica?</li>
-            <li>Hi ha assistència en viatge si surt fora?</li>
-            <li>Tens clares quines cobertures són obligatòries?</li>
-          </ul>
-          <div class="profile-cta">
-            <p>Productes relacionats:</p>
-            <div class="tags-inline">
-              <button class="tag" onclick="openProduct('casals')">Casals i colònies</button>
-              <button class="tag" onclick="openProduct('campus')">Campus esportius</button>
-              <button class="tag" onclick="openProduct('formacio')">Formació</button>
-              <button class="tag" onclick="openProduct('voluntariat')">Voluntariat</button>
-              <button class="tag" onclick="openProduct('rc-activitats')">Responsabilitat civil</button>
-            </div>
-            <button class="btn btn-primary" onclick="goTo('cotitzador')">Cotitzar la meva activitat</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ PREVISIÓ ============ -->
-      <section id="previsio" class="section section-profile">
-        <span class="eyebrow">Carpeta 05 · Previsió assegurada</span>
-        <h2>No tot el que protegeix el teu futur <em>està al banc.</em></h2>
-        <p class="section-lead">Els productes asseguradors poden ajudar a planificar estalvi, rendes, successions, liquiditat familiar, compromisos empresarials i protecció patrimonial. Amb prudència fiscal i criteri.</p>
-        <div class="profile-grid">
-          <ul class="profile-checks">
-            <li>Tens PIAS o SIALP contractats?</li>
-            <li>Tens rendes vitalícies o temporals previstes?</li>
-            <li>Tens un compromís per pensions a l'empresa?</li>
-            <li>Tens planificada la liquiditat dels hereus?</li>
-            <li>Has revisat els beneficiaris en els últims anys?</li>
-            <li>Has rebut un capital extraordinari i no saps com ordenar-lo?</li>
-          </ul>
-          <div class="profile-cta">
-            <p>Productes relacionats:</p>
-            <div class="tags-inline">
-              <button class="tag" onclick="openProduct('pias')">PIAS</button>
-              <button class="tag" onclick="openProduct('sialp')">SIALP</button>
-              <button class="tag" onclick="openProduct('renda-vitalicia')">Renda vitalícia</button>
-              <button class="tag" onclick="openProduct('beneficiaris')">Beneficiaris</button>
-              <button class="tag" onclick="openProduct('planificacio')">Planificació successòria</button>
-            </div>
-            <button class="btn btn-primary" onclick="goTo('diagnostic')">Parlar de previsió</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ PRODUCTES ============ -->
-      <section id="productes" class="section section-products">
-        <span class="eyebrow">Eina · Productes</span>
-        <h2>Tria per <em>el que vols revisar</em>, no pel producte.</h2>
-        <p class="section-lead">Cada etiqueta obre una fitxa amb per a qui és, què cobreix, quan revisar-ho i les carpetes on en parlem.</p>
-        <div class="product-cats">
-          <div class="prod-cat">
-            <h3>Protecció d'ingressos</h3>
-            <div class="tags">
-              <button class="tag" onclick="openProduct('ilt')">ILT / Baixa laboral</button>
-              <button class="tag" onclick="openProduct('indemnitzacio')">Indemnització diària</button>
-              <button class="tag" onclick="openProduct('malalties-greus')">Malalties greus</button>
-              <button class="tag" onclick="openProduct('incapacitat')">Incapacitat permanent</button>
-              <button class="tag" onclick="openProduct('hospitalitzacio')">Hospitalització</button>
-            </div>
-          </div>
-          <div class="prod-cat">
-            <h3>Salut</h3>
-            <div class="tags">
-              <button class="tag" onclick="openProduct('salut-individual')">Salut individual</button>
-              <button class="tag" onclick="openProduct('salut-familiar')">Salut familiar</button>
-              <button class="tag" onclick="openProduct('salut-collectiva')">Salut col·lectiva</button>
-            </div>
-          </div>
-          <div class="prod-cat">
-            <h3>Vida i família</h3>
-            <div class="tags">
-              <button class="tag" onclick="openProduct('vida-risc')">Vida risc</button>
-              <button class="tag" onclick="openProduct('vida-hipoteca')">Vida hipoteca</button>
-              <button class="tag" onclick="openProduct('accidents')">Accidents</button>
-              <button class="tag" onclick="openProduct('dependencia')">Dependència</button>
-              <button class="tag" onclick="openProduct('decessos')">Decessos</button>
-            </div>
-          </div>
-          <div class="prod-cat">
-            <h3>Empresa i conveni</h3>
-            <div class="tags">
-              <button class="tag" onclick="openProduct('accidents-conveni')">Accidents conveni</button>
-              <button class="tag" onclick="openProduct('vida-collectiu')">Vida col·lectiu</button>
-              <button class="tag" onclick="openProduct('ilt-directius')">ILT directius</button>
-              <button class="tag" onclick="openProduct('home-clau')">Home/dona clau</button>
-              <button class="tag" onclick="openProduct('socis')">Assegurança de socis</button>
-              <button class="tag" onclick="openProduct('business-travel')">Business Travel</button>
-              <button class="tag" onclick="openProduct('retribucio-flexible')">Retribució flexible</button>
-            </div>
-          </div>
-          <div class="prod-cat">
-            <h3>Estalvi i previsió</h3>
-            <div class="tags">
-              <button class="tag" onclick="openProduct('pias')">PIAS</button>
-              <button class="tag" onclick="openProduct('sialp')">SIALP</button>
-              <button class="tag" onclick="openProduct('ppa')">PPA</button>
-              <button class="tag" onclick="openProduct('ppse')">PPSE</button>
-              <button class="tag" onclick="openProduct('ppe')">PPE</button>
-              <button class="tag" onclick="openProduct('vida-estalvi')">Vida estalvi</button>
-              <button class="tag" onclick="openProduct('renda-vitalicia')">Renda vitalícia</button>
-              <button class="tag" onclick="openProduct('renda-temporal')">Renda temporal</button>
-              <button class="tag" onclick="openProduct('unit-linked')">Unit linked</button>
-            </div>
-          </div>
-          <div class="prod-cat">
-            <h3>Successió i patrimoni</h3>
-            <div class="tags">
-              <button class="tag" onclick="openProduct('beneficiaris')">Designació de beneficiaris</button>
-              <button class="tag" onclick="openProduct('planificacio')">Planificació successòria</button>
-              <button class="tag" onclick="openProduct('liquiditat')">Liquiditat hereus</button>
-            </div>
-          </div>
-          <div class="prod-cat">
-            <h3>Col·lectius i activitats</h3>
-            <div class="tags">
-              <button class="tag" onclick="openProduct('casals')">Casals i colònies</button>
-              <button class="tag" onclick="openProduct('campus')">Campus esportius</button>
-              <button class="tag" onclick="openProduct('formacio')">Formació SOC/CAP</button>
-              <button class="tag" onclick="openProduct('voluntariat')">Voluntariat</button>
-              <button class="tag" onclick="openProduct('esdeveniments')">Esdeveniments</button>
-              <button class="tag" onclick="openProduct('rc-activitats')">Responsabilitat civil</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ COTITZADOR ============ -->
-      <section id="cotitzador" class="section section-cotitzador">
-        <span class="eyebrow">Eina · Cotitzador col·lectius</span>
-        <h2>Estimació immediata per a la teva <em>activitat.</em></h2>
-        <p class="section-lead">Per a casals, colònies, campus, formació, voluntariat i esdeveniments. Primera estimació orientativa, cotització definitiva en 24 h.</p>
-        <div class="cot-wrap">
-          <div class="cot-form">
-            <div class="cot-field">
-              <label>Tipus d'activitat</label>
-              <select id="cot-activitat" onchange="cotitzar()">
-                <option value="casal">Casal d'estiu / esplai</option>
-                <option value="colonia">Colònies / casa de colònies</option>
-                <option value="campus">Campus esportiu</option>
-                <option value="formacio">Formació SOC / CAP</option>
-                <option value="excursio">Excursió / sortida</option>
-                <option value="esdeveniment">Esdeveniment puntual</option>
-              </select>
-            </div>
-            <div class="cot-row">
-              <div class="cot-field"><label>Participants</label><input type="number" id="cot-participants" value="30" min="1" max="2000" oninput="cotitzar()"></div>
-              <div class="cot-field"><label>Durada (dies)</label><input type="number" id="cot-dies" value="5" min="1" max="90" oninput="cotitzar()"></div>
-            </div>
-            <div class="cot-field"><label>Monitors / organitzadors</label><input type="number" id="cot-monitors" value="4" min="0" max="200" oninput="cotitzar()"></div>
-            <div class="cot-field">
-              <label>Cobertures addicionals</label>
-              <div class="cot-checks">
-                <label class="cot-pill"><input type="checkbox" id="cot-menors" checked onchange="togglePill(this); cotitzar();"> Hi ha menors</label>
-                <label class="cot-pill"><input type="checkbox" id="cot-rc" checked onchange="togglePill(this); cotitzar();"> Responsabilitat civil</label>
-                <label class="cot-pill"><input type="checkbox" id="cot-defensa" onchange="togglePill(this); cotitzar();"> Defensa jurídica</label>
-                <label class="cot-pill"><input type="checkbox" id="cot-assistencia" onchange="togglePill(this); cotitzar();"> Assistència en viatge</label>
+              <div class="diag-thanks" id="diagThanks">
+                <div class="check"><svg width="24" height="24" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="#0A2D56" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <h3>Gràcies. Tenim el teu diagnòstic.</h3>
+                <p>Et trucarem en menys de 24 hores hàbils per fer-te una primera lectura sense compromís. No et vendrem res en aquesta primera conversa: t'ajudarem a entendre què tens i què et falta.</p>
               </div>
             </div>
           </div>
-          <div class="cot-result">
-            <span class="eyebrow eyebrow-light">Estimació orientativa</span>
-            <h3>Prima total per a l'activitat</h3>
-            <div class="cot-price" id="cot-preu">— €</div>
-            <span class="cot-rang" id="cot-rang">Rang estimat</span>
-            <p class="cot-note">Estimació orientativa basada en paràmetres tipus. La cotització definitiva depèn de la mutualitat, capitals i perfil de l'activitat.</p>
-            <button class="btn btn-mint" onclick="goTo('diagnostic')">Demanar cotització definitiva</button>
+        </div>
+
+        <!-- ============ APP: COTITZADOR ============ -->
+        <div class="app-view" id="view-app-cotitzador">
+          <div class="app-header">
+            <span class="app-icon"><svg><use href="#ic-app-cot"/></svg></span>
+            <div>
+              <h2>Cotitzador.app</h2>
+              <span class="app-meta">Activitats i col·lectius · estimació orientativa en temps real</span>
+            </div>
+          </div>
+          <div class="app-body">
+            <div class="cot-wrap">
+              <div class="cot-form">
+                <div class="cot-field">
+                  <label>Tipus d'activitat</label>
+                  <select id="cot-activitat" onchange="cotitzar()">
+                    <option value="casal">Casal d'estiu / esplai</option>
+                    <option value="colonia">Colònies / casa de colònies</option>
+                    <option value="campus">Campus esportiu</option>
+                    <option value="formacio">Formació SOC / CAP</option>
+                    <option value="excursio">Excursió / sortida</option>
+                    <option value="esdeveniment">Esdeveniment puntual</option>
+                  </select>
+                </div>
+                <div class="cot-row">
+                  <div class="cot-field"><label>Participants</label><input type="number" id="cot-participants" value="30" min="1" max="2000" oninput="cotitzar()"></div>
+                  <div class="cot-field"><label>Durada (dies)</label><input type="number" id="cot-dies" value="5" min="1" max="90" oninput="cotitzar()"></div>
+                </div>
+                <div class="cot-field"><label>Monitors / organitzadors</label><input type="number" id="cot-monitors" value="4" min="0" max="200" oninput="cotitzar()"></div>
+                <div class="cot-field">
+                  <label>Cobertures addicionals</label>
+                  <div class="cot-checks">
+                    <label class="cot-pill"><input type="checkbox" id="cot-menors" checked onchange="togglePill(this); cotitzar();"> Hi ha menors</label>
+                    <label class="cot-pill"><input type="checkbox" id="cot-rc" checked onchange="togglePill(this); cotitzar();"> Responsabilitat civil</label>
+                    <label class="cot-pill"><input type="checkbox" id="cot-defensa" onchange="togglePill(this); cotitzar();"> Defensa jurídica</label>
+                    <label class="cot-pill"><input type="checkbox" id="cot-assistencia" onchange="togglePill(this); cotitzar();"> Assistència en viatge</label>
+                  </div>
+                </div>
+              </div>
+              <div class="cot-result">
+                <span class="cot-result-eyebrow">Estimació orientativa</span>
+                <h3>Prima total per a l'activitat</h3>
+                <div class="cot-price" id="cot-preu">— €</div>
+                <span class="cot-range" id="cot-rang">Rang estimat de cotització</span>
+                <p class="cot-note">Estimació orientativa basada en paràmetres tipus. La cotització definitiva depèn de la mutualitat, capitals concrets i perfil de l'activitat. T'enviem la proposta definitiva en 24 hores hàbils.</p>
+                <a class="btn btn-mint" style="margin-top: 6px; align-self: flex-start; padding: 10px 20px; border-radius: 7px; font-size: 13px; font-weight: 500; text-decoration: none;" onclick="navigate('app-diagnostic')">Demanar cotització definitiva →</a>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <!-- ============ MÈTODE ============ -->
-      <section id="metode" class="section section-method">
-        <span class="eyebrow">Mètode COVERA</span>
-        <h2>Primer ordenem.<br><em>Després assegurem.</em></h2>
-        <p class="section-lead">Tenir assegurances no sempre vol dir estar ben protegit. Treballem amb una metodologia que separa el diagnòstic de la venda.</p>
-        <div class="method-grid">
-          <div class="step"><span class="step-num">01</span><h4>Entenem</h4><p>Persona, família, activitat, ingressos, empresa o col·lectiu.</p></div>
-          <div class="step"><span class="step-num">02</span><h4>Detectem</h4><p>Buits de protecció: salut, vida, accidents, baixa, dependència, successió.</p></div>
-          <div class="step"><span class="step-num">03</span><h4>Prioritzem</h4><p>No tot és igual d'urgent ni té el mateix impacte econòmic.</p></div>
-          <div class="step"><span class="step-num">04</span><h4>Proposem</h4><p>Solucions amb criteri tècnic, fiscal i familiar. Mai per preu sol.</p></div>
-          <div class="step"><span class="step-num">05</span><h4>Revisem</h4><p>La vida canvia. La protecció ha de canviar amb ella.</p></div>
-        </div>
+      </div><!-- /content -->
 
-        <blockquote class="quote">
-          <p>La majoria compara assegurances. <em>COVERA t'ajuda a entendre què has de protegir abans de comparar.</em></p>
-        </blockquote>
-      </section>
+    </div><!-- /window-body -->
 
-      <!-- ============ RECURSOS ============ -->
-      <section id="recursos" class="section section-resources">
-        <span class="eyebrow">Eina · Recursos</span>
-        <h2>Eines per <em>entendre primer.</em></h2>
-        <p class="section-lead">Guies, checklists i calculadores per revisar la teva protecció abans de contractar res.</p>
-        <div class="resources-grid">
-          <button class="resource-card" onclick="openDoc('guia-ilt')"><span class="type">Guia</span><h4>Tens ben coberta la baixa laboral?</h4><p>Què hauries de saber sobre ILT i indemnització diària si ets autònom.</p><span class="r-arrow">→</span></button>
-          <button class="resource-card" onclick="openDoc('guia-vida')"><span class="type">Calculadora</span><h4>Capital de vida recomanat</h4><p>Calcula quin capital necessitaria la teva família segons hipoteca, fills i ingressos.</p><span class="r-arrow">→</span></button>
-          <button class="resource-card" onclick="openDoc('guia-beneficiaris')"><span class="type">Checklist</span><h4>Revisió de beneficiaris</h4><p>10 punts per assegurar que les pòlisses tenen els beneficiaris ben designats.</p><span class="r-arrow">→</span></button>
-          <button class="resource-card" onclick="openDoc('guia-salut-empresa')"><span class="type">Guia</span><h4>Salut col·lectiva per empreses</h4><p>Quan compensa, com es contracta i quins beneficis fiscals té.</p><span class="r-arrow">→</span></button>
-          <button class="resource-card" onclick="openDoc('guia-conveni')"><span class="type">Checklist</span><h4>Accidents de conveni</h4><p>Punts a revisar per saber si la teva empresa compleix correctament.</p><span class="r-arrow">→</span></button>
-          <button class="resource-card" onclick="openDoc('guia-casals')"><span class="type">Guia</span><h4>Casals i colònies</h4><p>Cobertures obligatòries, monitors, menors, RC i defensa jurídica.</p><span class="r-arrow">→</span></button>
-        </div>
-      </section>
-
-      <!-- ============ CTA FINAL ============ -->
-      <section class="section section-cta-final">
-        <span class="eyebrow">Comencem</span>
-        <h2>Vols saber si estàs <em>ben protegit?</em></h2>
-        <p>No cal començar contractant res. Podem començar revisant què tens, què falta i què convé prioritzar.</p>
-        <div class="ctas">
-          <button class="btn btn-primary btn-lg" onclick="goTo('diagnostic')">Fer diagnòstic</button>
-          <a href="mailto:hola@covera.es" class="btn btn-ghost btn-lg">Contactar amb COVERA</a>
-        </div>
-      </section>
-
-      <!-- ============ FOOTER LEGAL (compacte dins la finestra) ============ -->
-      <footer class="legal-footer">
-        <p>© 2026 COVERA Correduría de Seguros, S.L. — CIF B00000000.<br><strong>Inscrita a la DGSFP</strong> amb la clau J-0000. Pòlissa de responsabilitat civil professional i capacitat financera segons normativa vigent.</p>
-        <div class="legal-links">
-          <button onclick="openDoc('legal')">Avís legal</button>
-          <button onclick="openDoc('privacitat')">Privacitat</button>
-          <button onclick="openDoc('cookies')">Cookies</button>
-        </div>
-      </footer>
-    </main>
-  </div>
-
-  <!-- ============ STATUS BAR ============ -->
-  <div class="statusbar">
-    <div class="status-left">
-      <span id="statusItems">Carpeta: <strong id="statusFolder">Inici</strong></span>
+    <!-- STATUS BAR -->
+    <div class="statusbar">
+      <div class="left">
+        <span id="statusCount">10 elements</span>
+        <span class="dgsfp">DGSFP J-0000 · CIF B00000000</span>
+      </div>
+      <div class="right">
+        <span class="claim">Ordenem protecció.</span>
+      </div>
     </div>
-    <div class="status-center">
-      <span class="status-reg">DGSFP J-XXXX · COVERA Correduría de Seguros, S.L.</span>
-    </div>
-    <div class="status-right">
-      <span class="status-claim">Protegim persones, ingressos i futur.</span>
-    </div>
-  </div>
 
-</div>
-
-<!-- ============ PRODUCT MODAL ============ -->
-<div class="modal" id="productModal" aria-hidden="true">
-  <div class="modal-backdrop" onclick="closeProduct()"></div>
-  <div class="modal-panel" role="dialog">
-    <button class="modal-close" onclick="closeProduct()" aria-label="Tancar">
-      <svg viewBox="0 0 24 24" width="20" height="20"><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </button>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
-
-<!-- ============ DOC MODAL (Manifest, Sobre, FAQ, etc.) ============ -->
-<div class="modal" id="docModal" aria-hidden="true">
-  <div class="modal-backdrop" onclick="closeDoc()"></div>
-  <div class="modal-panel" role="dialog">
-    <button class="modal-close" onclick="closeDoc()" aria-label="Tancar">
-      <svg viewBox="0 0 24 24" width="20" height="20"><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </button>
-    <div class="modal-body" id="docBody"></div>
-  </div>
-</div>
-
-<!-- ============ TOAST ============ -->
-<div class="toast" id="toast"></div>
+  </div><!-- /window -->
+</div><!-- /desktop -->
 
 <script src="app.js" defer></script>
+
 </body>
 </html>
