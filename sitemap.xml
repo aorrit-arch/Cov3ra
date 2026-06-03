@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://covera.es/</loc><priority>1.0</priority></url>
+  <url><loc>https://covera.es/inici.html</loc><priority>0.9</priority></url>
+  <url><loc>https://covera.es/persones.html</loc><priority>0.8</priority></url>
+  <url><loc>https://covera.es/autonoms.html</loc><priority>0.8</priority></url>
+  <url><loc>https://covera.es/empreses.html</loc><priority>0.8</priority></url>
+  <url><loc>https://covera.es/activitats-entitats.html</loc><priority>0.8</priority></url>
+  <url><loc>https://covera.es/socis-directius.html</loc><priority>0.8</priority></url>
+  <url><loc>https://covera.es/capitals-futur.html</loc><priority>0.8</priority></url>
+  <url><loc>https://covera.es/glossari.html</loc><priority>0.7</priority></url>
+  <url><loc>https://covera.es/estalvi-invisible.html</loc><priority>0.7</priority></url>
+  <url><loc>https://covera.es/manifest.html</loc><priority>0.6</priority></url>
+  <url><loc>https://covera.es/diagnostic.html</loc><priority>0.9</priority></url>
+</urlset>

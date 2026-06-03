@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnòstic · COVERA</title>
+  <meta name="description" content="Diagnòstic de protecció en cinc preguntes. Resposta en 24 hores. Sense compromís de contractació.">
+  <meta name="theme-color" content="#0A2D56">
+  <link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/favicon-192.png">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="app">
+
+  <header class="window-top">
+    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <nav class="menu">
+      <a href="manifest.html">Manifest</a>
+      <a href="glossari.html">Glossari</a>
+      <a href="estalvi-invisible.html">Estalvi invisible</a>
+      <a href="diagnostic.html">Diagnòstic</a>
+    </nav>
+    <div class="path">/ diagnostic</div>
+    <div class="nav-arrows">← →</div>
+  </header>
+
+  <div class="app-body">
+
+    <aside class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <img src="assets/isotip-reverse.png" alt="" width="44" height="32" style="object-fit:contain;">
+        <span class="wordmark">COV<span class="e">E</span>RA</span>
+      </a>
+      <div class="sidebar-section">
+        <h4>Per a qui</h4>
+        <nav class="sidebar-nav">
+          <a href="persones.html">Persones i famílies</a>
+          <a href="autonoms.html">Autònoms</a>
+          <a href="empreses.html">Empreses</a>
+          <a href="activitats-entitats.html">Activitats i entitats</a>
+          <a href="socis-directius.html">Socis i directius</a>
+          <a href="capitals-futur.html">Capitals i futur</a>
+        </nav>
+      </div>
+      <div class="sidebar-section">
+        <h4>Recursos</h4>
+        <nav class="sidebar-nav">
+          <a href="glossari.html">Glossari filosòfic</a>
+          <a href="estalvi-invisible.html">L'estalvi invisible</a>
+          <a href="manifest.html">Manifest COVERA</a>
+        </nav>
+      </div>
+      <div class="sidebar-apps">
+        <a href="diagnostic.html" class="active" style="color:var(--menta); opacity:1;">→ Diagnòstic.app</a>
+        <a href="#" onclick="return false;">→ Cotitzador.app</a>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <header class="main-header">
+        <div class="breadcrumb">INICI<span>»</span>DIAGNÒSTIC</div>
+        <h1>Diagnòstic de protecció.</h1>
+        <p class="lede">Cinc preguntes. Una primera lectura dels teus riscos, dels buits de cobertura i de què cal prioritzar. Resposta en 24 hores. Sense compromís de contractació.</p>
+      </header>
+
+      <div style="display:grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 880px;">
+
+        <div style="background:var(--brisa); border-radius:var(--radius); padding:1.25rem 1.5rem;">
+          <p style="font-family:var(--font-display); color:var(--cobalt); font-weight:500; margin-bottom:8px;">Què rebràs:</p>
+          <ul style="margin-left:1rem;">
+            <li style="position:relative; padding-left:18px; margin-bottom:6px; font-size:13.5px; color:var(--grafit);">
+              <span style="position:absolute; left:0; color:var(--menta);">—</span> Una primera lectura dels teus riscos personals o professionals.</li>
+            <li style="position:relative; padding-left:18px; margin-bottom:6px; font-size:13.5px; color:var(--grafit);">
+              <span style="position:absolute; left:0; color:var(--menta);">—</span> Detecció de buits de cobertura.</li>
+            <li style="position:relative; padding-left:18px; margin-bottom:6px; font-size:13.5px; color:var(--grafit);">
+              <span style="position:absolute; left:0; color:var(--menta);">—</span> Prioritats: què revisar primer i què pot esperar.</li>
+            <li style="position:relative; padding-left:18px; font-size:13.5px; color:var(--grafit);">
+              <span style="position:absolute; left:0; color:var(--menta);">—</span> Sense obligació de contractar.</li>
+          </ul>
+        </div>
+
+        <div class="form-card">
+
+          <form data-form="diagnostic" novalidate>
+
+            <div class="form-group">
+              <p class="form-step">PREGUNTA 1 DE 5</p>
+              <label for="q-segment">Quin és el teu punt de partida?</label>
+              <div class="radio-group">
+                <label class="radio-option"><input type="radio" name="segment" value="persona" required><span>Persona o família</span></label>
+                <label class="radio-option"><input type="radio" name="segment" value="autonom"><span>Autònom o professional</span></label>
+                <label class="radio-option"><input type="radio" name="segment" value="empresa"><span>Empresa amb plantilla</span></label>
+                <label class="radio-option"><input type="radio" name="segment" value="activitat"><span>Activitat o entitat</span></label>
+                <label class="radio-option"><input type="radio" name="segment" value="soci"><span>Soci o directiu</span></label>
+                <label class="radio-option"><input type="radio" name="segment" value="capital"><span>Tinc un capital a ordenar</span></label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <p class="form-step">PREGUNTA 2 DE 5</p>
+              <label for="q-priority">Què et preocupa més ara mateix?</label>
+              <select id="q-priority" name="priority" required>
+                <option value="">— Tria una opció —</option>
+                <option value="salut">Salut i accés mèdic</option>
+                <option value="ingressos">Protegir els ingressos si paro de treballar</option>
+                <option value="familia">Que la meva família estigui ben protegida</option>
+                <option value="equip">Cuidar i retenir l'equip</option>
+                <option value="continuitat">Continuïtat empresarial / persones clau</option>
+                <option value="futur">Ordenar capital, jubilació o successions</option>
+                <option value="activitat">Cobertura d'una activitat o esdeveniment</option>
+                <option value="revisio">Una revisió global de tot el que tinc</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <p class="form-step">PREGUNTA 3 DE 5</p>
+              <label>Tens assegurances contractades actualment?</label>
+              <div class="radio-group">
+                <label class="radio-option"><input type="radio" name="actuals" value="moltes"><span>Sí, diverses</span></label>
+                <label class="radio-option"><input type="radio" name="actuals" value="algunes"><span>Sí, alguna</span></label>
+                <label class="radio-option"><input type="radio" name="actuals" value="cap"><span>No, cap</span></label>
+                <label class="radio-option"><input type="radio" name="actuals" value="nose"><span>No ho sé del cert</span></label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <p class="form-step">PREGUNTA 4 DE 5</p>
+              <label for="q-context">Vols afegir context? <span style="font-weight:400; color:var(--boira); font-size:12px;">(opcional)</span></label>
+              <textarea id="q-context" name="context" rows="3" placeholder="Edat, situació familiar, sector, capital aproximat... el que creguis útil."></textarea>
+              <p class="help">Quanta més informació, més precisa la primera lectura. Però amb les anteriors ja podem començar.</p>
+            </div>
+
+            <div class="form-group">
+              <p class="form-step">PREGUNTA 5 DE 5 · CONTACTE</p>
+              <label for="q-name">Nom</label>
+              <input id="q-name" name="name" type="text" required placeholder="El teu nom">
+            </div>
+            <div class="form-group">
+              <label for="q-email">Correu electrònic</label>
+              <input id="q-email" name="email" type="email" required placeholder="exemple@correu.com">
+            </div>
+            <div class="form-group">
+              <label for="q-phone">Telèfon <span style="font-weight:400; color:var(--boira); font-size:12px;">(opcional)</span></label>
+              <input id="q-phone" name="phone" type="tel" placeholder="Per si preferim trucar-te">
+            </div>
+
+            <div class="privacy-note">
+              <strong>Tractament de dades.</strong> Responsable: COVERA Corredoria d'Assegurances (dades pendents de publicació). Finalitat: contactar-te per fer el diagnòstic sol·licitat. Base jurídica: consentiment de l'interessat. Conservació: fins que sol·licitis la supressió. Drets: accés, rectificació, supressió, oposició, limitació i portabilitat. Pots exercir-los al correu indicat a la política de privacitat.
+            </div>
+
+            <div class="form-group">
+              <label class="checkbox-row">
+                <input type="checkbox" name="consent" required>
+                <span>He llegit i accepto la <a href="#" onclick="return false;">política de privacitat</a> i autoritzo el tractament de les meves dades amb la finalitat indicada.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%; padding:14px;">ENVIAR DIAGNÒSTIC</button>
+
+          </form>
+
+          <div data-form-success style="display:none;">
+            <p class="eyebrow">REBUT ✓</p>
+            <h2 style="margin-top:6px;">Gràcies. Ho tenim.</h2>
+            <p style="margin-top:10px; color:var(--grafit);">Et contactarem en menys de 24 hores amb la primera lectura dels riscos i les prioritats. Si necessites ampliar alguna cosa abans, respon al correu de confirmació.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="window-bottom">
+    <span>diagnostic.covera · 5 preguntes</span>
+    <span>Primer ordenem. Després assegurem.</span>
+  </footer>
+
+  <script src="assets/script.js" defer></script>
+</body>
+</html>

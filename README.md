@@ -1,86 +1,110 @@
-# COVERA — Web corredoria
+# COVERA — Lloc web v0.4
 
-Web d'una sola pàgina (SPA) per a la corredoria d'assegurances **COVERA**, construïda amb estètica de Finder/macOS: navegació per carpetes, fitxers `.md` que s'obren com a documents i `.app` que llancen Diagnòstic i Cotitzador.
+> Primer ordenem. Després assegurem.
 
----
+## Novetats v0.4
 
-## Estructura del projecte
+— **Logos oficials d'alta resolució** integrats al projecte tal com han estat dissenyats — sense reconstrucció ni aproximació SVG.
+— **Quatre versions de logo** disponibles als assets: isotip, horitzontal, apilat, i reverse sobre fons fosc.
+— **Splash usa el logo apilat oficial** directament en lloc de combinar isotip i text Montserrat aproximat.
+— **Favicon refet** des de l'isotip-reverse oficial extret de la versió professional.
+
+## Canvis v0.3
+
+— **Logo oficial PNG**: substituïts els SVGs aproximats pels arxius PNG reals processats des dels assets del manual (isotip + wordmark + favicon amb fons cobalt versió app-icon).
+— **Versió reversa generada automàticament** per al sidebar fosc: C convertida a brisa, 3 conservat en menta, antialiasing preservat.
+— **Favicon real**: quadrat cobalt amb C3 invertit, 512×512 + 192×192 per a Apple touch icon.
+
+## Canvis v0.2
+
+— **Logo C3 refet** d'acord amb el manual oficial: proporcions, gruix de traç i geometria de l'arc revisats. SVG escalable, no PNG.
+— **Wordmark COVERA** amb la "Ǝ" del mig real: `transform: scaleX(-1)` sobre la E, accessible com a "COVERA" per a screen readers i SEO.
+— **Tres assets SVG** independents: `isotip.svg` (fons clar), `isotip-reverse.svg` (fons fosc), `favicon.svg` (versió app-icon amb fons cobalt segons manual).
+— **Paleta amb noms oficials** del manual com a comentaris CSS (Azul cobalto, Menta suave, Brisa, Arena, Azul niebla, Gris profundo).
+
+## Estructura
 
 ```
-covera-web/
-├── index.html      → estructura HTML (vistes, símbols SVG, contingut)
-├── styles.css      → estils complets (variables de marca, layout, components)
-├── app.js          → comportament (navegació, diagnòstic, cotitzador, menubar)
-└── README.md       → aquest fitxer
+/
+├── index.html              ← Splash inicial (porta d'entrada)
+├── inici.html              ← Home amb sis carpetes i mètode
+│
+├── persones.html           ← Segment Persones i famílies (6 situacions)
+├── autonoms.html           ← Segment Autònoms (5 situacions)
+├── empreses.html           ← Segment Empreses (5 situacions)
+├── activitats-entitats.html ← Segment Activitats i entitats (5 situacions)
+├── socis-directius.html    ← Segment Socis i directius (5 situacions)
+├── capitals-futur.html     ← Segment Capitals i futur (5 situacions)
+│
+├── glossari.html           ← Glossari filosòfic (19 productes)
+├── estalvi-invisible.html  ← Article ancla
+├── manifest.html           ← Mètode COVERA
+├── diagnostic.html         ← Formulari de diagnòstic (5 preguntes)
+│
+├── sitemap.xml
+├── robots.txt
+│
+└── assets/
+    ├── style.css           ← Stylesheet principal (variables, components)
+    ├── script.js           ← Interaccions mínimes (form, reveal, idioma)
+    ├── isotip.svg          ← Logo C3 per a fons clar
+    ├── isotip-reverse.svg  ← Logo C3 per a fons fosc (sidebar)
+    └── favicon.svg         ← Favicon / app icon
 ```
 
-És un projecte estàtic, sense build i sense dependències de Node. Funciona obrint `index.html` directament al navegador, però per a producció s'ha de servir des d'un servidor web (HTTP), no des de `file://`, perquè algunes característiques (clipboard API, fonts) requereixen un origen segur.
+## Identitat
 
----
+— **Paleta:** Cobalt #0A2D56 · Menta #6FB7AE · Brisa #E6F2EF · Arena #F7F3EF · Boira #8FA3B3 · Grafit #2B2F33
+— **Tipografia:** Montserrat (display) + Inter (body) + Fraunces (serif d'autor) + JetBrains Mono (tècnic)
+— **Direcció estètica:** editorial-tècnic amb sabor de sistema operatiu
 
-## Desplegament
+## Per pujar
 
-### GitHub Pages
-1. Crea un repositori i puja els tres fitxers (`index.html`, `styles.css`, `app.js`).
-2. A *Settings → Pages*, selecciona la branca `main` i la carpeta `/ (root)`.
-3. La web estarà disponible a `https://<usuari>.github.io/<repositori>/`.
+### Opció A — Netlify / Vercel (recomanat)
+1. Comprimir aquest directori en .zip
+2. Arrossegar a netlify.com/drop (o equivalent Vercel)
+3. Apuntar el domini covera.es als servidors
 
-### Netlify / Vercel
-Arrossega la carpeta `covera-web/` directament al panell de Netlify/Vercel o connecta el repositori de GitHub. Sense configuració.
+### Opció B — Hosting tradicional (FTP)
+1. Pujar tot el contingut del directori a `public_html/` (o equivalent)
+2. Assegurar que `index.html` és el fitxer per defecte
+3. Verificar que `/assets/` queda accessible
 
-### Hosting tradicional (Hostinger, IONOS, etc.)
-Puja els tres fitxers a la carpeta `public_html/` per FTP. Apunta el domini `covera.es` al hosting.
+### Opció C — GitHub Pages
+1. Crear repositori, pujar tot el contingut
+2. Activar Pages a Settings → Pages → main branch → root
+3. Domini covera.es via CNAME
 
----
+## Pendents abans de producció
 
-## Què cal personalitzar abans de llançar
+Crítics (no publicar sense):
+— [ ] Substituir `DGSFP J-XXXX · dades pendents` pels números reals a tots els footers
+— [ ] Crear `avis-legal.html`, `politica-privacitat.html`, `cookies.html` amb dades reals de corredoria
+— [ ] Activar gestió real del formulari de diagnòstic (ara la submissió és client-side)
+— [ ] Triar gestor d'emails / CRM destí del formulari
+— [ ] Revisar política de cookies AEPD si s'afegeix analytics
 
-| On | Què canviar |
-|---|---|
-| `index.html` (footer status bar i Sobre.md) | Substituir `J-0000` pel número real de registre **DGSFP** i `B00000000` pel **CIF** real. |
-| `index.html` (Sobre.md i menubar Ajuda) | Substituir `hola@covera.es` pel correu de contacte real. |
-| `index.html` (totes les `.md`) | Revisar els textos de marketing per validar to i missatges definitius. |
-| `app.js` (funció `cotitzar()`) | Substituir els multiplicadors orientatius pels reals de les mutualitats amb qui treballis. Ara són **estimacions**, no preus reals. |
-| `app.js` (funció `diagSubmit()`) | Connectar el `fetch()` a un endpoint del teu CRM (HubSpot Forms API, Brevo, Mailchimp o webhook propi). Ara guarda les respostes només en memòria. |
+Recomanables:
+— [ ] Versió castellà (`/es/...`) amb hreflang
+— [ ] Dades estructurades JSON-LD (Organization, InsuranceAgency)
+— [ ] Open Graph images personalitzades
+— [ ] Pàgines per cada hashtag (fitxes de producte → dossiers comercials PDF)
+— [ ] Cotitzador real per a /activitats-entitats/
 
----
+## Funcionalitats actuals
 
-## Estructura interna
+— Splash → Inici → Sis carpetes → Diagnòstic
+— Navegació esquerra fixa amb sidebar
+— Hashtags clicables que porten al glossari
+— Formulari diagnòstic amb validació mínima (consentiment obligatori)
+— Responsive (sidebar oculta a <900px, ajusts a <600px)
+— Reveal subtil en scroll
+— Tipografies Google Fonts amb display=swap
 
-### Vistes
-Cada "carpeta" o "fitxer" és un `<div class="view">` o `<div class="doc-view">` dins de `<div id="content">`. La funció `navigate(view)` a `app.js` mostra una vista i amaga les altres.
+## Notes tècniques
 
-Per afegir una nova carpeta:
-1. Afegeix una entrada nova a l'objecte `titles` a `app.js`.
-2. Afegeix la vista nova a `index.html` amb `id="view-<nom>"`.
-3. Afegeix l'enllaç corresponent a la sidebar i, si cal, al menubar.
-
-### Menubar
-Els 5 menús (COVERA, Fitxer, Edita, Visualitza, Ajuda) són desplegables nadius amb les funcions:
-- `toggleMenu(name)` — obre/tanca un menú.
-- `focusSearch()` — fa focus al camp de cerca.
-- `copyCurrentUrl()` — copia al porta-retalls la URL del moment.
-
-### Diagnòstic
-Formulari multi-pas controlat per `diagAnswer()`, `diagBack()` i `diagSubmit()`. Les respostes es desen a `diagAnswers` (objecte JS en memòria). Per connectar-ho a un CRM, edita `diagSubmit()` perquè faci `fetch()` al teu endpoint.
-
-### Cotitzador
-La funció `cotitzar()` recalcula la prima en temps real cada vegada que canvia un input. Els multiplicadors estan al principi de la funció.
-
----
-
-## Compatibilitat
-
-- Navegadors moderns (Chrome, Safari, Firefox, Edge — últimes dues versions).
-- Mòbil: la finestra ocupa tota la pantalla, sidebar es converteix en panell lateral lliscant.
-- Sense IE11 (utilitza `backdrop-filter`, `grid`, ES6 i altres APIs modernes).
-
----
-
-## Marc regulatori
-
-COVERA Correduría de Seguros, S.L. — inscrita a la **Direcció General d'Assegurances i Fons de Pensions (DGSFP)**. La web mostra dades regulatòries al peu i a `Sobre.md`. **Substitueix els valors placeholder per les dades reals abans de publicar**.
-
----
-
-*Última actualització: 31 de maig de 2026*
+— No depèn de cap framework
+— No requereix build
+— No fa servir tracking ni analytics (per evitar requisits de cookies abans de producció)
+— Tot el contingut és estàtic, indexable per cercadors i IA
+— Compatible amb hostings més simples (incloent FTP tradicional)
