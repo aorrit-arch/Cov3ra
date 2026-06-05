@@ -1,44 +1,967 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ca">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>COVERA · Primer ordenem. Després assegurem.</title>
-  <meta name="description" content="Corredoria especialista. Ordenem la teva protecció personal, familiar, professional i patrimonial amb criteri assegurador.">
-  <meta name="theme-color" content="#0A2D56">
-  <link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/favicon-192.png">
-  <link rel="stylesheet" href="assets/style.css">
-  <meta property="og:title" content="COVERA · Primer ordenem. Després assegurem.">
-  <meta property="og:description" content="Corredoria especialista. La majoria compara assegurances. COVERA ordena la teva protecció.">
-  <meta property="og:type" content="website">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COVERA — Corredoria d'assegurances especialista | Salut, Vida, Empreses, Autònoms</title>
+<meta name="description" content="COVERA ordena la protecció personal, familiar i empresarial. Assegurances de salut, vida, baixa laboral, accidents i beneficis per empreses. Corredoria independent a Catalunya.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://covera.com/">
+<link rel="alternate" hreflang="ca" href="https://covera.com/">
+<link rel="alternate" hreflang="es" href="https://covera.com/es/">
+<link rel="alternate" hreflang="x-default" href="https://covera.com/">
+<meta property="og:title" content="COVERA — La majoria compara assegurances. Nosaltres ordenem la teva protecció.">
+<meta property="og:description" content="Corredoria especialista en salut, vida, autònoms, empreses i previsió. Sense comparadors, sense bancs. Amb criteri assegurador independent.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://covera.com/">
+<meta property="og:image" content="https://covera.com/assets/og-covera.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["InsuranceAgency","LocalBusiness"],
+      "@id": "https://covera.com/#org",
+      "name": "COVERA",
+      "description": "Corredoria d'assegurances especialista en protecció personal, familiar i empresarial.",
+      "url": "https://covera.com",
+      "logo": "https://covera.com/assets/logo.svg",
+      "areaServed": {"@type":"State","name":"Catalunya"},
+      "knowsLanguage": ["ca","es"],
+      "serviceType": ["Assegurances de salut","Assegurances de vida","Baixa laboral autònoms","Beneficis empresarials","Previsió social empresarial"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://covera.com/#website",
+      "url": "https://covera.com",
+      "name": "COVERA",
+      "publisher": {"@id":"https://covera.com/#org"},
+      "inLanguage": ["ca","es"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Què fa diferent COVERA d'un comparador d'assegurances?",
+          "acceptedAnswer": {"@type":"Answer","text":"Un comparador dona preus. COVERA analitza la teva situació real —ingressos, família, empresa, riscos— i proposa les cobertures que té sentit tenir, les que falten i les que estàs pagant de més."}
+        },
+        {
+          "@type": "Question",
+          "name": "Un PPE pot tenir cost zero per a l'empresa?",
+          "acceptedAnswer": {"@type":"Answer","text":"Sí. Les aportacions al PPE són deduïbles en l'Impost de Societats. Per a una empresa amb tipus impositiu del 25%, una aportació de 1.000€ té un cost net d'aproximadament 750€. En alguns casos, la deducció fiscal compensa pràcticament tot el cost de l'aportació."}
+        },
+        {
+          "@type": "Question",
+          "name": "Com funciona la baixa laboral per a autònoms?",
+          "acceptedAnswer": {"@type":"Answer","text":"La ILT (Incapacitat Laboral Transitòria) per a autònoms paga una indemnització diària mentre dura la baixa per malaltia o accident. Tu tries l'import diari i la franquícia. La Seguretat Social té prestació pública però sovint insuficient per cobrir les despeses fixes d'un autònom."}
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cobalt:#0A2D56;--cobalt2:#0d3a6b;
+  --mint:#6FB7AE;--mint2:#8fcdc5;--mint-bg:#E6F2EF;
+  --arena:#F7F3EF;--arena2:#ede8e2;
+  --niebla:#8FA3B3;--gris:#2B2F33;--gris2:#5a6370;
+  --font-h:'Montserrat',sans-serif;--font-b:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);color:var(--gris);background:white;line-height:1.6}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:white;border-bottom:1px solid var(--arena2);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:64px;
+}
+.nav-logo img{height:32px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{
+  font-family:var(--font-h);font-size:12px;font-weight:600;letter-spacing:.3px;
+  color:var(--gris2);text-decoration:none;padding:7px 12px;border-radius:6px;
+  transition:all .15s;white-space:nowrap;
+}
+.nav-link:hover{background:var(--arena);color:var(--cobalt)}
+.nav-link.active{color:var(--cobalt)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang-toggle{display:flex;gap:2px;background:var(--arena);padding:2px;border-radius:5px}
+.lb{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:.8px;padding:4px 8px;border:none;cursor:pointer;border-radius:3px;background:transparent;color:var(--niebla);transition:all .15s}
+.lb.active{background:var(--cobalt);color:white}
+.nav-cta{
+  font-family:var(--font-h);font-size:12px;font-weight:700;letter-spacing:.3px;
+  padding:9px 18px;background:var(--cobalt);color:white;
+  border:none;border-radius:7px;cursor:pointer;text-decoration:none;
+  transition:background .15s;white-space:nowrap;
+}
+.nav-cta:hover{background:var(--cobalt2)}
+.nav-mob{display:none;background:none;border:none;cursor:pointer;padding:8px}
+
+/* ── HERO ── */
+.hero{
+  background:var(--cobalt);
+  padding:80px 40px 72px;
+  position:relative;overflow:hidden;
+  min-height:520px;display:flex;align-items:center;
+}
+.hero::before{
+  content:'';position:absolute;right:-100px;top:-100px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(111,183,174,.16) 0%,transparent 65%);
+}
+.hero::after{
+  content:'';position:absolute;left:-60px;bottom:-80px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(111,183,174,.08) 0%,transparent 70%);
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  width:100%;
+}
+.hero-tag{
+  display:inline-block;font-family:var(--font-h);font-size:11px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--mint);
+  border:1px solid rgba(111,183,174,.35);padding:5px 13px;border-radius:4px;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(28px,3.5vw,46px);
+  color:white;line-height:1.1;margin-bottom:18px;
+}
+.hero h1 em{color:var(--mint);font-style:normal}
+.hero-sub{
+  font-size:17px;color:rgba(255,255,255,.72);
+  max-width:520px;line-height:1.65;margin-bottom:32px;
+}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.btn-hero-p{
+  font-family:var(--font-h);font-size:13px;font-weight:700;letter-spacing:.3px;
+  padding:14px 28px;background:var(--mint);color:var(--cobalt);
+  border:none;border-radius:8px;cursor:pointer;text-decoration:none;
+  transition:background .15s;display:inline-block;
+}
+.btn-hero-p:hover{background:var(--mint2)}
+.btn-hero-s{
+  font-family:var(--font-h);font-size:13px;font-weight:600;
+  padding:14px 28px;background:transparent;color:white;
+  border:1.5px solid rgba(255,255,255,.3);border-radius:8px;
+  cursor:pointer;text-decoration:none;transition:border-color .15s;display:inline-block;
+}
+.btn-hero-s:hover{border-color:rgba(255,255,255,.7)}
+.hero-trust{display:flex;flex-wrap:wrap;gap:16px}
+.hero-trust-item{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-h);font-size:11px;font-weight:600;letter-spacing:.3px;
+  color:rgba(255,255,255,.5);
+}
+.hero-trust-item::before{content:'✓';color:var(--mint);font-size:12px}
+.hero-visual{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:28px;
+}
+.hero-visual-title{
+  font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;
+}
+.hero-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:10px;padding:14px 16px;margin-bottom:10px;
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;transition:background .15s;text-decoration:none;
+}
+.hero-card:hover{background:rgba(255,255,255,.12)}
+.hero-card:last-child{margin-bottom:0}
+.hero-card-left h4{
+  font-family:var(--font-h);font-weight:700;font-size:13px;color:white;margin-bottom:3px;
+}
+.hero-card-left p{font-size:12px;color:rgba(255,255,255,.55);line-height:1.4}
+.hero-card-arrow{color:var(--mint);font-size:16px;font-weight:700}
+.hero-card-badge{
+  font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;padding:3px 8px;border-radius:4px;
+  background:rgba(111,183,174,.2);color:var(--mint);white-space:nowrap;
+}
+
+/* ── WAVE ── */
+.wave{display:block;line-height:0}
+.wave svg{display:block;width:100%}
+
+/* ── PROBLEMA ── */
+.problema{background:var(--arena);padding:72px 40px;border-bottom:1px solid var(--arena2)}
+.problema-inner{max-width:960px;margin:0 auto}
+.s-tag{
+  font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--mint);margin-bottom:10px;display:block;
+}
+.problema h2{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(22px,3vw,34px);color:var(--cobalt);
+  line-height:1.2;margin-bottom:14px;
+}
+.problema h2 em{color:var(--mint);font-style:normal}
+.problema-lead{font-size:16px;color:var(--gris2);max-width:680px;line-height:1.7;margin-bottom:36px}
+.problema-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.prob-card{
+  background:white;border:1px solid var(--arena2);border-radius:11px;
+  padding:18px 16px;border-left:3px solid var(--niebla);
+}
+.prob-card p{font-size:14px;color:var(--gris);line-height:1.55;font-style:italic}
+.prob-card p::before{content:'“';font-size:20px;color:var(--niebla);font-style:normal;line-height:1}
+
+/* ── MÈTODE ── */
+.metode{background:white;padding:72px 40px}
+.metode-inner{max-width:960px;margin:0 auto}
+.metode h2{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(22px,3vw,34px);color:var(--cobalt);
+  line-height:1.2;margin-bottom:12px;
+}
+.metode h2 em{color:var(--mint);font-style:normal}
+.metode-lead{font-size:16px;color:var(--gris2);max-width:620px;line-height:1.7;margin-bottom:40px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;position:relative}
+.steps::before{
+  content:'';position:absolute;top:20px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--arena2) 10%,var(--arena2) 90%,transparent);
+}
+.step{padding:0 12px 0 0;position:relative;z-index:1}
+.step-num{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--cobalt);color:white;
+  font-family:var(--font-h);font-weight:800;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;
+}
+.step h4{font-family:var(--font-h);font-weight:700;font-size:14px;color:var(--cobalt);margin-bottom:5px}
+.step p{font-size:13px;color:var(--gris2);line-height:1.5}
+
+/* ── SEGMENTS ── */
+.segments{background:var(--arena);padding:72px 40px;border-top:1px solid var(--arena2)}
+.segments-inner{max-width:960px;margin:0 auto}
+.segments h2{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(22px,3vw,34px);color:var(--cobalt);
+  line-height:1.2;margin-bottom:12px;
+}
+.segments h2 em{color:var(--mint);font-style:normal}
+.segments-lead{font-size:16px;color:var(--gris2);max-width:580px;line-height:1.7;margin-bottom:40px}
+.seg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.seg-card{
+  background:white;border:1px solid var(--arena2);border-radius:14px;
+  padding:24px 20px;text-decoration:none;transition:all .15s;
+  display:flex;flex-direction:column;
+}
+.seg-card:hover{border-color:var(--mint);transform:translateY(-2px);box-shadow:0 6px 24px rgba(10,45,86,.08)}
+.seg-icon{font-size:28px;margin-bottom:12px}
+.seg-card h3{font-family:var(--font-h);font-weight:700;font-size:16px;color:var(--cobalt);margin-bottom:7px}
+.seg-card p{font-size:13px;color:var(--gris2);line-height:1.55;flex:1;margin-bottom:14px}
+.seg-card-link{
+  font-family:var(--font-h);font-size:12px;font-weight:700;
+  color:var(--mint);letter-spacing:.3px;
+}
+.seg-card-link::after{content:' →'}
+
+/* ── EMPRESES FEATURED ── */
+.empreses-feature{
+  background:var(--cobalt);padding:72px 40px;
+  position:relative;overflow:hidden;
+}
+.empreses-feature::before{
+  content:'';position:absolute;right:-80px;top:-80px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(111,183,174,.12) 0%,transparent 70%);
+}
+.empreses-inner{max-width:960px;margin:0 auto;position:relative;z-index:1}
+.emp-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.emp-tag{
+  display:inline-block;font-family:var(--font-h);font-size:11px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--mint);
+  border:1px solid rgba(111,183,174,.35);padding:4px 11px;border-radius:4px;margin-bottom:16px;
+}
+.emp-h2{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(22px,2.8vw,34px);color:white;line-height:1.2;margin-bottom:14px;
+}
+.emp-h2 em{color:var(--mint);font-style:normal}
+.emp-lead{font-size:15px;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:28px;max-width:440px}
+.emp-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-emp{
+  font-family:var(--font-h);font-size:13px;font-weight:700;
+  padding:13px 24px;background:var(--mint);color:var(--cobalt);
+  border:none;border-radius:7px;cursor:pointer;text-decoration:none;
+  transition:background .15s;display:inline-block;
+}
+.btn-emp:hover{background:var(--mint2)}
+.btn-emp-s{
+  font-family:var(--font-h);font-size:12px;font-weight:600;
+  padding:11px 20px;background:transparent;color:white;
+  border:1.5px solid rgba(255,255,255,.3);border-radius:7px;
+  text-decoration:none;transition:border-color .15s;display:inline-block;
+}
+.btn-emp-s:hover{border-color:white}
+.ppe-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:28px 24px;
+}
+.ppe-highlight{
+  background:var(--mint);border-radius:10px;padding:18px 20px;margin-bottom:16px;
+}
+.ppe-highlight h4{font-family:var(--font-h);font-weight:800;font-size:20px;color:var(--cobalt);margin-bottom:4px}
+.ppe-highlight p{font-size:13px;color:rgba(10,45,86,.8);line-height:1.45}
+.ppe-items{display:flex;flex-direction:column;gap:9px}
+.ppe-item{
+  display:flex;align-items:flex-start;gap:9px;
+  font-size:13px;color:rgba(255,255,255,.8);line-height:1.45;
+}
+.ppe-item::before{
+  content:'✓';color:var(--mint);font-weight:700;flex-shrink:0;margin-top:1px;
+}
+.ppe-disclaimer{
+  font-size:11px;color:rgba(255,255,255,.35);line-height:1.5;margin-top:14px;
+}
+
+/* ── DIFERENCIAL ── */
+.diferencial{background:white;padding:72px 40px}
+.diferencial-inner{max-width:960px;margin:0 auto}
+.dif-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.dif-left h2{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(22px,2.8vw,34px);color:var(--cobalt);
+  line-height:1.2;margin-bottom:14px;
+}
+.dif-left h2 em{color:var(--mint);font-style:normal}
+.dif-lead{font-size:15px;color:var(--gris2);line-height:1.7;margin-bottom:24px}
+.dif-items{display:flex;flex-direction:column;gap:10px}
+.dif-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:12px 14px;background:var(--mint-bg);border-radius:8px;
+  font-size:13.5px;color:var(--cobalt);line-height:1.5;
+}
+.dif-item::before{content:'→';color:var(--mint);font-weight:700;flex-shrink:0;margin-top:1px}
+.dif-right{background:var(--arena);border-radius:14px;padding:28px}
+.dif-vs-title{
+  font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--niebla);margin-bottom:16px;
+}
+.vs-row{
+  display:flex;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--arena2);
+  align-items:flex-start;
+}
+.vs-row:last-child{border-bottom:none}
+.vs-no{
+  font-size:13px;color:var(--niebla);line-height:1.45;flex:1;
+  text-decoration:line-through;opacity:.7;
+}
+.vs-yes{font-size:13px;color:var(--cobalt);line-height:1.45;flex:1;font-weight:500}
+.vs-divider{color:var(--niebla);font-size:12px;flex-shrink:0;margin-top:1px}
+
+/* ── FAQ ── */
+.faq{background:var(--arena);padding:72px 40px;border-top:1px solid var(--arena2)}
+.faq-inner{max-width:720px;margin:0 auto}
+.faq h2{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(20px,2.5vw,30px);color:var(--cobalt);
+  line-height:1.2;margin-bottom:32px;
+}
+.faq-item{
+  border-bottom:1px solid var(--arena2);padding:18px 0;
+  cursor:pointer;
+}
+.faq-item:last-child{border-bottom:none}
+.faq-q{
+  font-family:var(--font-h);font-weight:700;font-size:15px;
+  color:var(--cobalt);display:flex;justify-content:space-between;
+  align-items:flex-start;gap:12px;
+}
+.faq-arrow{
+  flex-shrink:0;color:var(--mint);font-size:18px;transition:transform .2s;
+}
+.faq-a{
+  font-size:14px;color:var(--gris2);line-height:1.7;
+  max-height:0;overflow:hidden;transition:max-height .3s,padding .2s;
+}
+.faq-item.open .faq-a{max-height:200px;padding-top:10px}
+.faq-item.open .faq-arrow{transform:rotate(45deg)}
+
+/* ── CTA FINAL ── */
+.cta-final{background:var(--cobalt);padding:80px 40px;text-align:center}
+.cta-final h2{
+  font-family:var(--font-h);font-weight:800;
+  font-size:clamp(24px,3vw,38px);color:white;
+  line-height:1.15;margin-bottom:14px;
+}
+.cta-final h2 em{color:var(--mint);font-style:normal}
+.cta-final p{
+  font-size:16px;color:rgba(255,255,255,.65);
+  max-width:520px;margin:0 auto 36px;line-height:1.65;
+}
+.cta-final-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-cta-p{
+  font-family:var(--font-h);font-size:14px;font-weight:700;letter-spacing:.3px;
+  padding:15px 32px;background:var(--mint);color:var(--cobalt);
+  border:none;border-radius:8px;cursor:pointer;text-decoration:none;
+  transition:background .15s;
+}
+.btn-cta-p:hover{background:var(--mint2)}
+.btn-cta-s{
+  font-family:var(--font-h);font-size:13px;font-weight:600;
+  padding:15px 28px;background:transparent;color:white;
+  border:1.5px solid rgba(255,255,255,.3);border-radius:8px;
+  text-decoration:none;transition:border-color .15s;
+}
+.btn-cta-s:hover{border-color:white}
+
+/* ── FOOTER ── */
+footer{background:var(--gris);padding:48px 40px 32px}
+.footer-inner{max-width:960px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
+.footer-brand img{height:28px;margin-bottom:14px;filter:brightness(0) invert(1)}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;max-width:280px}
+.footer-col h4{
+  font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;
+}
+.footer-col a{
+  display:block;font-size:13px;color:rgba(255,255,255,.55);
+  text-decoration:none;padding:3px 0;transition:color .15s;
+}
+.footer-col a:hover{color:var(--mint)}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:20px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:12px;
+}
+.footer-legal{font-size:11.5px;color:rgba(255,255,255,.3);line-height:1.5}
+.footer-legal a{color:rgba(255,255,255,.4);text-decoration:none}
+.footer-legal a:hover{color:var(--mint)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:0 20px;height:56px}
+  .nav-links{display:none}
+  .nav-mob{display:flex}
+  .hero{padding:52px 20px 48px;min-height:auto}
+  .hero-inner{grid-template-columns:1fr;gap:36px}
+  .hero-visual{display:none}
+  .problema{padding:52px 20px}
+  .metode{padding:52px 20px}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+  .segments{padding:52px 20px}
+  .empreses-feature{padding:52px 20px}
+  .emp-grid{grid-template-columns:1fr;gap:36px}
+  .diferencial{padding:52px 20px}
+  .dif-grid{grid-template-columns:1fr}
+  .faq{padding:52px 20px}
+  .cta-final{padding:60px 20px}
+  .footer-inner{padding:0}
+  footer{padding:40px 20px 28px}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-brand{grid-column:1/-1}
+}
+@media(max-width:480px){
+  .steps{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
 </head>
-<body class="splash">
+<body>
 
-  <main class="splash-main">
-    <div class="splash-content">
-
-      <img src="assets/logo-apilat.png" alt="C3 COVERA" class="splash-logo">
-
-      <div class="splash-sep" aria-hidden="true"></div>
-
-      <p class="splash-claim">
-        Primer ordenem.<br>Després assegurem.
-      </p>
-      <p class="splash-subclaim">
-        Protecció personal · familiar · professional · patrimonial
-      </p>
-
-      <a href="inici.html" class="splash-enter">ENTRAR</a>
-
-      <p class="splash-lang">
-        <a href="inici.html" data-lang="ca">CA</a>
-        <span class="sep">·</span>
-        <a href="inici.html" data-lang="es">ES</a>
-      </p>
-
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="/" aria-label="COVERA - Inici">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCADEBLQDACIAAREBAhEB/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMAAAERAhEAPwD3+iiigAooooAKKKr31/aaZZyXl9cxW9vGMvJI20CgCxTJporeFpZ5UijUZZ3YKAPcmvF/FPx0A323hm1z2+2XK/qqf1b8q8l1fxFrGvS+ZqupXN2c5CyOdq/Reg/AVvDDzlvoYyrRW2p9Faz8XvCOkO0aXsl/KOq2Sbx/30SFP4E1xGo/H65aQjTNDiRB0a5lLE/guMfma8ZorojhoLfUxdeT2PSL343+LrqMrD9gszn70MBJ/wDHyw/Ss/8A4W944/6DK/8AgLD/APEVw9FaKlBdCHUm+p6NZfG3xfaptmaxvDn709vg/wDjhUVtWXx+1FJB9v0S1lTv5ErRn9d1eP0UnQpvoCqzXU+kNK+NnhW/Kpd/atPc8EzR7kz9Vz+oFd9YanY6rbC40+8guoT/ABwyBx+lfGNWrDUb3S7lbmwu57WZejwyFT+lZSwq+yzWOIfVH2dRXg/hX45XlsY7bxJb/aouB9rgAWQe7L0b8MfjXtelavp+uWCXumXcVzbv0eM9D6EdQfY81yzpyhubxnGWxdoooqCwopGZUUs7BVAySTgCsO88W6bbZWJmuHHaMcfmf6ZosTKUY6ydjdorhbjxrfOSIIIYh75Y/wCH6VU/4SvWP+fhf+/a/wCFVyMweLpLzPRaK86/4SvWP+fhf+/a/wCFWIPGWpR8SrDMPdcH9KORiWMps72iuXtPGtrIwW6t3hz/ABKdwH9a6K2ure7i8y3mSVPVTnFJpo3hUhP4WTUUUUiwooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiuD+IvxFtvB1kbS0KT6xMv7uI8iIH+N/6Dv9KaTk7ITaSuy143+I2leDI/Jkzdak67o7WM4wOxc/wj9favnjxR4y1nxdeedqdyTEpzFbx/LHH9B6+5yax729udRvZry8mee4mYvJI5yWJqCvQpUVDV7nHUquWi2CiiitjEKKKKACiiigAooooAKKKKACtfw94m1bwvqAvNKu2hbjfGeUkHoy9/5+lZFer/CH4ff2vdJ4h1SHNhA/+jROOJpB/EfVQfzP0NTNxUW5bFRTbsj2/QNQutV0Cxv72zazuZ4g7wMclCf8euOvPNM1jXrbSECsPMnYZWIH9T6Co/EGtrpNsFjw11J9xT/CPU155NNJcTNLK5eRzlmJ5Neao3d+htXxHs1yrVl7UtavdUb9/JiPPEScKP8AH8azqKK0SsebKcpu8mFFFFBIUUUUAFSwXM1rKJYJXjcfxKcVFRQCbWqO20XxZHPtt9QIjl6CXorfX0P6fSup6jIryCuz8Ka55irp1y3zqP3LHuP7v+FZyj1R6GGxLb5JnWUUUVB3hRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRUVzcw2drLc3EixQRIXkdjgKoGSTQBzXxA8YReDvDcl2CrX02Y7SM93/vEeg6n8B3r5Yvb251G9mvLyZ57iZi8kjnJYmug8eeLpvGPiSW9JZbSP93axH+GMHqfc9T+XauYr0KFPkV3uzirVOZ2WwUUUVuYhRRRQAUV0HhrwXrviy4CaZZs0IOHuZPliT6t3+gyfavW9H+A2lwbX1jU7i7bqY4FESfTJyT+lROpGG7LjCUtkeCUV9cab4G8L6TF5dpodkAeC0kYkY/8CbJq9/wj2if9AfT/APwGT/CsfrUexr9Xl3PjmivrfUPAvhbVFIutBsSTxujiEbf99Lg15/4g+BFlMrzaBqD20nUW9186H2DDkfjuqo4mD30JdCSPCKK1de8Nav4avDa6tZSW7knY5GUceqsODSeHtAvvE2t2+l2CbpZTyx+7Gvdm9h/9atrq1zKzvY3Ph54In8Z64EcMmm25DXUw9OyD/aP6DJr6YnmsvD+kKI40it4EEcUKDA4GAoqt4e0HT/CPh+LT7TCQQqWklbgu38Tt7n/Adq47XtYfVr0suRbx8Rr/AFPua4atT2krLY3bVCF3uyle3k1/dyXM7Zdz+AHYCq9FFI8yTcndhRSgEkADJPQCuk0zwhc3IWW9Y28Z52D75/wobsOEJTdoo5qivSLbwxpVtg/ZvNYd5Tu/Tp+lXxYWYGBaQY/65j/Co50dSwVR7tHlFFenXWhaZdj95aRg/wB5BtP6VzOreEJbdWmsHaVAMmNvvD6etNSTInhakVfc5eiiiqOYKVHaN1dGKspyCOoNJRQB6jpF+upaZDcjG8jDj0YdavVxfgm623NzaE8OokUe44P8x+VdpWMlZns0KnPTTe4UUUUjYKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAryL45+JTZ6Ta+H7eQiW8PnXGDz5SngH6t/6DXrckiRRtJIwVFBZmJwAB1NfI/jPxA/ifxXf6oSfKkk2wA/wxrwo/IZPuTW9CHNP0Mq0uWJg0UUV6BwhRRRQAV7F8O/hA14IdY8SxFLc4eGxPDSDsZPQf7PU98dDD8HfAMOrS/wDCR6pFvtYJNtrCw+WRx1Y+oB6epz6V75XLXrcvux3OilSv7zI4LeG1gSC3ijhhQbUjjUKqj0AHSpKKK4tzrCiiigAooooAp6npVjrNhJY6jax3NtIMMjjP4j0PuOaxvCPgbR/BkdyNNWV5Lh8tLMQzheyAgDgV0tFUpNKyegnFN3OJ8V6558h0+2b90h/esP4j6fQfzrlq2/EeiyabdtOgLW0rZVuu0nsaxK0jseRiJSdR8wVPaWk99cpb26F5G7enufalsbGfULpbe3Tc7dT2Uep9q9G0jR4NIttkfzSt/rJCOWP+FDlYVGg6r8ito3hy20sCV8TXP98jhf8AdH9a2qKKybuetCnGCtEKKKKRYUUUUAcN4v0sW10t7EuIpjhwB0f/AOv/AENczXpXiSNZPD92GGcKGH1BFea1rF3R5WLgo1LrqFFFFUcpp+H52t9dtGX+KQIfo3H9a9Mry3R/+Q1Y/wDXdP8A0IV6lWcz0cC3ZoKKKKg7gooooAKKKKACiiigAooooAKKKKACiiigAooooAKKxvEfinSPCtgbvVbpYwc+XEvMkh9FXv8AyHc143r/AMdtUuw0Wh2MdjH0E02JJPqB90frVwpynsiJTjHc98LBVLMQAOpNR/arf/nvF/32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C6gf7Q6r+Ix71x1dikmro5WmtGFFFFMQUUUUAFFFFABRRXoHgz4Uaz4nKXV4radpp582VPnkH+wp/mePrSclFXY0m3ZHNeF/Cup+LdWWw06LOOZZm+5Evqx/p1NfS/g3wPpfguxaGyDS3MuPOupAN7+w9F9v51oeHfDemeF9LXT9Lg8uIHLseXkb+8x7msvxB4oEO+009wZOjzDovsPf3rhq1nN8sdjpUY0o88yXxF4jFmGs7Ngbg8O4/wCWf/1/5VwxJZizEknkk96Qkkkk5J70VKVjz61aVV3ewUUUUzEKKKKACiiigAooooAKciNI6oilmY4AAySavadot9qbD7PCfL7yPwo/Hv8AhXb6N4ettKUSHEtyRzIR09gO1JySNqVCdR6bEXhzQv7LgM04BupBz/sD0/xrdoorJu561OnGnHliFFFFIsKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigArj/ABB8MfC3iJ3mnsPs10/We0PlsT6kfdJ9yK7CinGTi7oTinueFal8Ar1CzaXrcEo/hS5iKEf8CXdn8hXJ6l8JfGWnZb+yxdIP4rWVX/Thv0r6hordYma3MnQi9j5E/wCEK8U/9C3q3/gHJ/hR/wAIV4p/6FvVv/AKT/Cvruir+teRH1fzPk6y+Hfi+/l8uHw/fIfWePyR+b4Fdlo3wI1m5dH1e/trOL+JIcyyfTso/M17/RUyxUnsilh4rc5Pw58N/DPhrZJa2Cz3S/8ALzdYkfPqOy/gBXWUUVhKTk7tm0YqOxja7Bq13GLewMaRMv7xy+GPt9K5j/hD9V9If++//rV6BRQpWMauHjUd5Nnnx8H6r/dh/wC/lH/CIar/AHYf+/leg0U+dmX1Kn3Z59/wiGq/3Yf+/lH/AAiGq/3Yf+/leg0Uc7D6lT7s89/4RDVv7kX/AH8FH/CIat/ci/7+CvQqKOdh9Sp92ee/8Ihq39yL/v4KUeENVJwVhHuZK9Boo52H1Kn3ZxcHgickfaLyNR3Ealv54ratPC2l2uCYTO47ynP6dK2qKTkzSGGpR6XEVQqhVAAHAA7UtFFSdAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//Z" alt="COVERA — Corredoria d'assegurances especialista" height="32">
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="persones.html" class="nav-link" id="nl-persones">Persones</a>
+    <a href="autonoms.html" class="nav-link" id="nl-autonoms">Autònoms</a>
+    <a href="empreses.html" class="nav-link active" id="nl-empreses">Empreses</a>
+    <a href="glossari.html" class="nav-link" id="nl-productes">Productes</a>
+    <a href="manifest.html" class="nav-link" id="nl-sobre">Sobre COVERA</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lb active" onclick="setLang('ca')" id="btn-ca">CA</button>
+      <button class="lb" onclick="setLang('es')" id="btn-es">ES</button>
     </div>
-  </main>
+    <a href="#diagnostic" class="nav-cta" id="nav-cta">Diagnòstic gratuït</a>
+    <button class="nav-mob" onclick="toggleMob()" aria-label="Menú" id="mob-btn">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><line x1="2" y1="5" x2="20" y2="5" stroke="#2B2F33" stroke-width="1.8" stroke-linecap="round"/><line x1="2" y1="11" x2="20" y2="11" stroke="#2B2F33" stroke-width="1.8" stroke-linecap="round"/><line x1="2" y1="17" x2="20" y2="17" stroke="#2B2F33" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</nav>
 
-  <script src="assets/script.js" defer></script>
+<!-- HERO -->
+<section class="hero" aria-label="COVERA — Protecció personal, familiar i empresarial">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag" id="hero-tag">Corredoria independent · Catalunya</div>
+      <h1 id="hero-h1">La majoria compara.<br><em>COVERA ordena<br>la teva protecció.</em></h1>
+      <p class="hero-sub" id="hero-sub">Assegurances de salut, vida, baixa laboral, accidents i previsió. Per a persones, autònoms, empreses i col·lectius. Amb criteri independent, sense bancs ni comparadors.</p>
+      <div class="hero-ctas">
+        <a href="#diagnostic" class="btn-hero-p" id="hero-cta1">Fer el diagnòstic gratuït</a>
+        <a href="glossari.html" class="btn-hero-s" id="hero-cta2">Veure tots els productes</a>
+      </div>
+      <div class="hero-trust">
+        <span class="hero-trust-item" id="ht1">Corredoria independent</span>
+        <span class="hero-trust-item" id="ht2">Sense compromís</span>
+        <span class="hero-trust-item" id="ht3">Resposta en 24h</span>
+        <span class="hero-trust-item" id="ht4">Bilingüe CA/ES</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-visual-title" id="hvt">On vols que comencem?</div>
+      <a href="persones.html" class="hero-card">
+        <div class="hero-card-left">
+          <h4 id="hc1-h">Persones i famílies</h4>
+          <p id="hc1-p">Salut, vida, hipoteca, estalvi, successió</p>
+        </div>
+        <span class="hero-card-arrow">→</span>
+      </a>
+      <a href="autonoms.html" class="hero-card">
+        <div class="hero-card-left">
+          <h4 id="hc2-h">Autònoms</h4>
+          <p id="hc2-p">Baixa laboral, ILT, accidents, previsió</p>
+        </div>
+        <span class="hero-card-arrow">→</span>
+      </a>
+      <a href="empreses.html" class="hero-card">
+        <div class="hero-card-left">
+          <h4 id="hc3-h">Empreses</h4>
+          <p id="hc3-p">Salut equip, PPE cost 0, conveni, beneficis</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="hero-card-badge" id="hc3-badge">Primera campanya</span>
+          <span class="hero-card-arrow">→</span>
+        </div>
+      </a>
+      <a href="socis-directius.html" class="hero-card">
+        <div class="hero-card-left">
+          <h4 id="hc4-h">Socis i directius</h4>
+          <p id="hc4-p">Home clau, vida socis, previsió directiva</p>
+        </div>
+        <span class="hero-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+<div class="wave" style="background:var(--arena)"><svg viewBox="0 0 1440 40" preserveAspectRatio="none" height="40"><path d="M0,0 Q720,40 1440,0 L1440,40 L0,40 Z" fill="var(--arena)"/><path d="M0,0 Q720,40 1440,0" fill="none" stroke="none"/></svg></div>
+
+<!-- EL PROBLEMA -->
+<section class="problema" aria-labelledby="prob-h2">
+  <div class="problema-inner">
+    <span class="s-tag" id="prob-tag">El problema real</span>
+    <h2 id="prob-h2">Tenir assegurances<br><em>no és el mateix que estar ben protegit.</em></h2>
+    <p class="problema-lead" id="prob-lead">Moltes persones i empreses tenen pòlisses contractades en moments i criteris diferents, sense una visió global. El problema no és tenir o no tenir assegurances. És saber si responen quan fan falta.</p>
+    <div class="problema-grid">
+      <div class="prob-card"><p id="pc1">La vida de la hipoteca paga al banc. No a la família.</p></div>
+      <div class="prob-card"><p id="pc2">Moltes pòlisses de invalidesa només paguen amb incapacitat absoluta. La total és molt més freqüent.</p></div>
+      <div class="prob-card"><p id="pc3">Un autònom de baixa no cobra. La prestació pública sovint no cobreix les despeses fixes.</p></div>
+      <div class="prob-card"><p id="pc4">L'empresa té accidents de conveni, però ningú ha revisat si els capitals estan actualitzats.</p></div>
+      <div class="prob-card"><p id="pc5">Els beneficiaris de les pòlisses de vida no s'han revisat en 10 anys. La família ha canviat.</p></div>
+      <div class="prob-card"><p id="pc6">El PPE pot tenir cost zero per a l'empresa. Quasi ningú ho sap.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MÈTODE -->
+<section class="metode" aria-labelledby="met-h2">
+  <div class="metode-inner">
+    <span class="s-tag" id="met-tag">El mètode COVERA</span>
+    <h2 id="met-h2">Primer ordenem.<br><em>Després assegurem.</em></h2>
+    <p class="metode-lead" id="met-lead">No comencem pel producte. Comencem per entendre la situació real: qui ets, de qui depens, quins ingressos cal protegir i quins riscos no pots assumir.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4 id="s1h">Entenem la situació</h4>
+        <p id="s1p">Persona, família, activitat, ingressos, empresa o col·lectiu.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4 id="s2h">Detectem els buits</h4>
+        <p id="s2p">Salut, vida, baixa laboral, accidents, beneficiaris, previsió.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4 id="s3h">Prioritzem riscos</h4>
+        <p id="s3p">No tot és igual d'urgent. No tot té el mateix impacte.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4 id="s4h">Proposem solucions</h4>
+        <p id="s4p">Amb criteri tècnic, fiscal, familiar i empresarial.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h4 id="s5h">Revisem periòdicament</h4>
+        <p id="s5p">La vida canvia. La protecció també ha de canviar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTS -->
+<section class="segments" aria-labelledby="seg-h2">
+  <div class="segments-inner">
+    <span class="s-tag" id="seg-tag">Per a qui treballem</span>
+    <h2 id="seg-h2">Solucions per<br><em>a cada situació real</em></h2>
+    <p class="segments-lead" id="seg-lead">El client no pensa en productes. Pensa en situacions. Hem organitzat tota la nostra oferta en funció de qui ets i del que necessites protegir.</p>
+    <div class="seg-grid">
+      <a href="persones.html" class="seg-card">
+        <div class="seg-icon" aria-hidden="true">👨‍👩‍👧</div>
+        <h3 id="sc1h">Persones i famílies</h3>
+        <p id="sc1p">Salut, vida, hipoteca, accidents, estalvi, beneficiaris i successió. Per a cada etapa de la vida.</p>
+        <span class="seg-card-link" id="sc1l">Veure protecció per a persones</span>
+      </a>
+      <a href="autonoms.html" class="seg-card">
+        <div class="seg-icon" aria-hidden="true">💼</div>
+        <h3 id="sc2h">Autònoms i professionals</h3>
+        <p id="sc2p">Baixa laboral, ILT, accidents, vida i previsió. Per als qui no es poden permetre deixar d'ingressar.</p>
+        <span class="seg-card-link" id="sc2l">Veure protecció per a autònoms</span>
+      </a>
+      <a href="empreses.html" class="seg-card" style="border-color:var(--mint)">
+        <div class="seg-icon" aria-hidden="true">🏢</div>
+        <h3 id="sc3h">Empreses</h3>
+        <p id="sc3p">Salut col·lectiva, accidents de conveni, PPE cost 0, retribució flexible i beneficis per a l'equip.</p>
+        <span class="seg-card-link" id="sc3l">Veure solucions per a empreses</span>
+      </a>
+      <a href="socis-directius.html" class="seg-card">
+        <div class="seg-icon" aria-hidden="true">🤝</div>
+        <h3 id="sc4h">Socis i directius</h3>
+        <p id="sc4p">Continuïtat empresarial, vida de socis, home clau i previsió directiva.</p>
+        <span class="seg-card-link" id="sc4l">Veure protecció per a socis</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EMPRESES FEATURED — CAMPANYA PPE -->
+<section class="empreses-feature" aria-labelledby="emp-h2">
+  <div class="empreses-inner">
+    <div class="emp-grid">
+      <div>
+        <span class="emp-tag" id="emp-tag">Primera campanya · Empreses</span>
+        <h2 class="emp-h2" id="emp-h2">Un PPE pot costar<br><em>gairebé res a l'empresa</em><br>i valer molt a l'equip.</h2>
+        <p class="emp-lead" id="emp-lead">El Pla de Previsió d'Empresa permet fer aportacions per als treballadors amb deducció en l'Impost de Societats. Amb una estructura ben feta, el cost net pot ser mínim o zero. L'equip ho percep com un benefici real de futur.</p>
+        <div class="emp-ctas">
+          <a href="ppe.html" class="btn-emp" id="emp-cta1">Entendre com funciona el PPE</a>
+          <a href="empreses.html" class="btn-emp-s" id="emp-cta2">Tots els beneficis per a empreses</a>
+        </div>
+      </div>
+      <div class="ppe-card">
+        <div class="ppe-highlight">
+          <h4 id="ppe-hl-h">Cost 0 per a l'empresa.</h4>
+          <p id="ppe-hl-p">Deducció fiscal que compensa pràcticament tota l'aportació.</p>
+        </div>
+        <div class="ppe-items">
+          <div class="ppe-item" id="pi1">Deduïble en Impost de Societats</div>
+          <div class="ppe-item" id="pi2">No computa com a salari immediat pel treballador</div>
+          <div class="ppe-item" id="pi3">Gran valor percebut per l'equip: pensen en el seu futur</div>
+          <div class="ppe-item" id="pi4">Flexible: diferent aportació per perfil o col·lectiu</div>
+          <div class="ppe-item" id="pi5">Sense cost de consultoria — COVERA ho gestiona tot</div>
+        </div>
+        <p class="ppe-disclaimer" id="ppe-disc">* El cost net depèn del tipus impositiu aplicable i de l'estructura de cada empresa. A COVERA analitzem cada cas individualment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAL -->
+<section class="diferencial" aria-labelledby="dif-h2">
+  <div class="diferencial-inner">
+    <div class="dif-grid">
+      <div class="dif-left">
+        <span class="s-tag" id="dif-tag">Per què COVERA</span>
+        <h2 id="dif-h2">No som un comparador.<br><em>Som una corredoria especialista.</em></h2>
+        <p class="dif-lead" id="dif-lead">Un comparador dona preus. Un banc proposa els seus productes. Una asseguradora defensa la seva oferta. COVERA treballa des d'una altra lògica: entendre el que necessites i ordenar-ho amb criteri independent.</p>
+        <div class="dif-items">
+          <div class="dif-item" id="di1">Analitzem qui depèn econòmicament de tu</div>
+          <div class="dif-item" id="di2">Revisem quines pòlisses ja tens i si responen bé</div>
+          <div class="dif-item" id="di3">Detectem buits, duplicitats i capitals insuficients</div>
+          <div class="dif-item" id="di4">Proposem solucions amb criteri fiscal i familiar</div>
+          <div class="dif-item" id="di5">Revisem periòdicament perquè la vida canvia</div>
+        </div>
+      </div>
+      <div class="dif-right">
+        <div class="dif-vs-title" id="dvt">Altres opcions vs COVERA</div>
+        <div class="vs-row">
+          <span class="vs-no" id="vs1a">Et comparen preus</span>
+          <span class="vs-divider">·</span>
+          <span class="vs-yes" id="vs1b">Analitzem la teva situació real</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-no" id="vs2a">Et proposen el seu producte</span>
+          <span class="vs-divider">·</span>
+          <span class="vs-yes" id="vs2b">Accedim a tot el mercat</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-no" id="vs3a">Venen per producte</span>
+          <span class="vs-divider">·</span>
+          <span class="vs-yes" id="vs3b">Ordenem per situació</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-no" id="vs4a">No revisen mai</span>
+          <span class="vs-divider">·</span>
+          <span class="vs-yes" id="vs4b">Revisió periòdica activa</span>
+        </div>
+        <div class="vs-row">
+          <span class="vs-no" id="vs5a">Diuen que tot és necessari</span>
+          <span class="vs-divider">·</span>
+          <span class="vs-yes" id="vs5b">Diem quan <em>no</em> té sentit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (amb schema ja al head) -->
+<section class="faq" aria-labelledby="faq-h2">
+  <div class="faq-inner">
+    <h2 id="faq-h2">Preguntes freqüents</h2>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-q"><span id="fq1">Què fa diferent COVERA d'un comparador?</span><span class="faq-arrow">+</span></div>
+      <div class="faq-a" id="fa1">Un comparador dona preus. COVERA analitza la teva situació real — ingressos, família, empresa, riscos — i proposa les cobertures que té sentit tenir, les que falten i les que estàs pagant de més. No comencem pel producte. Comencem pel que vols protegir.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-q"><span id="fq2">Un PPE pot tenir cost zero per a l'empresa?</span><span class="faq-arrow">+</span></div>
+      <div class="faq-a" id="fa2">Sí. Les aportacions al PPE són deduïbles en l'Impost de Societats. Per a una empresa amb tipus impositiu del 25%, una aportació de 1.000€ té un cost net d'aproximadament 750€. En alguns casos, la deducció compensa pràcticament tota l'aportació. Cal analitzar cada cas individualment.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-q"><span id="fq3">Com funciona la baixa laboral per a autònoms?</span><span class="faq-arrow">+</span></div>
+      <div class="faq-a" id="fa3">La ILT paga una indemnització diària mentre dura la baixa per malaltia o accident. Tries l'import diari i la franquícia. La Seguretat Social té prestació pública però sovint insuficient per cobrir les despeses fixes d'un autònom: quotes, lloguer, personal.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-q"><span id="fq4">Quina diferència hi ha entre invalidesa total i absoluta?</span><span class="faq-arrow">+</span></div>
+      <div class="faq-a" id="fa4">La incapacitat permanent total t'impedeix fer la teva professió habitual però podries fer una altra feina diferent. L'absoluta t'impedeix qualsevol treball. Moltes pòlisses bàsiques només paguen amb absoluta. Però la total és molt més freqüent: a Espanya hi ha 682.000 pensions de total davant 338.000 d'absoluta.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-q"><span id="fq5">Té cost el diagnòstic de protecció de COVERA?</span><span class="faq-arrow">+</span></div>
+      <div class="faq-a" id="fa5">No. El diagnòstic inicial és gratuït i sense compromís. Analitzem la teva situació, detectem buits i proposem prioritats. No cal que tinguis cap decisió presa ni cap pòlissa a revisar prèviament.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL + FORMULARI -->
+<section class="cta-final" id="diagnostic" aria-labelledby="cta-h2">
+  <h2 id="cta-h2">Vols saber si estàs<br><em>ben protegit?</em></h2>
+  <p id="cta-sub">No cal començar contractant res. Podem començar revisant el que tens, el que falta i el que convé prioritzar.</p>
+  <div class="cta-final-btns">
+    <a href="diagnostic.html" class="btn-cta-p" id="cta-btn1">Fer el diagnòstic gratuït</a>
+    <a href="ppe.html" class="btn-cta-s" id="cta-btn2">Soc empresa · vull saber el PPE</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="data:image/png;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCADEBLQDACIAAREBAhEB/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMAAAERAhEAPwD3+iiigAooooAKKKr31/aaZZyXl9cxW9vGMvJI20CgCxTJporeFpZ5UijUZZ3YKAPcmvF/FPx0A323hm1z2+2XK/qqf1b8q8l1fxFrGvS+ZqupXN2c5CyOdq/Reg/AVvDDzlvoYyrRW2p9Faz8XvCOkO0aXsl/KOq2Sbx/30SFP4E1xGo/H65aQjTNDiRB0a5lLE/guMfma8ZorojhoLfUxdeT2PSL343+LrqMrD9gszn70MBJ/wDHyw/Ss/8A4W944/6DK/8AgLD/APEVw9FaKlBdCHUm+p6NZfG3xfaptmaxvDn709vg/wDjhUVtWXx+1FJB9v0S1lTv5ErRn9d1eP0UnQpvoCqzXU+kNK+NnhW/Kpd/atPc8EzR7kz9Vz+oFd9YanY6rbC40+8guoT/ABwyBx+lfGNWrDUb3S7lbmwu57WZejwyFT+lZSwq+yzWOIfVH2dRXg/hX45XlsY7bxJb/aouB9rgAWQe7L0b8MfjXtelavp+uWCXumXcVzbv0eM9D6EdQfY81yzpyhubxnGWxdoooqCwopGZUUs7BVAySTgCsO88W6bbZWJmuHHaMcfmf6ZosTKUY6ydjdorhbjxrfOSIIIYh75Y/wCH6VU/4SvWP+fhf+/a/wCFVyMweLpLzPRaK86/4SvWP+fhf+/a/wCFWIPGWpR8SrDMPdcH9KORiWMps72iuXtPGtrIwW6t3hz/ABKdwH9a6K2ure7i8y3mSVPVTnFJpo3hUhP4WTUUUUiwooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiuD+IvxFtvB1kbS0KT6xMv7uI8iIH+N/6Dv9KaTk7ITaSuy143+I2leDI/Jkzdak67o7WM4wOxc/wj9favnjxR4y1nxdeedqdyTEpzFbx/LHH9B6+5yax729udRvZry8mee4mYvJI5yWJqCvQpUVDV7nHUquWi2CiiitjEKKKKACiiigAooooAKKKKACtfw94m1bwvqAvNKu2hbjfGeUkHoy9/5+lZFer/CH4ff2vdJ4h1SHNhA/+jROOJpB/EfVQfzP0NTNxUW5bFRTbsj2/QNQutV0Cxv72zazuZ4g7wMclCf8euOvPNM1jXrbSECsPMnYZWIH9T6Co/EGtrpNsFjw11J9xT/CPU155NNJcTNLK5eRzlmJ5Neao3d+htXxHs1yrVl7UtavdUb9/JiPPEScKP8AH8azqKK0SsebKcpu8mFFFFBIUUUUAFSwXM1rKJYJXjcfxKcVFRQCbWqO20XxZHPtt9QIjl6CXorfX0P6fSup6jIryCuz8Ka55irp1y3zqP3LHuP7v+FZyj1R6GGxLb5JnWUUUVB3hRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRUVzcw2drLc3EixQRIXkdjgKoGSTQBzXxA8YReDvDcl2CrX02Y7SM93/vEeg6n8B3r5Yvb251G9mvLyZ57iZi8kjnJYmug8eeLpvGPiSW9JZbSP93axH+GMHqfc9T+XauYr0KFPkV3uzirVOZ2WwUUUVuYhRRRQAUV0HhrwXrviy4CaZZs0IOHuZPliT6t3+gyfavW9H+A2lwbX1jU7i7bqY4FESfTJyT+lROpGG7LjCUtkeCUV9cab4G8L6TF5dpodkAeC0kYkY/8CbJq9/wj2if9AfT/APwGT/CsfrUexr9Xl3PjmivrfUPAvhbVFIutBsSTxujiEbf99Lg15/4g+BFlMrzaBqD20nUW9186H2DDkfjuqo4mD30JdCSPCKK1de8Nav4avDa6tZSW7knY5GUceqsODSeHtAvvE2t2+l2CbpZTyx+7Gvdm9h/9atrq1zKzvY3Ph54In8Z64EcMmm25DXUw9OyD/aP6DJr6YnmsvD+kKI40it4EEcUKDA4GAoqt4e0HT/CPh+LT7TCQQqWklbgu38Tt7n/Adq47XtYfVr0suRbx8Rr/AFPua4atT2krLY3bVCF3uyle3k1/dyXM7Zdz+AHYCq9FFI8yTcndhRSgEkADJPQCuk0zwhc3IWW9Y28Z52D75/wobsOEJTdoo5qivSLbwxpVtg/ZvNYd5Tu/Tp+lXxYWYGBaQY/65j/Co50dSwVR7tHlFFenXWhaZdj95aRg/wB5BtP6VzOreEJbdWmsHaVAMmNvvD6etNSTInhakVfc5eiiiqOYKVHaN1dGKspyCOoNJRQB6jpF+upaZDcjG8jDj0YdavVxfgm623NzaE8OokUe44P8x+VdpWMlZns0KnPTTe4UUUUjYKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAryL45+JTZ6Ta+H7eQiW8PnXGDz5SngH6t/6DXrckiRRtJIwVFBZmJwAB1NfI/jPxA/ifxXf6oSfKkk2wA/wxrwo/IZPuTW9CHNP0Mq0uWJg0UUV6BwhRRRQAV7F8O/hA14IdY8SxFLc4eGxPDSDsZPQf7PU98dDD8HfAMOrS/wDCR6pFvtYJNtrCw+WRx1Y+oB6epz6V75XLXrcvux3OilSv7zI4LeG1gSC3ijhhQbUjjUKqj0AHSpKKK4tzrCiiigAooooAp6npVjrNhJY6jax3NtIMMjjP4j0PuOaxvCPgbR/BkdyNNWV5Lh8tLMQzheyAgDgV0tFUpNKyegnFN3OJ8V6558h0+2b90h/esP4j6fQfzrlq2/EeiyabdtOgLW0rZVuu0nsaxK0jseRiJSdR8wVPaWk99cpb26F5G7enufalsbGfULpbe3Tc7dT2Uep9q9G0jR4NIttkfzSt/rJCOWP+FDlYVGg6r8ito3hy20sCV8TXP98jhf8AdH9a2qKKybuetCnGCtEKKKKRYUUUUAcN4v0sW10t7EuIpjhwB0f/AOv/AENczXpXiSNZPD92GGcKGH1BFea1rF3R5WLgo1LrqFFFFUcpp+H52t9dtGX+KQIfo3H9a9Mry3R/+Q1Y/wDXdP8A0IV6lWcz0cC3ZoKKKKg7gooooAKKKKACiiigAooooAKKKKACiiigAooooAKKxvEfinSPCtgbvVbpYwc+XEvMkh9FXv8AyHc143r/AMdtUuw0Wh2MdjH0E02JJPqB90frVwpynsiJTjHc98LBVLMQAOpNR/arf/nvF/32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C6gf7Q6r+Ix71x1dikmro5WmtGFFFFMQUUUUAFFFFABRRXoHgz4Uaz4nKXV4radpp582VPnkH+wp/mePrSclFXY0m3ZHNeF/Cup+LdWWw06LOOZZm+5Evqx/p1NfS/g3wPpfguxaGyDS3MuPOupAN7+w9F9v51oeHfDemeF9LXT9Lg8uIHLseXkb+8x7msvxB4oEO+009wZOjzDovsPf3rhq1nN8sdjpUY0o88yXxF4jFmGs7Ngbg8O4/wCWf/1/5VwxJZizEknkk96Qkkkk5J70VKVjz61aVV3ewUUUUzEKKKKACiiigAooooAKciNI6oilmY4AAySavadot9qbD7PCfL7yPwo/Hv8AhXb6N4ettKUSHEtyRzIR09gO1JySNqVCdR6bEXhzQv7LgM04BupBz/sD0/xrdoorJu561OnGnHliFFFFIsKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigArj/ABB8MfC3iJ3mnsPs10/We0PlsT6kfdJ9yK7CinGTi7oTinueFal8Ar1CzaXrcEo/hS5iKEf8CXdn8hXJ6l8JfGWnZb+yxdIP4rWVX/Thv0r6hordYma3MnQi9j5E/wCEK8U/9C3q3/gHJ/hR/wAIV4p/6FvVv/AKT/Cvruir+teRH1fzPk6y+Hfi+/l8uHw/fIfWePyR+b4Fdlo3wI1m5dH1e/trOL+JIcyyfTso/M17/RUyxUnsilh4rc5Pw58N/DPhrZJa2Cz3S/8ALzdYkfPqOy/gBXWUUVhKTk7tm0YqOxja7Bq13GLewMaRMv7xy+GPt9K5j/hD9V9If++//rV6BRQpWMauHjUd5Nnnx8H6r/dh/wC/lH/CIar/AHYf+/leg0U+dmX1Kn3Z59/wiGq/3Yf+/lH/AAiGq/3Yf+/leg0Uc7D6lT7s89/4RDVv7kX/AH8FH/CIat/ci/7+CvQqKOdh9Sp92ee/8Ihq39yL/v4KUeENVJwVhHuZK9Boo52H1Kn3ZxcHgickfaLyNR3Ealv54ratPC2l2uCYTO47ynP6dK2qKTkzSGGpR6XEVQqhVAAHAA7UtFFSdAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//Z" alt="COVERA">
+        <p id="fb-desc">Corredoria d'assegurances especialista en protecció personal, familiar i empresarial. Independent, amb criteri assegurador.</p>
+      </div>
+      <div class="footer-col">
+        <h4 id="fc1-title">Productes</h4>
+        <a href="persones.html" id="fc1-1">Persones i famílies</a>
+        <a href="autonoms.html" id="fc1-2">Autònoms</a>
+        <a href="empreses.html" id="fc1-3">Empreses</a>
+        <a href="socis-directius.html" id="fc1-4">Socis i directius</a>
+        <a href="glossari.html" id="fc1-5">Tots els productes</a>
+      </div>
+      <div class="footer-col">
+        <h4 id="fc2-title">Destacats</h4>
+        <a href="ppe.html" id="fc2-1">PPE cost 0</a>
+        <a href="ilt.html" id="fc2-2">ILT autònoms</a>
+        <a href="vida-risc.html" id="fc2-3">Vida risc</a>
+        <a href="accidents-conveni.html" id="fc2-4">Accidents conveni</a>
+        <a href="salut-collectiva.html" id="fc2-5">Salut col·lectiva</a>
+      </div>
+      <div class="footer-col">
+        <h4 id="fc3-title">COVERA</h4>
+        <a href="manifest.html" id="fc3-1">Qui som</a>
+        <a href="diagnostic.html" id="fc3-2">Diagnòstic gratuït</a>
+        <a href="glossari.html" id="fc3-3">Glossari</a>
+        <a href="diagnostic.html" id="fc3-4">Contacte</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal" id="foot-legal">
+        © 2026 COVERA · covera.com · 
+        <a href="#">Avís legal</a> · 
+        <a href="#">Privacitat</a> · 
+        <a href="#">Cookies</a>
+      </p>
+      <p class="footer-legal" id="foot-legal2">Corredoria d'assegurances registrada a la DGS</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── LANG ── */
+const CA={
+  navCta:'Diagnòstic gratuït',heroTag:'Corredoria independent · Catalunya',
+  heroH1:'La majoria compara.<br><em>COVERA ordena<br>la teva protecció.</em>',
+  heroSub:"Assegurances de salut, vida, baixa laboral, accidents i previsió. Per a persones, autònoms, empreses i col·lectius. Amb criteri independent, sense bancs ni comparadors.",
+  heroCta1:'Fer el diagnòstic gratuït',heroCta2:'Veure tots els productes',
+  ht:['Corredoria independent','Sense compromís','Resposta en 24h','Bilingüe CA/ES'],
+  hvt:'On vols que comencem?',
+  hc:['Persones i famílies','Autònoms','Empreses','Socis i directius'],
+  hcp:['Salut, vida, hipoteca, estalvi, successió','Baixa laboral, ILT, accidents, previsió','Salut equip, PPE cost 0, conveni, beneficis','Home clau, vida socis, previsió directiva'],
+  hc3badge:'Primera campanya',
+  probTag:'El problema real',
+  probH2:'Tenir assegurances<br><em>no és el mateix que estar ben protegit.</em>',
+  probLead:"Moltes persones i empreses tenen pòlisses contractades en moments i criteris diferents, sense visió global. El problema no és tenir o no tenir assegurances. És saber si responen quan fan falta.",
+  pc:["La vida de la hipoteca paga al banc. No a la família.","Moltes pòlisses d'invalidesa només paguen amb incapacitat absoluta. La total és molt més freqüent.","Un autònom de baixa no cobra. La prestació pública sovint no cobreix les despeses fixes.","L'empresa té accidents de conveni, però ningú ha revisat si els capitals estan actualitzats.","Els beneficiaris de les pòlisses de vida no s'han revisat en 10 anys. La família ha canviat.","El PPE pot tenir cost zero per a l'empresa. Quasi ningú ho sap."],
+  metTag:'El mètode COVERA',metH2:'Primer ordenem.<br><em>Després assegurem.</em>',
+  metLead:"No comencem pel producte. Comencem per entendre la situació real: qui ets, de qui depens, quins ingressos cal protegir.",
+  steps:[['Entenem la situació','Persona, família, activitat, ingressos, empresa o col·lectiu.'],['Detectem els buits','Salut, vida, baixa laboral, accidents, beneficiaris, previsió.'],['Prioritzem riscos','No tot és igual d'urgent. No tot té el mateix impacte.'],['Proposem solucions','Amb criteri tècnic, fiscal, familiar i empresarial.'],['Revisem periòdicament','La vida canvia. La protecció també ha de canviar.']],
+  segTag:'Per a qui treballem',segH2:'Solucions per<br><em>a cada situació real</em>',
+  segLead:"El client no pensa en productes. Pensa en situacions. Hem organitzat tota la nostra oferta en funció de qui ets.",
+  segs:[['Persones i famílies','Salut, vida, hipoteca, accidents, estalvi, beneficiaris i successió.','Veure protecció per a persones'],['Autònoms i professionals','Baixa laboral, ILT, accidents, vida i previsió. Per als qui no es poden permetre deixar d'ingressar.','Veure protecció per a autònoms'],['Empreses','Salut col·lectiva, accidents de conveni, PPE cost 0, retribució flexible i beneficis per a l'equip.','Veure solucions per a empreses'],['Socis i directius','Continuïtat empresarial, vida de socis, home clau i previsió directiva.','Veure protecció per a socis']],
+  empTag:'Primera campanya · Empreses',
+  empH2:'Un PPE pot costar<br><em>gairebé res a l'empresa</em><br>i valer molt a l'equip.',
+  empLead:"El Pla de Previsió d'Empresa permet fer aportacions per als treballadors amb deducció en l'IS. Amb una estructura ben feta, el cost net pot ser mínim o zero.",
+  empCta1:'Entendre com funciona el PPE',empCta2:'Tots els beneficis per a empreses',
+  ppeHlH:'Cost 0 per a l'empresa.',ppeHlP:'Deducció fiscal que compensa pràcticament tota l'aportació.',
+  ppeItems:['Deduïble en Impost de Societats','No computa com a salari immediat pel treballador','Gran valor percebut per l'equip: pensen en el seu futur','Flexible: diferent aportació per perfil o col·lectiu','Sense cost de consultoria — COVERA ho gestiona tot'],
+  ppeDisc:'* El cost net depèn del tipus impositiu aplicable i de l'estructura de cada empresa. A COVERA analitzem cada cas individualment.',
+  difTag:'Per què COVERA',
+  difH2:'No som un comparador.<br><em>Som una corredoria especialista.</em>',
+  difLead:"Un comparador dona preus. Un banc proposa els seus productes. COVERA treballa des d'una altra lògica: entendre el que necessites i ordenar-ho amb criteri independent.",
+  difItems:['Analitzem qui depèn econòmicament de tu','Revisem quines pòlisses ja tens i si responen bé','Detectem buits, duplicitats i capitals insuficients','Proposem solucions amb criteri fiscal i familiar','Revisem periòdicament perquè la vida canvia'],
+  dvt:'Altres opcions vs COVERA',
+  vs:[['Et comparen preus','Analitzem la teva situació real'],['Et proposen el seu producte','Accedim a tot el mercat'],['Venen per producte','Ordenem per situació'],['No revisen mai','Revisió periòdica activa'],['Diuen que tot és necessari','Diem quan no té sentit']],
+  faqH2:'Preguntes freqüents',
+  faqs:[
+    ["Què fa diferent COVERA d'un comparador?","Un comparador dona preus. COVERA analitza la teva situació real — ingressos, família, empresa, riscos — i proposa les cobertures que té sentit tenir, les que falten i les que estàs pagant de més."],
+    ["Un PPE pot tenir cost zero per a l'empresa?","Sí. Les aportacions al PPE són deduïbles en l'IS. Per a una empresa amb tipus del 25%, una aportació de 1.000€ té un cost net d'aprox. 750€. En alguns casos la deducció compensa pràcticament tota l'aportació."],
+    ["Com funciona la baixa laboral per a autònoms?","La ILT paga una indemnització diària mentre dura la baixa. Tries l'import diari i la franquícia. La SS té prestació pública però sovint insuficient per cobrir les despeses fixes d'un autònom."],
+    ["Quina diferència hi ha entre invalidesa total i absoluta?","La total t'impedeix fer la teva professió habitual. L'absoluta t'impedeix qualsevol treball. Moltes pòlisses bàsiques només paguen amb absoluta. Però a Espanya hi ha 682.000 pensions de total davant 338.000 d'absoluta."],
+    ["Té cost el diagnòstic de protecció de COVERA?","No. El diagnòstic és gratuït i sense compromís. Analitzem la teva situació, detectem buits i proposem prioritats."]
+  ],
+  ctaH2:'Vols saber si estàs<br><em>ben protegit?</em>',
+  ctaSub:"No cal començar contractant res. Podem començar revisant el que tens, el que falta i el que convé prioritzar.",
+  ctaBtn1:'Fer el diagnòstic gratuït',ctaBtn2:'Soc empresa · vull saber el PPE',
+  fbDesc:"Corredoria d'assegurances especialista en protecció personal, familiar i empresarial. Independent, amb criteri assegurador.",
+  fc1t:'Productes',fc2t:'Destacats',fc3t:'COVERA',
+  footLegal:'© 2026 COVERA · covera.com',footLegal2:'Corredoria d'assegurances registrada a la DGS'
+};
+
+const ES={
+  navCta:'Diagnóstico gratuito',heroTag:'Correduría independiente · Cataluña',
+  heroH1:'La mayoría compara.<br><em>COVERA ordena<br>tu protección.</em>',
+  heroSub:"Seguros de salud, vida, baja laboral, accidentes y previsión. Para personas, autónomos, empresas y colectivos. Con criterio independiente, sin bancos ni comparadores.",
+  heroCta1:'Hacer el diagnóstico gratuito',heroCta2:'Ver todos los productos',
+  ht:['Correduría independiente','Sin compromiso','Respuesta en 24h','Bilingüe CA/ES'],
+  hvt:'¿Por dónde empezamos?',
+  hc:['Personas y familias','Autónomos','Empresas','Socios y directivos'],
+  hcp:['Salud, vida, hipoteca, ahorro, sucesión','Baja laboral, ILT, accidentes, previsión','Salud equipo, PPE coste 0, convenio, beneficios','Hombre clave, vida socios, previsión directiva'],
+  hc3badge:'Primera campaña',
+  probTag:'El problema real',
+  probH2:'Tener seguros<br><em>no es lo mismo que estar bien protegido.</em>',
+  probLead:"Muchas personas y empresas tienen pólizas contratadas en momentos y criterios diferentes, sin visión global. El problema no es tener o no tener seguros. Es saber si responden cuando hacen falta.",
+  pc:["El seguro de vida de la hipoteca paga al banco. No a la familia.","Muchas pólizas de invalidez solo pagan con incapacidad absoluta. La total es mucho más frecuente.","Un autónomo de baja no cobra. La prestación pública a menudo no cubre los gastos fijos.","La empresa tiene accidentes de convenio, pero nadie ha revisado si los capitales están actualizados.","Los beneficiarios de las pólizas de vida no se han revisado en 10 años. La familia ha cambiado.","El PPE puede tener coste cero para la empresa. Casi nadie lo sabe."],
+  metTag:'El método COVERA',metH2:'Primero ordenamos.<br><em>Después aseguramos.</em>',
+  metLead:"No empezamos por el producto. Empezamos por entender la situación real: quién eres, de quién dependes, qué ingresos hay que proteger.",
+  steps:[['Entendemos la situación','Persona, familia, actividad, ingresos, empresa o colectivo.'],['Detectamos los vacíos','Salud, vida, baja laboral, accidentes, beneficiarios, previsión.'],['Priorizamos riesgos','No todo es igual de urgente. No todo tiene el mismo impacto.'],['Proponemos soluciones','Con criterio técnico, fiscal, familiar y empresarial.'],['Revisamos periódicamente','La vida cambia. La protección también tiene que cambiar.']],
+  segTag:'Para quién trabajamos',segH2:'Soluciones para<br><em>cada situación real</em>',
+  segLead:"El cliente no piensa en productos. Piensa en situaciones. Hemos organizado toda nuestra oferta en función de quién eres.",
+  segs:[['Personas y familias','Salud, vida, hipoteca, accidentes, ahorro, beneficiarios y sucesión.','Ver protección para personas'],['Autónomos y profesionales','Baja laboral, ILT, accidentes, vida y previsión. Para los que no pueden permitirse dejar de ingresar.','Ver protección para autónomos'],['Empresas','Salud colectiva, accidentes de convenio, PPE coste 0, retribución flexible y beneficios para el equipo.','Ver soluciones para empresas'],['Socios y directivos','Continuidad empresarial, vida de socios, hombre clave y previsión directiva.','Ver protección para socios']],
+  empTag:'Primera campaña · Empresas',
+  empH2:'Un PPE puede costar<br><em>casi nada a la empresa</em><br>y valer mucho al equipo.',
+  empLead:"El Plan de Previsión de Empresa permite hacer aportaciones para los trabajadores con deducción en el IS. Con una estructura bien hecha, el coste neto puede ser mínimo o cero.",
+  empCta1:'Entender cómo funciona el PPE',empCta2:'Todos los beneficios para empresas',
+  ppeHlH:'Coste 0 para la empresa.',ppeHlP:'Deducción fiscal que compensa prácticamente toda la aportación.',
+  ppeItems:['Deducible en Impuesto de Sociedades','No computa como salario inmediato para el trabajador','Gran valor percibido por el equipo: piensan en su futuro','Flexible: diferente aportación por perfil o colectivo','Sin coste de consultoría — COVERA lo gestiona todo'],
+  ppeDisc:'* El coste neto depende del tipo impositivo aplicable y de la estructura de cada empresa. En COVERA analizamos cada caso individualmente.',
+  difTag:'Por qué COVERA',
+  difH2:'No somos un comparador.<br><em>Somos una correduría especialista.</em>',
+  difLead:"Un comparador da precios. Un banco propone sus productos. COVERA trabaja desde otra lógica: entender lo que necesitas y ordenarlo con criterio independiente.",
+  difItems:['Analizamos quién depende económicamente de ti','Revisamos qué pólizas tienes y si responden bien','Detectamos vacíos, duplicidades y capitales insuficientes','Proponemos soluciones con criterio fiscal y familiar','Revisamos periódicamente porque la vida cambia'],
+  dvt:'Otras opciones vs COVERA',
+  vs:[['Te comparan precios','Analizamos tu situación real'],['Te proponen su producto','Accedemos a todo el mercado'],['Venden por producto','Ordenamos por situación'],['No revisan nunca','Revisión periódica activa'],['Dicen que todo es necesario','Decimos cuándo no tiene sentido']],
+  faqH2:'Preguntas frecuentes',
+  faqs:[
+    ["¿Qué hace diferente a COVERA de un comparador?","Un comparador da precios. COVERA analiza tu situación real — ingresos, familia, empresa, riesgos — y propone las coberturas que tiene sentido tener, las que faltan y las que estás pagando de más."],
+    ["¿Un PPE puede tener coste cero para la empresa?","Sí. Las aportaciones al PPE son deducibles en el IS. Para una empresa con tipo del 25%, una aportación de 1.000€ tiene un coste neto de aprox. 750€. En algunos casos la deducción compensa prácticamente toda la aportación."],
+    ["¿Cómo funciona la baja laboral para autónomos?","La ILT paga una indemnización diaria mientras dura la baja. Eliges el importe diario y la franquicia. La SS tiene prestación pública pero a menudo insuficiente para cubrir los gastos fijos de un autónomo."],
+    ["¿Cuál es la diferencia entre invalidez total y absoluta?","La total te impide hacer tu profesión habitual. La absoluta te impide cualquier trabajo. Muchas pólizas básicas solo pagan con absoluta. Pero en España hay 682.000 pensiones de total frente a 338.000 de absoluta."],
+    ["¿Tiene coste el diagnóstico de protección de COVERA?","No. El diagnóstico es gratuito y sin compromiso. Analizamos tu situación, detectamos vacíos y proponemos prioridades."]
+  ],
+  ctaH2:'¿Quieres saber si estás<br><em>bien protegido?</em>',
+  ctaSub:"No hace falta empezar contratando nada. Podemos empezar revisando lo que tienes, lo que falta y lo que conviene priorizar.",
+  ctaBtn1:'Hacer el diagnóstico gratuito',ctaBtn2:'Soy empresa · quiero saber el PPE',
+  fbDesc:"Correduría de seguros especialista en protección personal, familiar y empresarial. Independiente, con criterio asegurador.",
+  fc1t:'Productos',fc2t:'Destacados',fc3t:'COVERA',
+  footLegal:'© 2026 COVERA · covera.com',footLegal2:'Correduría de seguros registrada en la DGS'
+};
+
+let lang='ca';
+function setLang(l){
+  lang=l;
+  document.getElementById('btn-ca').classList.toggle('active',l==='ca');
+  document.getElementById('btn-es').classList.toggle('active',l==='es');
+  const c=l==='ca'?CA:ES;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.innerHTML=v;};
+  set('nav-cta',c.navCta);set('hero-tag',c.heroTag);set('hero-h1',c.heroH1);set('hero-sub',c.heroSub);
+  set('hero-cta1',c.heroCta1);set('hero-cta2',c.heroCta2);
+  c.ht.forEach((t,i)=>set('ht'+(i+1),t));
+  set('hvt',c.hvt);
+  c.hc.forEach((h,i)=>{set('hc'+(i+1)+'-h',h);set('hc'+(i+1)+'-p',c.hcp[i]);});
+  set('hc3-badge',c.hc3badge);
+  set('prob-tag',c.probTag);set('prob-h2',c.probH2);set('prob-lead',c.probLead);
+  c.pc.forEach((p,i)=>set('pc'+(i+1),p));
+  set('met-tag',c.metTag);set('met-h2',c.metH2);set('met-lead',c.metLead);
+  c.steps.forEach((s,i)=>{set('s'+(i+1)+'h',s[0]);set('s'+(i+1)+'p',s[1]);});
+  set('seg-tag',c.segTag);set('seg-h2',c.segH2);set('seg-lead',c.segLead);
+  c.segs.forEach((s,i)=>{set('sc'+(i+1)+'h',s[0]);set('sc'+(i+1)+'p',s[1]);set('sc'+(i+1)+'l',s[2]);});
+  set('emp-tag',c.empTag);set('emp-h2',c.empH2);set('emp-lead',c.empLead);
+  set('emp-cta1',c.empCta1);set('emp-cta2',c.empCta2);
+  set('ppe-hl-h',c.ppeHlH);set('ppe-hl-p',c.ppeHlP);
+  c.ppeItems.forEach((p,i)=>set('pi'+(i+1),p));
+  set('ppe-disc',c.ppeDisc);
+  set('dif-tag',c.difTag);set('dif-h2',c.difH2);set('dif-lead',c.difLead);
+  c.difItems.forEach((d,i)=>set('di'+(i+1),d));
+  set('dvt',c.dvt);
+  c.vs.forEach((v,i)=>{set('vs'+(i+1)+'a',v[0]);set('vs'+(i+1)+'b',v[1]);});
+  set('faq-h2',c.faqH2);
+  const faqItems=document.querySelectorAll('.faq-item');
+  faqItems.forEach((item,i)=>{
+    if(!c.faqs[i])return;
+    item.querySelector('.faq-q span').innerHTML=c.faqs[i][0];
+    item.querySelector('.faq-a').innerHTML=c.faqs[i][1];
+  });
+  set('cta-h2',c.ctaH2);set('cta-sub',c.ctaSub);
+  set('cta-btn1',c.ctaBtn1);set('cta-btn2',c.ctaBtn2);
+  set('fb-desc',c.fbDesc);
+  set('fc1-title',c.fc1t);set('fc2-title',c.fc2t);set('fc3-title',c.fc3t);
+  set('foot-legal',c.footLegal+' · <a href="#">Avís legal</a> · <a href="#">Privacitat</a>');
+  set('foot-legal2',c.footLegal2);
+  document.documentElement.lang=l;
+  document.title=l==='ca'?"COVERA — Corredoria d'assegurances especialista":"COVERA — Correduría de seguros especialista";
+}
+
+function toggleFAQ(el){
+  el.classList.toggle('open');
+}
+
+function toggleMob(){
+  const nl=document.getElementById('nav-links');
+  nl.style.display=nl.style.display==='flex'?'none':'flex';
+  nl.style.flexDirection='column';
+  nl.style.position='absolute';nl.style.top='56px';nl.style.left='0';nl.style.right='0';
+  nl.style.background='white';nl.style.padding='12px 20px';nl.style.borderBottom='1px solid var(--arena2)';
+  nl.style.zIndex='199';
+}
+</script>
 </body>
 </html>

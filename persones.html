@@ -1,156 +1,250 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ca">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Persones i famílies · COVERA</title>
-  <meta name="description" content="Salut, vida, accidents, baixa laboral, dependència i estalvi per a persones i famílies. Tens assegurances. Saps si la teva família està ben protegida?">
-  <meta name="theme-color" content="#0A2D56">
-  <link rel="icon" type="image/png" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/favicon-192.png">
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0A2D56">
+<title>Persones i famílies · COVERA</title>
+<meta name="description" content="Salut, vida, accidents, baixa laboral, dependència i estalvi per a persones i famílies. Tens assegurances. Saps si la teva família està ben protegida?">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --co: #0A2D56; --mi: #6FB7AE; --ar: #F7F3EF;
+  --gr: #2B2F33; --gr2: #5a6370; --ar2: #ede8e2;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  color: var(--gr); background: white; line-height: 1.6; font-size: 15px;
+}
+
+/* TOP NAV - igual que l'existent */
+.top-nav {
+  background: var(--co); padding: 10px 20px;
+  display: flex; gap: 20px; align-items: center;
+  font-size: 13px;
+}
+.top-nav a { color: rgba(255,255,255,.6); text-decoration: none; }
+.top-nav a:hover { color: white; }
+
+/* LAYOUT */
+.layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 40px); }
+
+/* SIDEBAR */
+.sidebar {
+  background: var(--co); padding: 20px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.sidebar-logo {
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none; margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+.sidebar-logo img { height: 22px; }
+.sidebar-logo span {
+  color: white; font-size: 14px; font-weight: 700; letter-spacing: 2px;
+}
+.sidebar-section {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+  margin: 14px 0 6px; padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.sidebar-section:first-of-type { margin-top: 0; border-top: none; }
+.sidebar a {
+  display: block; color: rgba(255,255,255,.65); text-decoration: none;
+  padding: 5px 8px; border-radius: 5px; font-size: 13px;
+  transition: all .15s;
+}
+.sidebar a:hover, .sidebar a.active { background: rgba(255,255,255,.1); color: white; }
+.sidebar-apps { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.15); }
+.sidebar-apps a {
+  color: var(--mi); font-size: 12px; font-weight: 600;
+}
+
+/* CONTINGUT */
+.content { padding: 40px 48px; max-width: 760px; }
+.breadcrumb {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gr2); margin-bottom: 28px;
+}
+.breadcrumb a { color: var(--gr2); text-decoration: none; }
+.breadcrumb span { color: var(--mi); }
+
+h1 {
+  font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.2;
+  color: var(--co); margin-bottom: 10px;
+}
+.page-sub {
+  font-size: 15px; color: var(--gr2); line-height: 1.65;
+  max-width: 560px; margin-bottom: 36px;
+}
+
+/* SITUACIÓ CARDS - estil del web existent */
+.situacio {
+  border-bottom: 1px solid var(--ar2); padding: 22px 0;
+}
+.situacio:last-of-type { border-bottom: none; }
+.sit-title {
+  font-size: 16px; font-weight: 600; color: var(--co); margin-bottom: 5px;
+}
+.sit-desc { font-size: 14px; color: var(--gr2); margin-bottom: 10px; }
+.sit-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sit-tag {
+  font-size: 12px; color: var(--mi); text-decoration: none;
+  font-weight: 500;
+}
+.sit-tag:hover { text-decoration: underline; }
+.sit-tag-sep { color: var(--ar2); font-size: 11px; }
+
+/* LANDING LINK - el nou, discret */
+.landing-link {
+  display: inline-block; font-size: 12px; font-weight: 600;
+  color: var(--co); text-decoration: none;
+  border: 1px solid var(--ar2); border-radius: 4px;
+  padding: 4px 10px; margin-top: 8px;
+  transition: all .15s; background: var(--ar);
+}
+.landing-link:hover { border-color: var(--mi); color: var(--mi); background: white; }
+.landing-link::after { content: ' →'; }
+
+/* CTA */
+.cta-box {
+  background: var(--ar); border-radius: 10px; padding: 24px;
+  margin-top: 36px; border: 1px solid var(--ar2);
+}
+.cta-box p { font-size: 14px; color: var(--gr2); margin-bottom: 14px; }
+.cta-box strong { color: var(--co); }
+.cta-btn {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  letter-spacing: .5px; text-transform: uppercase;
+  padding: 10px 20px; background: var(--co); color: white;
+  text-decoration: none; border-radius: 6px; transition: background .15s;
+}
+.cta-btn:hover { background: #0d3a6b; }
+
+/* FOOTER */
+.page-footer {
+  font-size: 12px; color: var(--gr2); margin-top: 40px; padding-top: 20px;
+  border-top: 1px solid var(--ar2);
+}
+
+/* RESPONSIVE */
+@media (max-width: 680px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .content { padding: 24px 18px; }
+}
+</style>
 </head>
-<body class="app">
+<body>
 
-  <header class="window-top">
-    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
-    <nav class="menu" aria-label="Menú general">
-      <a href="manifest.html">Manifest</a>
-      <a href="glossari.html">Glossari</a>
-      <a href="estalvi-invisible.html">Estalvi invisible</a>
-      <a href="diagnostic.html">Diagnòstic</a>
-    </nav>
-    <div class="path">/ persones</div>
-    <div class="nav-arrows">← →</div>
-  </header>
-
-  <div class="app-body">
-
-    <aside class="sidebar">
-      <a href="index.html" class="sidebar-brand">
-        <img src="assets/isotip-reverse.png" alt="" width="44" height="32" style="object-fit:contain;">
-        <span class="wordmark">COV<span class="e">E</span>RA</span>
-      </a>
-      <div class="sidebar-section">
-        <h4>Per a qui</h4>
-        <nav class="sidebar-nav">
-          <a href="persones.html" class="active">Persones i famílies</a>
-          <a href="autonoms.html">Autònoms</a>
-          <a href="empreses.html">Empreses</a>
-          <a href="activitats-entitats.html">Activitats i entitats</a>
-          <a href="socis-directius.html">Socis i directius</a>
-          <a href="capitals-futur.html">Capitals i futur</a>
-        </nav>
-      </div>
-      <div class="sidebar-section">
-        <h4>Recursos</h4>
-        <nav class="sidebar-nav">
-          <a href="glossari.html">Glossari filosòfic</a>
-          <a href="estalvi-invisible.html">L'estalvi invisible</a>
-          <a href="manifest.html">Manifest COVERA</a>
-        </nav>
-      </div>
-      <div class="sidebar-apps">
-        <a href="diagnostic.html">→ Diagnòstic.app</a>
-        <a href="#" onclick="return false;">→ Cotitzador.app</a>
-      </div>
-    </aside>
-
-    <main class="main">
-
-      <header class="main-header" data-reveal>
-        <div class="breadcrumb">INICI<span>»</span>SEGMENT<span>»</span>PERSONES I FAMÍLIES</div>
-        <h1>Tens assegurances.<br>Saps si la teva família està ben protegida?</h1>
-        <p class="lede">Tria la situació que vols revisar. Els hashtags porten al producte assegurador concret, per a qui ja sap què busca.</p>
-      </header>
-
-      <section class="situations" data-reveal>
-
-        <article class="situation">
-          <div class="situation-text">
-            <div class="situation-title">Si em poso malalt</div>
-            <div class="situation-promise">Accés mèdic sense esperar i capital per al moment del diagnòstic</div>
-          </div>
-          <div class="hashtags">
-            <a href="glossari.html#salut">#salut</a>
-            <a href="glossari.html#malalties-greus">#malalties-greus</a>
-            <a href="glossari.html#hospitalitzacio">#hospitalització</a>
-          </div>
-        </article>
-
-        <article class="situation">
-          <div class="situation-text">
-            <div class="situation-title">Si em passa alguna cosa greu</div>
-            <div class="situation-promise">Capital únic per absorbir l'impacte</div>
-          </div>
-          <div class="hashtags">
-            <a href="glossari.html#vida-risc">#vida-risc</a>
-            <a href="glossari.html#accidents">#accidents</a>
-          </div>
-        </article>
-
-        <article class="situation">
-          <div class="situation-text">
-            <div class="situation-title">Si haig de parar de treballar</div>
-            <div class="situation-promise">Manté l'ingrés durant la baixa</div>
-          </div>
-          <div class="hashtags">
-            <a href="glossari.html#ilt">#ilt</a>
-            <a href="glossari.html#ilt">#baixa-laboral</a>
-          </div>
-        </article>
-
-        <article class="situation">
-          <div class="situation-text">
-            <div class="situation-title">Si la meva família perd ingressos</div>
-            <div class="situation-promise">Capital que substitueix la nòmina que no hi serà</div>
-          </div>
-          <div class="hashtags">
-            <a href="glossari.html#vida-risc">#vida-risc</a>
-            <a href="glossari.html#vida-risc">#vida-hipoteca</a>
-          </div>
-        </article>
-
-        <article class="situation">
-          <div class="situation-text">
-            <div class="situation-title">Si necessito ajuda quan sigui gran</div>
-            <div class="situation-promise">La pensió no cobreix el cost de cuidar</div>
-          </div>
-          <div class="hashtags">
-            <a href="glossari.html#dependencia">#dependència</a>
-            <a href="glossari.html#decessos">#decessos</a>
-          </div>
-        </article>
-
-        <article class="situation">
-          <div class="situation-text">
-            <div class="situation-title">Quan rebi un capital o herència</div>
-            <div class="situation-promise">Ordenar abans de decidir on posar-lo</div>
-          </div>
-          <div class="hashtags">
-            <a href="glossari.html#vida-estalvi">#vida-estalvi</a>
-            <a href="glossari.html#pias">#pias</a>
-            <a href="glossari.html#sialp">#sialp</a>
-          </div>
-        </article>
-
-      </section>
-
-      <div class="cta-fixed">
-        <div class="cta-text">
-          <strong>Revisar la meva protecció</strong>
-          <span>5 preguntes · resposta en 24 h · sense compromís</span>
-        </div>
-        <a href="diagnostic.html?seg=persones" class="btn">COMENÇAR</a>
-      </div>
-
-    </main>
+<nav class="top-nav">
+  <a href="manifest.html">Manifest</a>
+  <a href="glossari.html">Glossari</a>
+  <a href="estalvi-invisible.html">Estalvi invisible</a>
+  <a href="diagnostic.html">Diagnòstic</a>
+</nav>
+<div class="layout">
+<aside class="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <img src="assets/isotip-reverse.png" alt="COVERA" onerror="this.style.display='none'">
+    <span>COVERA</span>
+  </a>
+  <div class="sidebar-section">Per a qui</div>
+  <a href="persones.html" class="active">Persones i famílies</a>
+  <a href="autonoms.html" >Autònoms</a>
+  <a href="empreses.html" >Empreses</a>
+  <a href="activitats-entitats.html" >Activitats i entitats</a>
+  <a href="socis-directius.html" >Socis i directius</a>
+  <a href="capitals-futur.html" >Capitals i futur</a>
+  <div class="sidebar-section">Recursos</div>
+  <a href="glossari.html">Glossari filosòfic</a>
+  <a href="estalvi-invisible.html">L'estalvi invisible</a>
+  <a href="manifest.html">Manifest COVERA</a>
+  <div class="sidebar-apps">
+    <a href="diagnostic.html">→ Diagnòstic.app</a><br>
+    <a href="#">→ Cotitzador.app</a>
   </div>
+</aside>
+<main class="content">
+<div class="breadcrumb">INICI » SEGMENT » <span>PERSONES I FAMÍLIES</span></div>
+<h1>Tens assegurances.<br>Saps si la teva família està ben protegida?</h1>
+<p class="page-sub">Tria la situació que vols revisar. Els hashtags porten al glossari filosòfic. La fitxa completa porta a l'explicació detallada del producte.</p>
 
-  <footer class="window-bottom">
-    <span>persones.covera · 6 situacions</span>
-    <span>Primer ordenem. Després assegurem.</span>
-  </footer>
+<div class="situacio">
+  <div class="sit-title">Si em poso malalt</div>
+  <div class="sit-desc">Accés mèdic sense esperar i capital per al moment del diagnòstic</div>
+  <div class="sit-tags">
+    <a href="glossari.html#salut" class="sit-tag">#salut</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#malalties-greus" class="sit-tag">#malalties-greus</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#hospitalitzacio" class="sit-tag">#hospitalització</a>
+  </div>
+  <a href="salut.html" class="landing-link">Fitxa completa: Salut</a>
+</div>
 
-  <script src="assets/script.js" defer></script>
-</body>
-</html>
+<div class="situacio">
+  <div class="sit-title">Si em passa alguna cosa greu</div>
+  <div class="sit-desc">Capital únic per absorbir l'impacte. La diferència entre invalidesa total i absoluta pot determinar si una pòlissa paga o no.</div>
+  <div class="sit-tags">
+    <a href="glossari.html#vida-risc" class="sit-tag">#vida-risc</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#accidents" class="sit-tag">#accidents</a>
+  </div>
+  <a href="vida-risc.html" class="landing-link">Fitxa completa: Vida risc i invalidesa</a>
+</div>
+
+<div class="situacio">
+  <div class="sit-title">Si haig de parar de treballar</div>
+  <div class="sit-desc">Manté l'ingrés durant la baixa</div>
+  <div class="sit-tags">
+    <a href="glossari.html#ilt" class="sit-tag">#ilt</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#ilt" class="sit-tag">#baixa-laboral</a>
+  </div>
+</div>
+
+<div class="situacio">
+  <div class="sit-title">Si la meva família perd ingressos</div>
+  <div class="sit-desc">Capital que substitueix la nòmina que no hi serà. La vida de la hipoteca paga al banc — no a la família.</div>
+  <div class="sit-tags">
+    <a href="glossari.html#vida-risc" class="sit-tag">#vida-risc</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#vida-risc" class="sit-tag">#vida-hipoteca</a>
+  </div>
+  <a href="vida-hipoteca.html" class="landing-link">Fitxa: Vida hipoteca vs vida independent</a>
+</div>
+
+<div class="situacio">
+  <div class="sit-title">Si necessito ajuda quan sigui gran</div>
+  <div class="sit-desc">La pensió no cobreix el cost de cuidar</div>
+  <div class="sit-tags">
+    <a href="glossari.html#dependencia" class="sit-tag">#dependència</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#decessos" class="sit-tag">#decessos</a>
+  </div>
+</div>
+
+<div class="situacio">
+  <div class="sit-title">Quan rebi un capital o herència</div>
+  <div class="sit-desc">Ordenar abans de decidir on posar-lo</div>
+  <div class="sit-tags">
+    <a href="glossari.html#vida-estalvi" class="sit-tag">#vida-estalvi</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#pias" class="sit-tag">#pias</a>
+    <span class="sit-tag-sep">·</span>
+    <a href="glossari.html#sialp" class="sit-tag">#sialp</a>
+  </div>
+  <a href="vida-estalvi.html" class="landing-link">Fitxa: Vida estalvi</a>
+  <a href="pias.html" class="landing-link" style="margin-left:6px">Fitxa: PIAS</a>
+  <a href="sialp.html" class="landing-link" style="margin-left:6px">Fitxa: SIALP</a>
+</div>
+
+<div class="cta-box">
+  <p><strong>Revisar la meva protecció</strong> · 5 preguntes · resposta en 24 h · sense compromís</p>
+  <a href="diagnostic.html?seg=persones" class="cta-btn">COMENÇAR</a>
+</div>
+<div class="page-footer">persones.covera · 6 situacions · Primer ordenem. Després assegurem.</div>
+</main></div>
+</body></html>
